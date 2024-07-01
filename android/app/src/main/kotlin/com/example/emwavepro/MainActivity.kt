@@ -1,4 +1,4 @@
-package com.example.emwavepro
+package com.emwavepro
 
 import io.flutter.embedding.android.FlutterActivity
 
