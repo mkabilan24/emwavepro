@@ -38,6 +38,7 @@ class MainWidget extends StatefulWidget {
 class MainWidgetState extends State<MainWidget> {
 
   String message = "";
+  String message2 = "";
 
   //Only one component in E or H Field Equations
   final MathFieldEditingController _E0 = MathFieldEditingController();
@@ -74,11 +75,11 @@ class MainWidgetState extends State<MainWidget> {
   String a_k_Wave_Propagation_2_1 = '+\\vec{a}_z';
 
   //Default Equations of the First Component of the EM Wave
-  String E_Time_Domain_Equation_2_1 = '\\vec{E} =  \\vec{a}_x |E_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x)';
-  String E_Phasor_Domain_Equation_2_1 = '\\vec{E} =  \\vec{a}_x |E_{0x}|\\angle\\phi_xe^{-jk_{1}z}';
+  String E_Time_Domain_Equation_2_1 = '\\vec{a}_x |E_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x)';
+  String E_Phasor_Domain_Equation_2_1 = '\\vec{a}_x |E_{0x}|\\angle\\phi_xe^{-jk_{1}z}';
 
-  String H_Time_Domain_Equation_2_1 = '\\vec{H} =  \\vec{a}_x |H_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x)';
-  String H_Phasor_Domain_Equation_2_1 = '\\vec{H} =  \\vec{a}_x |H_{0x}|\\angle\\phi_xe^{-jk_{1}z}';
+  String H_Time_Domain_Equation_2_1 = '\\vec{a}_x |H_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x)';
+  String H_Phasor_Domain_Equation_2_1 = '\\vec{a}_x |H_{0x}|\\angle\\phi_xe^{-jk_{1}z}';
 
   //Second Component of Equation
   final MathFieldEditingController _E02 = MathFieldEditingController();
@@ -137,12 +138,19 @@ class MainWidgetState extends State<MainWidget> {
 
   void _update2CompEqns() {
     setState(() {
-      List equations = update2_1CompEqns(a_E_Field_Propagation_1, a_H_Field_Propagation_1, a_k_Wave_Propagation_1, _E0, _H0, _phi);
-      message = equations[0];
-      E_Time_Domain_Equation_1 = equations[1];
-      E_Phasor_Domain_Equation_1 = equations[2];
-      H_Time_Domain_Equation_1 = equations[3];
-      H_Phasor_Domain_Equation_1 = equations[4];
+      List comp1equations = update2CompEqns("1", a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1, a_k_Wave_Propagation_2_1, _E01, _H01, _phi1, E01, H01, phi1);
+       message2 = comp1equations[0];
+       E_Time_Domain_Equation_2_1 = comp1equations[1];
+       E_Phasor_Domain_Equation_2_1 = comp1equations[2];
+       H_Time_Domain_Equation_2_1 = comp1equations[3];
+       H_Phasor_Domain_Equation_2_1 = comp1equations[4];
+    
+      List comp2equations = update2CompEqns("2", a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1, a_k_Wave_Propagation_2_1, _E01, _H01, _phi1, E01, H01, phi1);
+       message2 = comp2equations[0];
+       E_Time_Domain_Equation_2_2 = comp2equations[1];
+       E_Phasor_Domain_Equation_2_2 = comp2equations[2];
+       H_Time_Domain_Equation_2_2 = comp2equations[3];
+       H_Phasor_Domain_Equation_2_2 = comp2equations[4];
     });
   }
 
@@ -377,26 +385,31 @@ class MainWidgetState extends State<MainWidget> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (message2.isNotEmpty) 
+                            Text(
+                              message2,
+                              style: const TextStyle(fontSize: 18),
+                            ),
                           Math.tex(
-                            "$E_Time_Domain_Equation_2_1 + $E_Phasor_Domain_Equation_2_2",
+                            "\\vec{E} = $E_Time_Domain_Equation_2_1 + $E_Phasor_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
                           Math.tex(
-                            "$E_Phasor_Domain_Equation_2_1 + $E_Phasor_Domain_Equation_2_2",
+                            "\\vec{E} = $E_Phasor_Domain_Equation_2_1 + $E_Phasor_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
                           Math.tex(
-                            "$H_Time_Domain_Equation_2_1 + $H_Time_Domain_Equation_2_2",
+                            "\\vec{H} = $H_Time_Domain_Equation_2_1 + $H_Time_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
                           Math.tex(
-                            "$H_Phasor_Domain_Equation_2_1 + $H_Phasor_Domain_Equation_2_2",
+                            "\\vec{H} = $H_Phasor_Domain_Equation_2_1 + $H_Phasor_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
@@ -423,7 +436,7 @@ class MainWidgetState extends State<MainWidget> {
                             a_k_Wave_Propagation_2_1 = wave_propagation_result(a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
                             E01 = "|E_{0${_getdirection(newValue)}}|=";
                             phi1 = "\\phi_${_getdirection(newValue)} = ";
-                            //_updateVectors();
+                            _update2CompEqns();
                           });
                         },
                       ),
@@ -441,7 +454,7 @@ class MainWidgetState extends State<MainWidget> {
                             a_k_Wave_Propagation_2_2 = wave_propagation_result(a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
                             E02 = "|E_{0${_getdirection(newValue)}}|=";
                             phi2 = "\\phi_${_getdirection(newValue)} = ";
-                            //_updateVectors();
+                            _update2CompEqns();
                           });
                         },
                       ),
@@ -465,7 +478,7 @@ class MainWidgetState extends State<MainWidget> {
                             a_H_Field_Propagation_2_1 = newValue;
                             a_k_Wave_Propagation_2_1 = wave_propagation_result(a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
                             H01 = "|H_{0${_getdirection(newValue)}}|=";
-                            //_updateVectors();
+                            _update2CompEqns();
                           });
                         },
                       ),
@@ -482,7 +495,7 @@ class MainWidgetState extends State<MainWidget> {
                             a_H_Field_Propagation_2_2 = newValue;
                             a_k_Wave_Propagation_2_2 = wave_propagation_result(a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
                             H02 = "|H_{0${_getdirection(newValue)}}|=";
-                            //_updateVectors();
+                            _update2CompEqns();
                           });
                         },
                       ),
@@ -516,7 +529,7 @@ class MainWidgetState extends State<MainWidget> {
                           border: OutlineInputBorder(),
                         ),
                         keyboardType: MathKeyboardType.expression,
-                        onChanged: (_) => _update1CompEqns(),
+                        onChanged: (_) => _update2CompEqns(),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -552,7 +565,7 @@ class MainWidgetState extends State<MainWidget> {
                           border: OutlineInputBorder(),
                         ),
                         keyboardType: MathKeyboardType.expression,
-                        onChanged: (_) => _update1CompEqns(),
+                        onChanged: (_) => _update2CompEqns(),
                       ),
                     ),
                     const SizedBox(width: 10),

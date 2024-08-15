@@ -48,7 +48,7 @@ Explain how others can contribute to your project.
 
 Specify the license under which your project is distributed.
 
-## Steps
+## Initalisation Steps
 1) Flutter Create Project {emwavepro}
  - Update IOS App Name in info.plist >> App name shown on iPhone
 2) Initalize Git Repository mkabilan/emwavepro
@@ -59,4 +59,5 @@ Specify the license under which your project is distributed.
 6) Add theme.dart to keep colour theme consistent and provide option to switch light mode or dark mode
 7) Import flutter_math_fork
 8) Import math_keyboard
-9) 
+
+## Implemented Functions
