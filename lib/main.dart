@@ -105,32 +105,17 @@ class MainWidgetState extends State<MainWidget> {
     super.dispose();
   }
 
-  void setETimeDomainEquation1(String value) {
+  void _update1CompEqns() {
     setState(() {
-      E_Time_Domain_Equation_1 = value;
+      List equations = update1CompEqns(a_E_Field_Propagation_1, a_H_Field_Propagation_1, a_k_Wave_Propagation_1, _E0, _H0, _phi);
+      E_Time_Domain_Equation_1 = equations[0];
+      E_Phasor_Domain_Equation_1 = equations[1];
+      H_Time_Domain_Equation_1 = equations[2];
+      H_Phasor_Domain_Equation_1 = equations[3];
     });
   }
 
-  void setEPhasorDomainEquation1(String value) {
-    setState(() {
-      E_Phasor_Domain_Equation_1 = value;
-    });
-  }
-
-  void setHTimeDomainEquation1(String value) {
-    setState(() {
-      H_Time_Domain_Equation_1 = value;
-    });
-  }
-
-  void setHPhasorDomainEquation1(String value) {
-    setState(() {
-      H_Phasor_Domain_Equation_1 = value;
-    });
-  }
-
-
-  void _updateComponent2Vectors() {
+  void _update2CompEqns() {
     // setState(() {
     //   if (a_k_Wave_Propagation_2_1 == '+\\vec{a}_z') {
     //   E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
@@ -264,7 +249,7 @@ class MainWidgetState extends State<MainWidget> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathDropdown(
-                        initialValue: a_E_Field_Propagation_1!,
+                        initialValue: a_E_Field_Propagation_1,
                         options: vect_options,
                         onChanged: (newValue) {
                           setState(() {
@@ -284,7 +269,7 @@ class MainWidgetState extends State<MainWidget> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathDropdown(
-                        initialValue: a_H_Field_Propagation_1!,
+                        initialValue: a_H_Field_Propagation_1,
                         options: vect_options,
                         onChanged: (newValue) {
                           setState(() {

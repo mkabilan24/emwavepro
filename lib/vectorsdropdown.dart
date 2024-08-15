@@ -23,7 +23,7 @@ String wave_propagation_result(String a_E_Field_Propagation_1, String a_H_Field_
       return '-\\vec{a}_y';
     }
     if ((a_E_Field_Propagation_1 == '+\\vec{a}_x') && (a_H_Field_Propagation_1 == '-\\vec{a}_z')) {
-      return '+\\vec{a}_z';
+      return '+\\vec{a}_y';
     }
 
     if ((a_E_Field_Propagation_1 == '-\\vec{a}_x') && (a_H_Field_Propagation_1 == '+\\vec{a}_y')) {

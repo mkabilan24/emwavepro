@@ -8,9 +8,13 @@ bool _isMFControllerEmpty(MathFieldEditingController controller) {
     return false;
   }
 
-void _update1CompEqns (String a_E_Field_Propagation_1, String a_H_Field_Propagation_1, String a_k_Wave_Propagation_1, MathFieldEditingController _E0, MathFieldEditingController _H0, MathFieldEditingController _phi) {
-    
+List update1CompEqns (String a_E_Field_Propagation_1, String a_H_Field_Propagation_1, String a_k_Wave_Propagation_1, MathFieldEditingController _E0, MathFieldEditingController _H0, MathFieldEditingController _phi) {
     //Wave Propagation on X-axis
+    String E_Time_Domain_Equation_1 = '';
+    String E_Phasor_Domain_Equation_1 = '';
+    String H_Time_Domain_Equation_1 = '';
+    String H_Phasor_Domain_Equation_1 = '';
+
     if (a_k_Wave_Propagation_1 == '+\\vec{a}_x') {
       E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - kx + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
       E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkx}';
@@ -57,4 +61,6 @@ void _update1CompEqns (String a_E_Field_Propagation_1, String a_H_Field_Propagat
       H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t + kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
       H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkz}';
     }
+
+    return [E_Time_Domain_Equation_1, E_Phasor_Domain_Equation_1, H_Time_Domain_Equation_1, H_Phasor_Domain_Equation_1];
   }
