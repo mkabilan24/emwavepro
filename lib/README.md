@@ -19,6 +19,11 @@ Used NTU Logo for Splash Screen: https://in.pinterest.com/pin/ntu-logo-nanyang-t
 
 Reference: https://medium.com/@nikhithsunil/theme-your-flutter-app-a-guide-to-themedata-and-colorscheme-d8bca920a6b5
 
+Light Theme
+Dark Theme
+
+## main.dart
+
 
 
 ## Features
@@ -52,4 +57,6 @@ Specify the license under which your project is distributed.
 5) Change bundle identifier
     - All occurences of com.example.emwavepro is changed to com.emwavepro
 6) Add theme.dart to keep colour theme consistent and provide option to switch light mode or dark mode
-7) 
+7) Import flutter_math_fork
+8) Import math_keyboard
+9) 

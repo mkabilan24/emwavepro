@@ -1,30 +1,128 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
-import 'package:emwavepro/main.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Multiple Vector Options Dropdown with Math'),
+      ),
+      body: Center(
+        child: MultipleMathDropdowns(),
+      ),
+    ),
+  ));
+}
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+class MathDropdown extends StatefulWidget {
+  final String initialValue;
+  final List<String> options;
+  final Function(String) onChanged;
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  const MathDropdown({
+    required this.initialValue,
+    required this.options,
+    required this.onChanged,
   });
+
+  @override
+  _MathDropdownState createState() => _MathDropdownState();
+}
+
+class _MathDropdownState extends State<MathDropdown> {
+  late String selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedOption = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: DropdownButtonFormField<String>(
+        value: selectedOption,
+        decoration: const InputDecoration(
+          border: InputBorder.none, // Remove default border
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            selectedOption = newValue!;
+          });
+          widget.onChanged(newValue!);
+        },
+        items: widget.options.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Math.tex(
+              value,
+              textStyle: TextStyle(fontSize: 20), // Customize as needed
+            ),
+          );
+        }).toList(),
+        selectedItemBuilder: (BuildContext context) {
+          return widget.options.map<Widget>((String value) {
+            return Math.tex(
+              selectedOption,
+              textStyle: TextStyle(fontSize: 20), // Customize as needed
+            );
+          }).toList();
+        },
+      ),
+    );
+  }
+}
+
+class MultipleMathDropdowns extends StatefulWidget {
+  @override
+  _MultipleMathDropdownsState createState() => _MultipleMathDropdownsState();
+}
+
+class _MultipleMathDropdownsState extends State<MultipleMathDropdowns> {
+  String selectedOption1 = r'+\vec{a}_x';
+  String selectedOption2 = r'-\vec{b}_y';
+
+  final List<String> vect_a_E_Options = [
+    r'+\vec{a}_x',
+    r'-\vec{a}_x',
+  ];
+
+  final List<String> vect_b_E_Options = [
+    r'+\vec{b}_y',
+    r'-\vec{b}_y',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        MathDropdown(
+          initialValue: selectedOption1,
+          options: vect_a_E_Options,
+          onChanged: (newValue) {
+            setState(() {
+              selectedOption1 = newValue;
+            });
+          },
+        ),
+        const SizedBox(height: 20),
+        MathDropdown(
+          initialValue: selectedOption2,
+          options: vect_b_E_Options,
+          onChanged: (newValue) {
+            setState(() {
+              selectedOption2 = newValue;
+            });
+          },
+        ),
+      ],
+    );
+  }
 }
