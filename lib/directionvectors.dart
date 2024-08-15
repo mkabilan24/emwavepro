@@ -10,90 +10,97 @@ final List<String> vect_options = [
   '-\\vec{a}_z',
 ];
 
-String wave_propagation_result(String a_E_Field_Propagation_1, String a_H_Field_Propagation_1) {
+String wave_propagation_result(String a_E_Field_Propagation, String a_H_Field_Propagation) {
 
     //E-Field along X-axis
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_x') && (a_H_Field_Propagation_1 == '+\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
       return '+\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_x') && (a_H_Field_Propagation_1 == '-\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
       return '-\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_x') && (a_H_Field_Propagation_1 == '+\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
       return '-\\vec{a}_y';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_x') && (a_H_Field_Propagation_1 == '-\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
       return '+\\vec{a}_y';
     }
 
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_x') && (a_H_Field_Propagation_1 == '+\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
       return '-\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_x') && (a_H_Field_Propagation_1 == '-\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
       return '+\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_x') && (a_H_Field_Propagation_1 == '+\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
       return '+\\vec{a}_y';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_x') && (a_H_Field_Propagation_1 == '-\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
       return '-\\vec{a}_y';
     }
 
     //E-Field along Y-axis
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_y') && (a_H_Field_Propagation_1 == '+\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
       return '-\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_y') && (a_H_Field_Propagation_1 == '-\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
       return '+\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_y') && (a_H_Field_Propagation_1 == '+\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
       return '+\\vec{a}_x';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_y') && (a_H_Field_Propagation_1 == '-\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
       return '-\\vec{a}_x';
     }
 
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_y') && (a_H_Field_Propagation_1 == '+\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
       return '+\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_y') && (a_H_Field_Propagation_1 == '-\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
       return '-\\vec{a}_z';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_y') && (a_H_Field_Propagation_1 == '+\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
       return '-\\vec{a}_x';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_y') && (a_H_Field_Propagation_1 == '-\\vec{a}_z')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
       return '+\\vec{a}_x';
     }
 
     //E-Field along Z-axis
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_z') && (a_H_Field_Propagation_1 == '+\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
       return '+\\vec{a}_y';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_z') && (a_H_Field_Propagation_1 == '-\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
       return '-\\vec{a}_y';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_z') && (a_H_Field_Propagation_1 == '+\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
       return '-\\vec{a}_x';
     }
-    if ((a_E_Field_Propagation_1 == '+\\vec{a}_z') && (a_H_Field_Propagation_1 == '-\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
       return '+\\vec{a}_x';
     }
 
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_z') && (a_H_Field_Propagation_1 == '+\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
       return '-\\vec{a}_y';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_z') && (a_H_Field_Propagation_1 == '-\\vec{a}_x')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
       return '+\\vec{a}_y';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_z') && (a_H_Field_Propagation_1 == '+\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
       return '+\\vec{a}_x';
     }
-    if ((a_E_Field_Propagation_1 == '-\\vec{a}_z') && (a_H_Field_Propagation_1 == '-\\vec{a}_y')) {
+    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
       return '-\\vec{a}_x';
     }
     return 'Error!';
   }
+
+// bool check2CompEqn (String firstComp, String secondcomp) {
+//   if (firstComp[firstComp.length-1] == secondcomp[secondcomp.length-1]){
+//     return false;
+//   }
+//   return true;
+// }
 
 class MathDropdown extends StatefulWidget {
   final String initialValue;

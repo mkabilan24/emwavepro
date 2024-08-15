@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Equation Input Example'),
+          title: const Text('EM Wave Analysis'),
         ),
         body: const MainWidget(),
       ),
@@ -44,7 +44,6 @@ class MainWidgetState extends State<MainWidget> {
   final MathFieldEditingController _H0 = MathFieldEditingController();
   final MathFieldEditingController _phi = MathFieldEditingController();
 
-
   //Default directions of EM Wave
   String a_E_Field_Propagation_1 = '+\\vec{a}_x';
   String a_H_Field_Propagation_1 = '+\\vec{a}_y';
@@ -58,36 +57,54 @@ class MainWidgetState extends State<MainWidget> {
   String H_Phasor_Domain_Equation_1 = '\\vec{H} =  +\\vec{a}_y |H_{0}|\\angle\\phi e^{-jkz}';
 
   //////
-
   //2 Components in E or H Field Equations
   //First Component of Equation
-  final MathFieldEditingController _E0x = MathFieldEditingController();
-  final MathFieldEditingController _H0x = MathFieldEditingController();
-  final MathFieldEditingController _phix = MathFieldEditingController();
+  final MathFieldEditingController _E01 = MathFieldEditingController();
+  final MathFieldEditingController _H01 = MathFieldEditingController();
+  final MathFieldEditingController _phi1 = MathFieldEditingController();
 
-  String? a_E_Field_Propagation_2_1 = '+\\vec{a}_x';
-  String? a_H_Field_Propagation_2_1 = '+\\vec{a}_y';
-  String? a_k_Wave_Propagation_2_1 = '+\\vec{a}_z';
+  //Default Variable names of First Component of Equation
+  String E01 = '|E_{0x}|=';
+  String H01 = '|H_{0x}|=';
+  String phi1 = '\\phi_x=';
+
+  //Default Directions of the First Component of the EM Wave
+  String a_E_Field_Propagation_2_1 = '+\\vec{a}_x';
+  String a_H_Field_Propagation_2_1 = '+\\vec{a}_y';
+  String a_k_Wave_Propagation_2_1 = '+\\vec{a}_z';
+
+  //Default Equations of the First Component of the EM Wave
+  String E_Time_Domain_Equation_2_1 = '\\vec{E} =  \\vec{a}_x |E_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x)';
+  String E_Phasor_Domain_Equation_2_1 = '\\vec{E} =  \\vec{a}_x |E_{0x}|\\angle\\phi_xe^{-jk_{1}z}';
+
+  String H_Time_Domain_Equation_2_1 = '\\vec{H} =  \\vec{a}_x |H_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x)';
+  String H_Phasor_Domain_Equation_2_1 = '\\vec{H} =  \\vec{a}_x |H_{0x}|\\angle\\phi_xe^{-jk_{1}z}';
 
   //Second Component of Equation
-  final MathFieldEditingController _E0y = MathFieldEditingController();
-  final MathFieldEditingController _H0y = MathFieldEditingController();
-  final MathFieldEditingController _phiy = MathFieldEditingController();
+  final MathFieldEditingController _E02 = MathFieldEditingController();
+  final MathFieldEditingController _H02 = MathFieldEditingController();
+  final MathFieldEditingController _phi2 = MathFieldEditingController();
 
-  String? a_E_Field_Propagation_2_2 = '+\\vec{a}_y';
-  String? a_H_Field_Propagation_2_2 = '+\\vec{a}_x';
-  String? a_k_Wave_Propagation_2_2 = '+\\vec{a}_z';
+  //Default Variable names of First Component of Equation
+  String E02 = '|E_{0y}|=';
+  String H02 = '|H_{0y}|=';
+  String phi2 = '\\phi_y=';
 
-  //Equation with 2 Components
-  String E_Time_Domain_Equation_2 = '\\vec{E} =  \\vec{a}_x |E_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x) + \\vec{a}_y |E_{0y}|\\cos(\\omega t - k_{2}z + \\phi_y)';
-  String E_Phasor_Domain_Equation_2 = '\\vec{E} =  \\vec{a}_x |E_{0x}|\\angle\\phi_xe^{-jk_{1}z} + \\vec{a}_y |E_{0y}|\\angle\\phi_ye^{-jk_{2}z}';
+  //Default Directions of the Second Component of the EM Wave
+  String a_E_Field_Propagation_2_2 = '+\\vec{a}_y';
+  String a_H_Field_Propagation_2_2 = '+\\vec{a}_x';
+  String a_k_Wave_Propagation_2_2 = '+\\vec{a}_z';
 
-  String H_Time_Domain_Equation_2 = '\\vec{H} =  \\vec{a}_x |H_{0x}|\\cos(\\omega t - k_{1}z + \\phi_x) + \\vec{a}_y |H_{0y}|\\cos(\\omega t - k_{2}z + \\phi_y)';
-  String H_Phasor_Domain_Equation_2 = '\\vec{H} =  \\vec{a}_x |H_{0x}|\\angle\\phi_xe^{-jk_{1}z} + \\vec{a}_y |H_{0y}|\\angle\\phi_ye^{-jk_{2}z}';
+  //Default Equations of the Second Component of the EM Wave
+  String E_Time_Domain_Equation_2_2 = '\\vec{a}_y |E_{0y}|\\cos(\\omega t - k_{2}z + \\phi_y)';
+  String E_Phasor_Domain_Equation_2_2 = '\\vec{a}_y |E_{0y}|\\angle\\phi_ye^{-jk_{2}z}';
+
+  String H_Time_Domain_Equation_2_2 = '\\vec{a}_y |H_{0y}|\\cos(\\omega t - k_{2}z + \\phi_y)';
+  String H_Phasor_Domain_Equation_2_2 = '\\vec{a}_y |H_{0y}|\\angle\\phi_ye^{-jk_{2}z}';
 
 
-  String numofcomponents = "1";
-  List <bool> selected = [true, false];
+  String numofcomponents = "2";
+  List <bool> selected = [false, true];
 
   late TextEditingController _controller;
 
@@ -100,9 +117,9 @@ class MainWidgetState extends State<MainWidget> {
   @override
   void dispose() {
     _controller.dispose();
-    // _E0x.dispose();
+    // _E01.dispose();
     // _phi_x.dispose();
-    // _E0y.dispose();
+    // _E02.dispose();
     // _phi_y.dispose();
     super.dispose();
   }
@@ -119,34 +136,18 @@ class MainWidgetState extends State<MainWidget> {
   }
 
   void _update2CompEqns() {
-    // setState(() {
-    //   if (a_k_Wave_Propagation_2_1 == '+\\vec{a}_z') {
-    //   E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-    //   E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkz}';
-
-    //   H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-    //   H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkz}';
-    //   }
-    //   if (a_k_Wave_Propagation_1 == '-\\vec{a}_z') {
-    //     E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t + kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-    //     E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkz}';
-
-    //     H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t + kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-    //     H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkz}';
-    //   }
-    // });
-  }
-
-  //TODO
-  void _updateComponent2Eqns() {
-  
-  }
-
-  void _updateEquation() {
     setState(() {
-      //E_Time_Domain_Equation_2 = '\\vec{E} =  \\vec{a}_x ${_isMFControllerEmpty(_E0x) ? '|E_{ox}|' : _E0x.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi_x) ? '\\phi_x' : _phi_x.currentEditingValue()}) + \\vec{a}_y ${_isMFControllerEmpty(_E0y) ? '|E_{oy}|' : _E0y.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi_y) ? '\\phi_y' : _phi_y.currentEditingValue()})';
-      //E_Phasor_Domain_Equation_2 = '\\vec{E} =  \\vec{a}_x ${_isMFControllerEmpty(_E0x) ? '|E_{ox}|' : _E0x.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi_x) ? '\\phi_x' : _phi_x.currentEditingValue()}e^{-jkz} + \\vec{a}_y ${_isMFControllerEmpty(_E0y) ? '|E_{oy}|' : _E0y.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi_y) ? '\\phi_y' : _phi_y.currentEditingValue()}e^{-jkz}';
+      List equations = update2_1CompEqns(a_E_Field_Propagation_1, a_H_Field_Propagation_1, a_k_Wave_Propagation_1, _E0, _H0, _phi);
+      message = equations[0];
+      E_Time_Domain_Equation_1 = equations[1];
+      E_Phasor_Domain_Equation_1 = equations[2];
+      H_Time_Domain_Equation_1 = equations[3];
+      H_Phasor_Domain_Equation_1 = equations[4];
     });
+  }
+
+  String _getdirection(String vectorstring) {
+    return vectorstring[vectorstring.length-1];
   }
 
   @override
@@ -377,25 +378,25 @@ class MainWidgetState extends State<MainWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Math.tex(
-                            E_Time_Domain_Equation_2,
+                            "$E_Time_Domain_Equation_2_1 + $E_Phasor_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
                           Math.tex(
-                            E_Phasor_Domain_Equation_2,
+                            "$E_Phasor_Domain_Equation_2_1 + $E_Phasor_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
                           Math.tex(
-                            H_Time_Domain_Equation_2,
+                            "$H_Time_Domain_Equation_2_1 + $H_Time_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
                           Math.tex(
-                            H_Phasor_Domain_Equation_2,
+                            "$H_Phasor_Domain_Equation_2_1 + $H_Phasor_Domain_Equation_2_2",
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
                             textStyle: const TextStyle(fontSize: 24),
                           ),
@@ -414,11 +415,14 @@ class MainWidgetState extends State<MainWidget> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathDropdown(
-                        initialValue: a_E_Field_Propagation_2_1!,
+                        initialValue: a_E_Field_Propagation_2_1,
                         options: vect_options,
                         onChanged: (newValue) {
                           setState(() {
                             a_E_Field_Propagation_2_1 = newValue;
+                            a_k_Wave_Propagation_2_1 = wave_propagation_result(a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
+                            E01 = "|E_{0${_getdirection(newValue)}}|=";
+                            phi1 = "\\phi_${_getdirection(newValue)} = ";
                             //_updateVectors();
                           });
                         },
@@ -429,11 +433,14 @@ class MainWidgetState extends State<MainWidget> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathDropdown(
-                        initialValue: a_E_Field_Propagation_2_2!,
+                        initialValue: a_E_Field_Propagation_2_2,
                         options: vect_options,
                         onChanged: (newValue) {
                           setState(() {
                             a_E_Field_Propagation_2_2 = newValue;
+                            a_k_Wave_Propagation_2_2 = wave_propagation_result(a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
+                            E02 = "|E_{0${_getdirection(newValue)}}|=";
+                            phi2 = "\\phi_${_getdirection(newValue)} = ";
                             //_updateVectors();
                           });
                         },
@@ -451,11 +458,13 @@ class MainWidgetState extends State<MainWidget> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathDropdown(
-                        initialValue: a_H_Field_Propagation_2_1!,
+                        initialValue: a_H_Field_Propagation_2_1,
                         options: vect_options,
                         onChanged: (newValue) {
                           setState(() {
                             a_H_Field_Propagation_2_1 = newValue;
+                            a_k_Wave_Propagation_2_1 = wave_propagation_result(a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
+                            H01 = "|H_{0${_getdirection(newValue)}}|=";
                             //_updateVectors();
                           });
                         },
@@ -471,6 +480,8 @@ class MainWidgetState extends State<MainWidget> {
                         onChanged: (newValue) {
                           setState(() {
                             a_H_Field_Propagation_2_2 = newValue;
+                            a_k_Wave_Propagation_2_2 = wave_propagation_result(a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
+                            H02 = "|H_{0${_getdirection(newValue)}}|=";
                             //_updateVectors();
                           });
                         },
@@ -483,36 +494,10 @@ class MainWidgetState extends State<MainWidget> {
                 Math.tex('\\text{Wave propagation: }', textStyle: const TextStyle(fontSize: 18),),
                 const SizedBox(height: 15),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Math.tex('\\vec{a}_{k1}=', textStyle: const TextStyle(fontSize: 18),),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: MathDropdown(
-                        initialValue: a_k_Wave_Propagation_2_1!,
-                        options: vect_options,
-                        onChanged: (newValue) {
-                          setState(() {
-                            a_k_Wave_Propagation_2_1 = newValue;
-                            //_updateVectors();
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Math.tex('\\vec{a}_{k2}=', textStyle: const TextStyle(fontSize: 18),),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: MathDropdown(
-                        initialValue: a_k_Wave_Propagation_2_2!,
-                        options: vect_options,
-                        onChanged: (newValue) {
-                          setState(() {
-                            a_k_Wave_Propagation_2_2 = newValue;
-                            //_updateVectors();
-                          });
-                        },
-                      ),
-                    ),
+                    Math.tex('\\vec{a}_{k1}= $a_k_Wave_Propagation_2_1', textStyle: const TextStyle(fontSize: 18),),
+                    Math.tex('\\vec{a}_{k2}= $a_k_Wave_Propagation_2_2', textStyle: const TextStyle(fontSize: 18),),
                   ],
                 ),
 
@@ -520,12 +505,12 @@ class MainWidgetState extends State<MainWidget> {
 
                 Row(
                   children: [
-                    //E_{0}
-                    Math.tex('|E_{0x}|=', textStyle: const TextStyle(fontSize: 18)),
+                    //E_{01}
+                    Math.tex(E01, textStyle: const TextStyle(fontSize: 18)),
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathField(
-                        controller: _E0x,
+                        controller: _E01,
                         decoration: const InputDecoration(
                           hintText: "Input",
                           border: OutlineInputBorder(),
@@ -535,13 +520,33 @@ class MainWidgetState extends State<MainWidget> {
                       ),
                     ),
                     const SizedBox(width: 10),
-
-                    //H_{0}
-                    Math.tex('|H_{0x}|=', textStyle: const TextStyle(fontSize: 18)),
+                    //E_{02}
+                    Math.tex(E02, textStyle: const TextStyle(fontSize: 18)),
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathField(
-                        controller: _H0x,
+                        controller: _E02,
+                        decoration: const InputDecoration(
+                          hintText: "Input",
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: MathKeyboardType.expression,
+                        onChanged: (_) => _update2CompEqns,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 15),
+
+                Row(
+                  children: [
+                    //H_{01}
+                    Math.tex(H01, textStyle: const TextStyle(fontSize: 18)),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: MathField(
+                        controller: _H01,
                         decoration: const InputDecoration(
                           hintText: "Input",
                           border: OutlineInputBorder(),
@@ -550,41 +555,19 @@ class MainWidgetState extends State<MainWidget> {
                         onChanged: (_) => _update1CompEqns(),
                       ),
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 15),
-
-                Row(
-                  children: [
-                    //E_{0}
-                    Math.tex('|E_{0y}|=', textStyle: const TextStyle(fontSize: 18)),
+                    const SizedBox(width: 10),
+                    //H_{02}
+                    Math.tex(H02, textStyle: const TextStyle(fontSize: 18)),
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathField(
-                        controller: _E0y,
+                        controller: _H02,
                         decoration: const InputDecoration(
                           hintText: "Input",
                           border: OutlineInputBorder(),
                         ),
                         keyboardType: MathKeyboardType.expression,
-                        onChanged: (_) => _updateComponent2Eqns(),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-
-                    //H_{0}
-                    Math.tex('|H_{0y}|=', textStyle: const TextStyle(fontSize: 18)),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: MathField(
-                        controller: _H0y,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (_) => _updateComponent2Eqns(),
+                        onChanged: (_) => _update2CompEqns,
                       ),
                     ),
                   ],
@@ -594,34 +577,34 @@ class MainWidgetState extends State<MainWidget> {
 
                 Row(
                   children: [
-                    //phi_x
-                    Math.tex('\\phi_x=', textStyle: const TextStyle(fontSize: 18)),
+                    //phi1
+                    Math.tex(phi1, textStyle: const TextStyle(fontSize: 18)),
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathField(
-                        controller: _phix,
+                        controller: _phi1,
                         decoration: const InputDecoration(
                           hintText: "Input",
                           border: OutlineInputBorder(),
                         ),
                         keyboardType: MathKeyboardType.expression,
-                        onChanged: (_) => _updateEquation(),
+                        onChanged: (_) => _update2CompEqns,
                       ),
                     ),
                     const SizedBox(width: 10),
 
-                    //phi_y
-                    Math.tex('\\phi_y=', textStyle: const TextStyle(fontSize: 18)),
+                    //phi2
+                    Math.tex(phi2, textStyle: const TextStyle(fontSize: 18)),
                     const SizedBox(width: 10),
                     Expanded(
                       child: MathField(
-                        controller: _phiy,
+                        controller: _phi2,
                         decoration: const InputDecoration(
                           hintText: "Input",
                           border: OutlineInputBorder(),
                         ),
                         keyboardType: MathKeyboardType.expression,
-                        onChanged: (_) => _updateEquation(),
+                        onChanged: (_) => _update2CompEqns,
                       ),
                     ),
                   ],

@@ -7,64 +7,73 @@ bool _isMFControllerEmpty(MathFieldEditingController controller) {
     return false;
   }
 
-List update1CompEqns (String a_E_Field_Propagation_1, String a_H_Field_Propagation_1, String a_k_Wave_Propagation_1, MathFieldEditingController _E0, MathFieldEditingController _H0, MathFieldEditingController _phi) {
-    //Wave Propagation on X-axis
-    String E_Time_Domain_Equation_1 = '';
-    String E_Phasor_Domain_Equation_1 = '';
-    String H_Time_Domain_Equation_1 = '';
-    String H_Phasor_Domain_Equation_1 = '';
+//1 Component Equation
+List update1CompEqns (String a_E_Field_Propagation, String a_H_Field_Propagation, String a_k_Wave_Propagation, MathFieldEditingController _E0, MathFieldEditingController _H0, MathFieldEditingController _phi) {
+
+    String E_Time_Domain_Equation = '';
+    String E_Phasor_Domain_Equation = '';
+    String H_Time_Domain_Equation = '';
+    String H_Phasor_Domain_Equation = '';
     String message = '';
 
-    if (a_k_Wave_Propagation_1 == '+\\vec{a}_x') {
-      E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - kx + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkx}';
-
-      H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t - kx + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkx}';
+    String sign = a_k_Wave_Propagation[0];
+    if (sign == '+') {
+      sign = '-';
     }
-    if (a_k_Wave_Propagation_1 == '-\\vec{a}_x') {
-      E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t + kx + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkx}';
-
-      H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t + kx + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkx}';
+    else {
+      sign = '+';
     }
 
-    //Wave Propagation on Y-axis
-    if (a_k_Wave_Propagation_1 == '+\\vec{a}_y') {
-      E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - ky + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jky}';
+    String wavePropagationAxis = a_k_Wave_Propagation[a_k_Wave_Propagation.length - 1];
 
-      H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t - ky + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jky}';
-    }
-    if (a_k_Wave_Propagation_1 == '-\\vec{a}_y') {
-      E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t + ky + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jky}';
+    E_Time_Domain_Equation = '\\vec{E} =  $a_E_Field_Propagation ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t $sign k$wavePropagationAxis + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
+    E_Phasor_Domain_Equation = '\\vec{E} =  $a_E_Field_Propagation ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{${sign}jk$wavePropagationAxis}';
 
-      H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t + ky + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jky}';
-    }
+    H_Time_Domain_Equation = '\\vec{H} =  $a_H_Field_Propagation ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t $sign k$wavePropagationAxis + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
+    H_Phasor_Domain_Equation = '\\vec{H} =  $a_H_Field_Propagation ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{${sign}jk$wavePropagationAxis}';
 
-    //Wave Propagation on Z-axis
-    if (a_k_Wave_Propagation_1 == '+\\vec{a}_z') {
-      E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkz}';
-
-      H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t - kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{-jkz}';
-    }
-    if (a_k_Wave_Propagation_1 == '-\\vec{a}_z') {
-      E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t + kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      E_Phasor_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkz}';
-
-      H_Time_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t + kz + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
-      H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkz}';
-    }
-
-    if (a_k_Wave_Propagation_1 == 'Error!') {
+    if (a_k_Wave_Propagation == 'Error!') {
       message = "The directions of E-Field and H-Field cannot be on the same axis,\n as they have to be perpendicular to each other to form an EM Wave.";
     }
 
-    return [message, E_Time_Domain_Equation_1, E_Phasor_Domain_Equation_1, H_Time_Domain_Equation_1, H_Phasor_Domain_Equation_1];
+    return [message, E_Time_Domain_Equation, E_Phasor_Domain_Equation, H_Time_Domain_Equation, H_Phasor_Domain_Equation];
   }
+
+//2 Component Equations
+List update2_1CompEqns (String a_E_Field_Propagation, String a_H_Field_Propagation, String a_k_Wave_Propagation, MathFieldEditingController _E0, MathFieldEditingController _H0, MathFieldEditingController _phi, String E0, String H0, String phi) {
+
+    String E_Time_Domain_Equation = '';
+    String E_Phasor_Domain_Equation = '';
+    String H_Time_Domain_Equation = '';
+    String H_Phasor_Domain_Equation = '';
+    String message = '';
+
+    String sign = a_k_Wave_Propagation[0];
+    if (sign == '+') {
+      sign = '-';
+    }
+    else {
+      sign = '+';
+    }
+
+    String wavePropagationAxis = a_k_Wave_Propagation[a_k_Wave_Propagation.length - 1];
+
+    E_Time_Domain_Equation = '\\vec{E} =  $a_E_Field_Propagation ${_isMFControllerEmpty(_E0) ? '|E_{0${a_E_Field_Propagation[a_E_Field_Propagation.length-1]}}|' : _E0.currentEditingValue()}\\cos(\\omega t $sign k$wavePropagationAxis + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
+    E_Phasor_Domain_Equation = '\\vec{E} =  $a_E_Field_Propagation ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{${sign}jk$wavePropagationAxis}';
+
+    H_Time_Domain_Equation = '\\vec{H} =  $a_H_Field_Propagation ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\cos(\\omega t $sign k$wavePropagationAxis + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
+    H_Phasor_Domain_Equation = '\\vec{H} =  $a_H_Field_Propagation ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{${sign}jk$wavePropagationAxis}';
+
+    if (a_k_Wave_Propagation == 'Error!') {
+      message = "The directions of E-Field and H-Field cannot be on the same axis,\n as they have to be perpendicular to each other to form an EM Wave.";
+    }
+
+    return [message, E_Time_Domain_Equation, E_Phasor_Domain_Equation, H_Time_Domain_Equation, H_Phasor_Domain_Equation];
+  }
+
+  //Default Equations of EM Wave
+  String E_Time_Domain_Equation_1 = '\\vec{E} =  +\\vec{a}_x |E_{0}|\\cos(\\omega t - kz + \\phi)';
+  String E_Phasor_Domain_Equation_1 = '\\vec{E} =  +\\vec{a}_x |E_{0}|\\angle\\phi e^{-jkz}';
+
+  String H_Time_Domain_Equation_1 = '\\vec{H} =  +\\vec{a}_y |H_{0}|\\cos(\\omega t - kz + \\phi)';
+  String H_Phasor_Domain_Equation_1 = '\\vec{H} =  +\\vec{a}_y |H_{0}|\\angle\\phi e^{-jkz}';
