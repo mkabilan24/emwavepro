@@ -13,6 +13,7 @@ List update1CompEqns (String a_E_Field_Propagation_1, String a_H_Field_Propagati
     String E_Phasor_Domain_Equation_1 = '';
     String H_Time_Domain_Equation_1 = '';
     String H_Phasor_Domain_Equation_1 = '';
+    String message = '';
 
     if (a_k_Wave_Propagation_1 == '+\\vec{a}_x') {
       E_Time_Domain_Equation_1 = '\\vec{E} =  $a_E_Field_Propagation_1 ${_isMFControllerEmpty(_E0) ? '|E_{0}|' : _E0.currentEditingValue()}\\cos(\\omega t - kx + ${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()})';
@@ -61,5 +62,9 @@ List update1CompEqns (String a_E_Field_Propagation_1, String a_H_Field_Propagati
       H_Phasor_Domain_Equation_1 = '\\vec{H} =  $a_H_Field_Propagation_1 ${_isMFControllerEmpty(_H0) ? '|H_{0}|' : _H0.currentEditingValue()}\\angle${_isMFControllerEmpty(_phi) ? '\\phi' : _phi.currentEditingValue()} e^{+jkz}';
     }
 
-    return [E_Time_Domain_Equation_1, E_Phasor_Domain_Equation_1, H_Time_Domain_Equation_1, H_Phasor_Domain_Equation_1];
+    if (a_k_Wave_Propagation_1 == 'Error!') {
+      message = "The directions of E-Field and H-Field cannot be on the same axis,\n as they have to be perpendicular to each other to form an EM Wave.";
+    }
+
+    return [message, E_Time_Domain_Equation_1, E_Phasor_Domain_Equation_1, H_Time_Domain_Equation_1, H_Phasor_Domain_Equation_1];
   }

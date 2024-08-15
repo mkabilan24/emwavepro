@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'theme.dart'; 
 import 'package:math_keyboard/math_keyboard.dart';
-import 'vectorsdropdown.dart';
+import 'directionvectors.dart';
 import 'update_eqns.dart';
 
 void main() {
@@ -36,6 +36,8 @@ class MainWidget extends StatefulWidget {
 }
 
 class MainWidgetState extends State<MainWidget> {
+
+  String message = "";
 
   //Only one component in E or H Field Equations
   final MathFieldEditingController _E0 = MathFieldEditingController();
@@ -108,10 +110,11 @@ class MainWidgetState extends State<MainWidget> {
   void _update1CompEqns() {
     setState(() {
       List equations = update1CompEqns(a_E_Field_Propagation_1, a_H_Field_Propagation_1, a_k_Wave_Propagation_1, _E0, _H0, _phi);
-      E_Time_Domain_Equation_1 = equations[0];
-      E_Phasor_Domain_Equation_1 = equations[1];
-      H_Time_Domain_Equation_1 = equations[2];
-      H_Phasor_Domain_Equation_1 = equations[3];
+      message = equations[0];
+      E_Time_Domain_Equation_1 = equations[1];
+      E_Phasor_Domain_Equation_1 = equations[2];
+      H_Time_Domain_Equation_1 = equations[3];
+      H_Phasor_Domain_Equation_1 = equations[4];
     });
   }
 
@@ -213,6 +216,11 @@ class MainWidgetState extends State<MainWidget> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (message.isNotEmpty) 
+                            Text(
+                              message,
+                              style: const TextStyle(fontSize: 18),
+                            ),
                           Math.tex(
                             E_Time_Domain_Equation_1,
                             mathStyle: MathStyle.display, // Render the equation using LaTeX
