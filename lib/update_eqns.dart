@@ -1,4 +1,3 @@
-import 'package:emwavepro/main.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 bool _isMFControllerEmpty(MathFieldEditingController controller) {
