@@ -95,6 +95,17 @@ String wave_propagation_result(String a_E_Field_Propagation, String a_H_Field_Pr
     return 'Error!';
   }
 
+String wave_propagation_result_2_Comp(String a_E_Field_Propagation_2_1, String a_H_Field_Propagation_2_1, String a_E_Field_Propagation_2_2, String a_H_Field_Propagation_2_2) {
+  String a_k_Wave_Propagation_1 = wave_propagation_result(a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
+  String a_k_Wave_Propagation_2 = wave_propagation_result(a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
+
+  if (a_k_Wave_Propagation_1 == a_k_Wave_Propagation_2) {
+    return a_k_Wave_Propagation_1;
+  }
+  return "Error!";
+}
+
+
 // bool check2CompEqn (String firstComp, String secondcomp) {
 //   if (firstComp[firstComp.length-1] == secondcomp[secondcomp.length-1]){
 //     return false;
