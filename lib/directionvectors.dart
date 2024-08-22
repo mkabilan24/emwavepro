@@ -106,13 +106,7 @@ String wave_propagation_result_2_Comp(String a_E_Field_Propagation_2_1, String a
 }
 
 
-// bool check2CompEqn (String firstComp, String secondcomp) {
-//   if (firstComp[firstComp.length-1] == secondcomp[secondcomp.length-1]){
-//     return false;
-//   }
-//   return true;
-// }
-
+//Drop down UI
 class MathDropdown extends StatefulWidget {
   final String initialValue;
   final List<String> options;
