@@ -1,9 +1,11 @@
+import 'package:emwavepro/widgets/losslessmediumproperties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'theme.dart'; 
 import 'package:math_keyboard/math_keyboard.dart';
 import 'directionvectors.dart';
 import 'update_eqns.dart';
+import 'package:emwavepro/widgets/freespaceproperties.dart';
 
 void main() {
   runApp(const MyApp());
@@ -167,16 +169,17 @@ class MainWidgetState extends State<MainWidget> {
 
         //Free Space Properties
         children: [
-          const Text('Assuming Free Space,', style: TextStyle(fontSize: 18),),
-          const SizedBox(height: 15),
-          Math.tex('\\text{Permeability, }\\mu = \\mu_0 = 4\\pi*10^{-7}\\,H/m', textStyle: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 15),
-          Math.tex('\\text{Permittivity, }\\varepsilon = \\varepsilon_0 = \\frac{1}{36\\pi}*10^{-9}\\,F/m', textStyle: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 15),
-          Math.tex('\\text{Conductivity, }\\sigma = 0\\,S/m', textStyle: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 15),
-          Math.tex('\\text{Impedence, }\\eta = \\sqrt{\\frac{\\mu}{\\varepsilon}} = \\frac{E}{H} = 120\\pi \\approx 377\\,\\Omega', textStyle: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 15),
+          //Free Space Properties
+          FreespacePropertiesWidget(),
+          //Lossless Medium Properties
+          LosslessMediumPropertiesWidget(),
+
+          const ExpansionTile(title: Text("Lossy Medium Properties", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Lossy Medium Properties"),
+            ],
+          ),
 
           //Number of Components of E-Field Function
           Row(children: [

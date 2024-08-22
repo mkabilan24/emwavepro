@@ -7,7 +7,7 @@ import 'package:emwavepro/theme.dart';
 import 'package:emwavepro/directionvectors.dart';
 import 'package:emwavepro/update_eqns.dart';
 
-import 'package:emwavepro/updated_version/custom_widgets.dart';
+import 'package:emwavepro/update_version/custom_widgets.dart';
 
 void main() {
   runApp(const MyApp());
