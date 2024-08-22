@@ -1,4 +1,5 @@
 import 'package:emwavepro/widgets/losslessmediumproperties.dart';
+import 'package:emwavepro/widgets/lossymediumproperties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'theme.dart'; 
@@ -173,13 +174,10 @@ class MainWidgetState extends State<MainWidget> {
           FreespacePropertiesWidget(),
           //Lossless Medium Properties
           LosslessMediumPropertiesWidget(),
+          //Lossy Medium Properties
+          LossyMediumPropertiesWidget(),
 
-          const ExpansionTile(title: Text("Lossy Medium Properties", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Lossy Medium Properties"),
-            ],
-          ),
+          const SizedBox(height: 15),
 
           //Number of Components of E-Field Function
           Row(children: [
