@@ -76,6 +76,14 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
 
     _isUpdating = true;
 
+    // LaTeX equation: k = ??
+    if (_angularfreq.isEmpty || _relativepermeability.isEmpty || _realtivepermittivity.isEmpty) {
+      // Clear Input Field including '0'
+      _wavenumber.clear();
+      _isUpdating = false;
+      return;
+    }
+
     if (!_angularfreq.isEmpty && !_relativepermeability.isEmpty && !_realtivepermittivity.isEmpty) {
       double angularfreqValue = double.parse(_angularfreq.currentEditingValue());
       double realtivepermittivityValue = double.parse(_realtivepermittivity.currentEditingValue());
@@ -359,16 +367,6 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
                   ),
                   const SizedBox(height: 15),
                   Math.tex(
-                    '\\text{Wave Equation, } \\frac{d^{2}E_{x}}{dz^{2}} + k^2E_{x} = 0',
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 15),
-                  Math.tex(
-                    '\\text{Wave Solution, } E_{x} = E_{0}e^{-jkz}',
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 15),
-                  Math.tex(
                     '\\text{Attenuation Constant, } \\alpha = 0',
                     textStyle: const TextStyle(fontSize: 18),
                   ),
@@ -449,6 +447,10 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
                       ),
                     ],
                   ),
+                  const SizedBox(height: 15),
+                  Math.tex('\\text{Wave Equation, } \\frac{d^{2}E_{x}}{dz^{2}} + k^2E_{x} = 0', textStyle: const TextStyle(fontSize: 18),),
+                  const SizedBox(height: 15),
+                  Math.tex('\\text{Wave Solution, } E_{x} = E_{0}e^{-jkz}', textStyle: const TextStyle(fontSize: 18),),
                   const SizedBox(height: 15),
                   //Math.tex(' ', textStyle: const TextStyle(fontSize: 18)),
                   //const SizedBox(height: 15),

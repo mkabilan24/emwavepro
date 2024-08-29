@@ -81,8 +81,8 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
       H_Time_Domain_Equation_2_2 = comp2equations[3];
       H_Phasor_Domain_Equation_2_2 = comp2equations[4];
 
-      print(_E01.currentEditingValue() + " " + _E02.currentEditingValue() + " " + _phi1.currentEditingValue() + " " + _phi2.currentEditingValue());
-      if (!isMathFieldEmpty(_E01) && !isMathFieldEmpty(_E02) && !isMathFieldEmpty(_phi1) && !isMathFieldEmpty(_phi2)) {
+      print("${_E01.currentEditingValue()} ${_E02.currentEditingValue()} ${_phi1.currentEditingValue()} ${_phi2.currentEditingValue()}");
+      if (!_E01.isEmpty && !_E02.isEmpty && !isMathFieldEmpty(_phi1) && !isMathFieldEmpty(_phi2)) {
         polarisation = determinepolarisation(_E01, _E02, _phi1, _phi2);
       }
       else {
