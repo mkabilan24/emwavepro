@@ -19,6 +19,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
   MathFieldEditingController _intrinsicimpedence = MathFieldEditingController();
 
   bool _isUpdating = false;
+  double pi = 3.14159265;
 
   void calc_angular_freq() {
     if (_isUpdating) return;
@@ -34,7 +35,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
     }
 
     double freqValue = double.parse(_freq.currentEditingValue());
-    double angular_freq = 2 * 3.14 * freqValue;
+    double angular_freq = 2 * pi * freqValue;
 
     // Only expressions can be updated to the input fields,
     // hence the double value has to be String and Parsed
@@ -59,7 +60,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
     }
 
     double angularfreqValue = double.parse(_angularfreq.currentEditingValue());
-    double freqValue= angularfreqValue / (2 * 3.14);
+    double freqValue= angularfreqValue / (2 * pi);
 
     // Only expressions can be updated to the input fields,
     // hence the double value has to be String and Parsed
@@ -80,7 +81,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
       double realtivepermittivityValue = double.parse(_realtivepermittivity.currentEditingValue());
       double relativepermeabilityValue = double.parse(_relativepermeability.currentEditingValue());
 
-      double wavenumberValue = sqrt(pow(angularfreqValue, 2) * realtivepermittivityValue * ((1 * pow(10, -9))/(36*3.14)) * relativepermeabilityValue * (4 * 3.14 * pow(10, -7)));
+      double wavenumberValue = sqrt(pow(angularfreqValue, 2) * realtivepermittivityValue * ((1 * pow(10, -9))/(36*pi)) * relativepermeabilityValue * (4 * pi * pow(10, -7)));
 
       final expression = Parser().parse(wavenumberValue.toString());
       _wavenumber.updateValue(expression);
@@ -99,7 +100,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
       double realtivepermittivityValue = double.parse(_realtivepermittivity.currentEditingValue());
       double relativepermeabilityValue = double.parse(_relativepermeability.currentEditingValue());
 
-      double intrinsicimpedence = sqrt(relativepermeabilityValue/realtivepermittivityValue) * 120 * 3.14;
+      double intrinsicimpedence = sqrt(relativepermeabilityValue/realtivepermittivityValue) * 120 * pi;
 
       final expression = Parser().parse(intrinsicimpedence.toString());
       _intrinsicimpedence.updateValue(expression);

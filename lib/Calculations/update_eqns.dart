@@ -70,7 +70,7 @@ List update2CompEqns (String component, String a_E_Field_Propagation, String a_H
     return [message, E_Time_Domain_Equation, E_Phasor_Domain_Equation, H_Time_Domain_Equation, H_Phasor_Domain_Equation];
   }
 
-String determine_polarisation(MathFieldEditingController E01, MathFieldEditingController E02, MathFieldEditingController phi1, MathFieldEditingController phi2) {
+String determinepolarisation(MathFieldEditingController E01, MathFieldEditingController E02, MathFieldEditingController phi1, MathFieldEditingController phi2) {
   double E01_value = double.parse(E01.currentEditingValue());
   double E02_value = double.parse(E01.currentEditingValue());
 

@@ -62,6 +62,9 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
   //Common Wave Propagation of 2 component Equation
   String a_k_Wave_Propagation_2 = '+\\vec{a}_z';
 
+  //Polarisation
+  String polarisation = "";
+
   void _update2CompEqns() {
     setState(() {
       List comp1equations = update2CompEqns("1", a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1, a_k_Wave_Propagation_2, _E01, _H01, _phi1, E01, H01, phi1);
@@ -77,6 +80,8 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
        E_Phasor_Domain_Equation_2_2 = comp2equations[2];
        H_Time_Domain_Equation_2_2 = comp2equations[3];
        H_Phasor_Domain_Equation_2_2 = comp2equations[4];
+
+      //polarisation = determinepolarisation(_E01, _E02, _phi1, _phi2);
     });
   }
 
@@ -265,7 +270,7 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: MathKeyboardType.expression,
-                onChanged: (_) => _update2CompEqns,
+                onChanged: (_) => _update2CompEqns(),
               ),
             ),
           ],
@@ -301,7 +306,7 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: MathKeyboardType.expression,
-                onChanged: (_) => _update2CompEqns,
+                onChanged: (_) => _update2CompEqns(),
               ),
             ),
           ],
@@ -322,7 +327,7 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: MathKeyboardType.expression,
-                onChanged: (_) => _update2CompEqns,
+                onChanged: (_) => _update2CompEqns(),
               ),
             ),
             const SizedBox(width: 10),
@@ -338,11 +343,14 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: MathKeyboardType.expression,
-                onChanged: (_) => _update2CompEqns,
+                onChanged: (_) => _update2CompEqns(),
               ),
             ),
           ],
         ),
+        const SizedBox(height: 20),
+        Math.tex('Polarisation= $polarisation', textStyle: const TextStyle(fontSize: 18),),
+        const SizedBox(height: 20),
       ],
     );
   }

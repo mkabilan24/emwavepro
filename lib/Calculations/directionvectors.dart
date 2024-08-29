@@ -10,6 +10,7 @@ final List<String> vect_options = [
   '-\\vec{a}_z',
 ];
 
+//To determine direction vectors
 String wave_propagation_result(String a_E_Field_Propagation, String a_H_Field_Propagation) {
 
     //E-Field along X-axis

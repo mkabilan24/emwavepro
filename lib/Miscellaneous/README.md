@@ -1,6 +1,6 @@
 # Project Name: EMWavePro
 
-Short description or introduction to your project.
+EMWavePro is an app for Students and Professionals to understand the concept of electromagnetic plane waves.
 
 ## Project Details
 
@@ -61,3 +61,10 @@ Specify the license under which your project is distributed.
 8) Import math_keyboard
 
 ## Implemented Functions
+1) lib/Calculations/directionvectors.dart
+    This dart file consists of the MathDropDown UI which is a custom UI to allow users the ability to assign a variable
+    with a direction vector.
+    Currently this file also has 3 functions that can determine the direction vectors based on the Inputs of the user,
+    if user inputs the direction of E-Field and H-Field, wave direction can be determined by the function wave_propagation_result. Likewise, if direction of wave propagation and direction of E or H Field is given,
+    the direction of either E or H Field can be determined.
+    These functions are coded using the concepts of cross-product and Right Hand Rule Theorem.
