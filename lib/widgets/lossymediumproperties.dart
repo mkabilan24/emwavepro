@@ -100,7 +100,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
                   Math.tex('\\text{Phase Constant, } \\beta \\gt k', textStyle: const TextStyle(fontSize: 18),),
                   const SizedBox(height: 15),
                   Math.tex('\\text{Intrinsic Impedence, } \\eta_{c} = \\frac{\\mu}{\\varepsilon_{c}}', textStyle: const TextStyle(fontSize: 18),),
-                  //const SizedBox(height: 15),
+                  const SizedBox(height: 15),
                 ],
               ),
             ),

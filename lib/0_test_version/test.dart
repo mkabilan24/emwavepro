@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
-import 'package:emwavepro/theme.dart';
-import 'package:emwavepro/directionvectors.dart';
-import 'package:emwavepro/update_eqns.dart';
+import 'package:emwavepro/Miscellaneous/theme.dart';
+import 'package:emwavepro/Calculations/directionvectors.dart';
+import 'package:emwavepro/Calculations/update_eqns.dart';
 
-import 'package:emwavepro/update_version/custom_widgets.dart';
+import 'package:emwavepro/0_test_version/custom_widgets_test.dart';
 
 void main() {
   runApp(const MyApp());
