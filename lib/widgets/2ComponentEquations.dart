@@ -68,20 +68,26 @@ class _2ComponentEquationsWidgetState extends State<Component2EquationsWidget> {
   void _update2CompEqns() {
     setState(() {
       List comp1equations = update2CompEqns("1", a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1, a_k_Wave_Propagation_2, _E01, _H01, _phi1, E01, H01, phi1);
-       message = comp1equations[0];
-       E_Time_Domain_Equation_2_1 = comp1equations[1];
-       E_Phasor_Domain_Equation_2_1 = comp1equations[2];
-       H_Time_Domain_Equation_2_1 = comp1equations[3];
-       H_Phasor_Domain_Equation_2_1 = comp1equations[4];
+      message = comp1equations[0];
+      E_Time_Domain_Equation_2_1 = comp1equations[1];
+      E_Phasor_Domain_Equation_2_1 = comp1equations[2];
+      H_Time_Domain_Equation_2_1 = comp1equations[3];
+      H_Phasor_Domain_Equation_2_1 = comp1equations[4];
     
       List comp2equations = update2CompEqns("2", a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2, a_k_Wave_Propagation_2, _E02, _H02, _phi2, E02, H02, phi2);
-       message = comp2equations[0];
-       E_Time_Domain_Equation_2_2 = comp2equations[1];
-       E_Phasor_Domain_Equation_2_2 = comp2equations[2];
-       H_Time_Domain_Equation_2_2 = comp2equations[3];
-       H_Phasor_Domain_Equation_2_2 = comp2equations[4];
+      message = comp2equations[0];
+      E_Time_Domain_Equation_2_2 = comp2equations[1];
+      E_Phasor_Domain_Equation_2_2 = comp2equations[2];
+      H_Time_Domain_Equation_2_2 = comp2equations[3];
+      H_Phasor_Domain_Equation_2_2 = comp2equations[4];
 
-      //polarisation = determinepolarisation(_E01, _E02, _phi1, _phi2);
+      print(_E01.currentEditingValue() + " " + _E02.currentEditingValue() + " " + _phi1.currentEditingValue() + " " + _phi2.currentEditingValue());
+      if (!isMathFieldEmpty(_E01) && !isMathFieldEmpty(_E02) && !isMathFieldEmpty(_phi1) && !isMathFieldEmpty(_phi2)) {
+        polarisation = determinepolarisation(_E01, _E02, _phi1, _phi2);
+      }
+      else {
+        polarisation = "";
+      }
     });
   }
 
