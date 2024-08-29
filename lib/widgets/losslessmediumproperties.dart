@@ -128,312 +128,335 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
       ),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Math.tex('\\text{Conductivity, }\\sigma = 0',
-            textStyle: const TextStyle(fontSize: 18)),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(
-              '\\text{Frequency, }f = ',
-              textStyle: const TextStyle(fontSize: 18),
+        Container(
+          padding: const EdgeInsets.all(8), // Adjust padding as needed
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey[400]!, // Border color
+              width: 1.0, // Border width
             ),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _freq,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+            borderRadius: BorderRadius.circular(8), // Optional: Border radius
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: MediaQuery.of(context).size.width, // Maximum width constraint
+              ), 
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Math.tex('\\text{Conductivity, }\\sigma = 0',
+                      textStyle: const TextStyle(fontSize: 18)),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Frequency, }f = ',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          setState(() {
-                            calc_angular_freq();
-                            calc_wave_number();
-                          });
-                        }),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(
-              '\\text{Angular Frequency, }\\omega = 2\\pi f = ',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _angularfreq,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _freq,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    setState(() {
+                                      calc_angular_freq();
+                                      calc_wave_number();
+                                    });
+                                  }),
+                            ),
+                          ),
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          setState(() {
-                            calc_freq();
-                            calc_wave_number();
-                          });
-                        }),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(
-              '\\text{Permittivity, }\\varepsilon = \\varepsilon_{r}\\varepsilon_{0} = ',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _realtivepermittivity,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Angular Frequency, }\\omega = 2\\pi f = ',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          calc_wave_number();
-                          calc_intrinsic_impedence();
-                          setState(() {}); // Trigger a rebuild to update the UI
-                        }),
-                  ),
-                ),
-              ),
-            ),
-            Math.tex(
-              '\\varepsilon_{0}',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(
-              '\\text{Permeability, }\\mu = \\mu_{r}\\mu_{0} = ',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _relativepermeability,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _angularfreq,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    setState(() {
+                                      calc_freq();
+                                      calc_wave_number();
+                                    });
+                                  }),
+                            ),
+                          ),
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          calc_wave_number();
-                          calc_intrinsic_impedence();
-                          setState(() {}); // Trigger a rebuild to update the UI
-                        }),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ),
-            Math.tex(
-              '\\mu_{0}',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-          ]
-        ),
-        const SizedBox(height: 15),
-        Math.tex(
-          '\\text{Ampere\'s Law, }\\nabla \\times H = j \\omega \\varepsilon E',
-          textStyle: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(
-              '\\text{Wave Number, }k = \\sqrt{\\omega^{2}\\mu\\varepsilon} = ',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _wavenumber,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Permittivity, }\\varepsilon = \\varepsilon_{r}\\varepsilon_{0} = ',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          setState(() {}); // Trigger a rebuild to update the UI
-                        }),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        Math.tex(
-          '\\text{Wave Equation, } \\frac{d^{2}E_{x}}{dz^{2}} + k^2E_{x} = 0',
-          textStyle: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 15),
-        Math.tex(
-          '\\text{Wave Solution, } E_{x} = E_{0}e^{-jkz}',
-          textStyle: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 15),
-        Math.tex(
-          '\\text{Attenuation Constant, } \\alpha = 0',
-          textStyle: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(
-              '\\text{Phase Constant, } \\beta = k = ',
-              textStyle: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _wavenumber,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _realtivepermittivity,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    calc_wave_number();
+                                    calc_intrinsic_impedence();
+                                    setState(() {}); // Trigger a rebuild to update the UI
+                                  }),
+                            ),
+                          ),
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          setState(() {}); // Trigger a rebuild to update the UI
-                        }),
+                      ),
+                      Math.tex(
+                        '\\varepsilon_{0}',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        Math.tex(
-          '\\text{Intrinsic Impedance, }',
-          textStyle: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 15),
-        Row(
-          children: [
-            Math.tex(' \\eta = \\sqrt{\\frac{\\mu}{\\varepsilon}} = \\sqrt{\\frac{\\mu_{r}}{\\varepsilon_{r}}} \\times 120\\pi = ',
-              textStyle: const TextStyle(fontSize: 18),),
-            const SizedBox(width: 10),
-            Container(
-              width: 100, // Set the fixed width
-              height: 40, // Set the fixed height
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey), // Add border if needed
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minWidth: 100, // Ensure minimum width matches container width
-                  ),
-                  child: IntrinsicWidth(
-                    child: MathField(
-                        controller: _intrinsicimpedence,
-                        decoration: const InputDecoration(
-                          hintText: "Input",
-                          border: InputBorder.none, // Remove the border
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Permeability, }\\mu = \\mu_{r}\\mu_{0} = ',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
                         ),
-                        keyboardType: MathKeyboardType.expression,
-                        onChanged: (newvalue) {
-                          setState(() {}); // Trigger a rebuild to update the UI
-                        }),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _relativepermeability,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    calc_wave_number();
+                                    calc_intrinsic_impedence();
+                                    setState(() {}); // Trigger a rebuild to update the UI
+                                  }),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Math.tex(
+                        '\\mu_{0}',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                    ]
                   ),
-                ),
+                  const SizedBox(height: 15),
+                  Math.tex(
+                    '\\text{Ampere\'s Law, }\\nabla \\times H = j \\omega \\varepsilon E',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Wave Number, }k = \\sqrt{\\omega^{2}\\mu\\varepsilon} = ',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _wavenumber,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    setState(() {}); // Trigger a rebuild to update the UI
+                                  }),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  Math.tex(
+                    '\\text{Wave Equation, } \\frac{d^{2}E_{x}}{dz^{2}} + k^2E_{x} = 0',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 15),
+                  Math.tex(
+                    '\\text{Wave Solution, } E_{x} = E_{0}e^{-jkz}',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 15),
+                  Math.tex(
+                    '\\text{Attenuation Constant, } \\alpha = 0',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Phase Constant, } \\beta = k = ',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _wavenumber,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    setState(() {}); // Trigger a rebuild to update the UI
+                                  }),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  Math.tex(
+                    '\\text{Intrinsic Impedance, }',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Math.tex(' \\eta = \\sqrt{\\frac{\\mu}{\\varepsilon}} = \\sqrt{\\frac{\\mu_{r}}{\\varepsilon_{r}}} \\times 120\\pi = ',
+                        textStyle: const TextStyle(fontSize: 18),),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 100, // Set the fixed width
+                        height: 40, // Set the fixed height
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey), // Add border if needed
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minWidth: 100, // Ensure minimum width matches container width
+                            ),
+                            child: IntrinsicWidth(
+                              child: MathField(
+                                  controller: _intrinsicimpedence,
+                                  decoration: const InputDecoration(
+                                    hintText: "Input",
+                                    border: InputBorder.none, // Remove the border
+                                  ),
+                                  keyboardType: MathKeyboardType.expression,
+                                  onChanged: (newvalue) {
+                                    setState(() {}); // Trigger a rebuild to update the UI
+                                  }),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  //Math.tex(' ', textStyle: const TextStyle(fontSize: 18)),
+                  //const SizedBox(height: 15),
+                ],
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        Math.tex(' ', textStyle: const TextStyle(fontSize: 18)),
-        const SizedBox(height: 15),
-      ],
+          ),
+        )
+      ]
     );
   }
 }
