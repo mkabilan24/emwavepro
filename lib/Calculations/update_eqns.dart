@@ -70,21 +70,21 @@ List update2CompEqns (String component, String a_E_Field_Propagation, String a_H
     return [message, E_Time_Domain_Equation, E_Phasor_Domain_Equation, H_Time_Domain_Equation, H_Phasor_Domain_Equation];
   }
 
-String determinepolarisation(MathFieldEditingController E01, MathFieldEditingController E02, MathFieldEditingController phi1, MathFieldEditingController phi2) {
-  double E01_value = double.parse(E01.currentEditingValue());
-  double E02_value = double.parse(E01.currentEditingValue());
+String determinepolarisation(MathFieldEditingController EH01, MathFieldEditingController EH02, MathFieldEditingController phi1, MathFieldEditingController phi2) {
+  double EH01_value = double.parse(EH01.currentEditingValue());
+  double EH02_value = double.parse(EH01.currentEditingValue());
 
   double phi1_value = double.parse(phi1.currentEditingValue());
   double phi2_value = double.parse(phi2.currentEditingValue());
 
-  if ((E01_value == 0) || (E02_value == 0)) {
+  if ((EH01_value == 0) || (EH02_value == 0)) {
     return "Linear";
   }
   double absolute_phase_diff = (phi1_value - phi2_value).abs();
   if ((absolute_phase_diff == 0) || (absolute_phase_diff == 180)) {
     return "Linear";
   }
-  if ((absolute_phase_diff == 90) && (E01_value == E02_value)) {
+  if ((absolute_phase_diff == 90) && (EH01_value == EH02_value)) {
     return "Circular";
   }
   return "Elliptical";

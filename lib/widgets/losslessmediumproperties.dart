@@ -16,7 +16,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
   MathFieldEditingController _realtivepermittivity = MathFieldEditingController();
   MathFieldEditingController _relativepermeability = MathFieldEditingController();
   MathFieldEditingController _wavenumber = MathFieldEditingController();
-  MathFieldEditingController _intrinsicimpedence = MathFieldEditingController();
+  MathFieldEditingController _intrinsicimpedance = MathFieldEditingController();
 
   bool _isUpdating = false;
   double pi = 3.14159265;
@@ -99,7 +99,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
     _isUpdating = false;
   }
 
-  void calc_intrinsic_impedence() {
+  void calc_intrinsic_impedance() {
     if (_isUpdating) return;
 
     _isUpdating = true;
@@ -108,14 +108,14 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
       double realtivepermittivityValue = double.parse(_realtivepermittivity.currentEditingValue());
       double relativepermeabilityValue = double.parse(_relativepermeability.currentEditingValue());
 
-      double intrinsicimpedence = sqrt(relativepermeabilityValue/realtivepermittivityValue) * 120 * pi;
+      double intrinsicimpedance = sqrt(relativepermeabilityValue/realtivepermittivityValue) * 120 * pi;
 
-      final expression = Parser().parse(intrinsicimpedence.toString());
-      _intrinsicimpedence.updateValue(expression);
-      print("The value of Intrinsic Impedence is: $intrinsicimpedence");
+      final expression = Parser().parse(intrinsicimpedance.toString());
+      _intrinsicimpedance.updateValue(expression);
+      print("The value of Intrinsic impedance is: $intrinsicimpedance");
     }
     else {
-      _intrinsicimpedence.clear();
+      _intrinsicimpedance.clear();
     }
 
     _isUpdating = false;
@@ -267,7 +267,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
                                   keyboardType: MathKeyboardType.expression,
                                   onChanged: (newvalue) {
                                     calc_wave_number();
-                                    calc_intrinsic_impedence();
+                                    calc_intrinsic_impedance();
                                     setState(() {}); // Trigger a rebuild to update the UI
                                   }),
                             ),
@@ -310,7 +310,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
                                   keyboardType: MathKeyboardType.expression,
                                   onChanged: (newvalue) {
                                     calc_wave_number();
-                                    calc_intrinsic_impedence();
+                                    calc_intrinsic_impedance();
                                     setState(() {}); // Trigger a rebuild to update the UI
                                   }),
                             ),
@@ -432,7 +432,7 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
                             ),
                             child: IntrinsicWidth(
                               child: MathField(
-                                  controller: _intrinsicimpedence,
+                                  controller: _intrinsicimpedance,
                                   decoration: const InputDecoration(
                                     hintText: "Input",
                                     border: InputBorder.none, // Remove the border

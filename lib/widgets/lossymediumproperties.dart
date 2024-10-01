@@ -25,7 +25,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
 
   MathFieldEditingController _alpha = MathFieldEditingController();
   MathFieldEditingController _beta = MathFieldEditingController();
-  MathFieldEditingController _intrinsicimpedence = MathFieldEditingController();
+  MathFieldEditingController _intrinsicimpedance = MathFieldEditingController();
 
   bool _isUpdating = false;
   double pi = 3.14159265;
@@ -33,7 +33,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
   List<Complex> wave_number_roots = [];
   Complex permittivity = Complex(0, 0);
   Complex propagation_constant = Complex(0, 0);
-  Complex intrinsic_impedence = Complex(0, 0);
+  Complex intrinsic_impedance = Complex(0, 0);
 
   void calc_angular_freq() {
     if (_isUpdating) return;
@@ -160,7 +160,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
   
       // Compute the 2 roots of the complex number
       wave_number_roots = z.nthRoots(2);
-      print("The value of Complex Permittivity is: $wave_number_roots");
+      print("The value of Complex WaveNumber is: $wave_number_roots");
     }
 
     _isUpdating = false;
@@ -209,7 +209,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
     _isUpdating = false;
   }
 
-  void calc_intrinsic_impedence() {
+  void calc_intrinsic_impedance() {
     if (_isUpdating) return;
 
     _isUpdating = true;
@@ -218,13 +218,13 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
       print(_permeability.currentEditingValue());
       double permeabilityValue = double.parse(_permeability.currentEditingValue());
 
-      Complex intrinsic_impedenceValue = Complex.divide(Complex(permeabilityValue, 0), propagation_constant);
-      print(intrinsic_impedenceValue.toString());
+      Complex intrinsic_impedanceValue = Complex.divide(Complex(permeabilityValue, 0), propagation_constant);
+      print(intrinsic_impedanceValue.toString());
 
       ///////
       //Important How to store a complex number in MathFieldEditting Controller
-      _intrinsicimpedence.updateValue(Parser().parse('${intrinsic_impedenceValue.getReal()}+${intrinsic_impedenceValue.getImaginary()}j'));
-      print("The value of Intrinsic Impedence is: ${intrinsic_impedenceValue.toString()}");
+      _intrinsicimpedance.updateValue(Parser().parse('${intrinsic_impedanceValue.getReal()}+${intrinsic_impedanceValue.getImaginary()}j'));
+      print("The value of Intrinsic impedance is: ${intrinsic_impedanceValue.toString()}");
     }
 
     _isUpdating = false;
@@ -403,7 +403,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
                                       calc_complex_permittivity();
                                       calc_wave_number_roots();
                                       get_propagation_constant();
-                                      calc_intrinsic_impedence();
+                                      calc_intrinsic_impedance();
                                     });
                                   }),
                             ),
@@ -449,7 +449,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
                                       calc_wave_number_roots();
                                       get_propagation_constant();
                                       calc_permeability();
-                                      calc_intrinsic_impedence();
+                                      calc_intrinsic_impedance();
                                     }); // Trigger a rebuild to update the UI
                                   }),
                             ),
@@ -547,7 +547,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
                   const SizedBox(height: 15),
                   Row(
                     children: [
-                      Math.tex('\\text{Intrinsic Impedence, } \\eta_{c} = \\frac{\\mu}{\\varepsilon_{c}} = ', textStyle: const TextStyle(fontSize: 18),),
+                      Math.tex('\\text{Intrinsic impedance, } \\eta_{c} = \\frac{\\mu}{\\varepsilon_{c}} = ', textStyle: const TextStyle(fontSize: 18),),
                       const SizedBox(width: 10),
                       Container(
                         width: 100, // Set the fixed width
@@ -563,7 +563,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
                             ),
                             child: IntrinsicWidth(
                               child: MathField(
-                                  controller: _intrinsicimpedence,
+                                  controller: _intrinsicimpedance,
                                   decoration: const InputDecoration(
                                     hintText: "Input",
                                     border: InputBorder.none, // Remove the border
