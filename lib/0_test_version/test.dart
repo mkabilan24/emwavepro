@@ -6,6 +6,7 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 import 'package:emwavepro/0_test_version/14_DirectionVectors.dart';
 import 'package:emwavepro/0_test_version/ErrorSnackBar.dart';
+import 'package:emwavepro/0_test_version/GraphicalPlot.dart';
 
 class EMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -14,6 +15,20 @@ class EMFieldEquationsWidget extends StatefulWidget {
 
 class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   SnackbarController snackbarController = SnackbarController();
+
+  //For Graphical Plot
+  double angleX = pi;
+  double angleY = 0;
+  double zoom = 500.0;
+  double labeloffset = 0.0;
+
+  void onScaleUpdate(ScaleUpdateDetails details) {
+    setState(() {
+      angleX += details.focalPointDelta.dy * 0.01; // Rotate around X-axis
+      angleY += details.focalPointDelta.dx * 0.01; // Rotate around Y-axis
+      zoom = (zoom * details.scale).clamp(100.0, 800.0); // Zoom range
+    });
+  }
 
   final MathFieldEditingController _E0Controller = MathFieldEditingController();
   final MathFieldEditingController _H0Controller = MathFieldEditingController();
@@ -56,8 +71,10 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     return phiSign;
   }
 
-  String _getabsoluteValue (MathFieldEditingController controller, String variable) {
-    double? controllerNumeric = double.tryParse(controller.currentEditingValue());
+  String _getabsoluteValue(
+      MathFieldEditingController controller, String variable) {
+    double? controllerNumeric =
+        double.tryParse(controller.currentEditingValue());
     if (controllerNumeric == null) {
       return variable;
     } else {
@@ -93,32 +110,33 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : _wavenumber.currentEditingValue()}$wavePropagationAxis}';
   }
 
-  void _validateAngularFrequency(BuildContext context, MathFieldEditingController controller) {
-    double? angularFrequency = double.tryParse(controller.currentEditingValue());
+  void _validateAngularFrequency(
+      BuildContext context, MathFieldEditingController controller) {
+    double? angularFrequency =
+        double.tryParse(controller.currentEditingValue());
     if (angularFrequency != null && angularFrequency < 0) {
-      snackbarController.showTemporaryErrorSnackBar(context, "Angular Frequency (ω) must be positive!");
+      snackbarController.showTemporaryErrorSnackBar(
+          context, "Angular Frequency (ω) must be positive!");
       controller.clear();
-    } else if (angularFrequency == 0) {
-      snackbarController.showTemporaryErrorSnackBar(context, "Angular Frequency (ω) must be non-zero!");
-      controller.clear();
-    }
+    } 
   }
 
-  void _validateWavenumber(BuildContext context, MathFieldEditingController controller) {
+  void _validateWavenumber(
+      BuildContext context, MathFieldEditingController controller) {
     double? wavenumber = double.tryParse(controller.currentEditingValue());
     if (wavenumber != null && wavenumber < 0) {
-      snackbarController.showTemporaryErrorSnackBar(context, "Wavenumber (k) must be positive!");
-      controller.clear();
-    } else if (wavenumber == 0) {
-      snackbarController.showTemporaryErrorSnackBar(context, "Wavenumber (k) must be non-zero!");
+      snackbarController.showTemporaryErrorSnackBar(
+          context, "Wavenumber (k) must be positive!");
       controller.clear();
     }
   }
 
   void _validateWaveVectors() {
-    bool isvalid = validateWaveVectors(a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation);
+    bool isvalid = validateWaveVectors(
+        a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation);
     if (!isvalid) {
-      snackbarController.showPermanentErrorSnackBar(context, "Direction Vectors are Invalid!");
+      snackbarController.showPermanentErrorSnackBar(
+          context, "Direction Vectors are Invalid!");
     } else {
       snackbarController.hideErrorSnackBar();
     }
@@ -134,102 +152,161 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Input Fields
-            const Text('Inputs'),
-            MathField(
-              controller: _E0Controller,
-              decoration: const InputDecoration(labelText: 'Amplitude of E-Field, E₀'),
-              onChanged: (value) => setState(() {}),
-            ),
-            MathField(
-              controller: _H0Controller,
-              decoration: const InputDecoration(labelText: 'Amplitude of H-Field, H₀'),
-              onChanged: (value) => setState(() {}),
-            ),
-            MathField(
-              controller: _phiController,
-              decoration: const InputDecoration(labelText: 'Phase angle, φ'),
-              onChanged: (value) => setState(() {}),
-            ),
-            MathField(
-              controller: _angularfreq,
-              decoration: const InputDecoration(labelText: 'Angular Frequency, ω'),
-              onChanged: (value) {
-                _validateAngularFrequency(context, _angularfreq);
-                setState(() {});
-              },
-            ),
-            MathField(
-              controller: _wavenumber,
-              decoration: const InputDecoration(labelText: 'Wavenumber, k'),
-              onChanged: (value) {
-                _validateWavenumber(context, _wavenumber);
-                setState(() {});
-              },
-            ),
-            Row(
-              children: [
-                Math.tex('\\text{E-Field propagation: }\\vec{a}_{E}=', textStyle: const TextStyle(fontSize: 18),),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: MathDropdown(
-                    initialValue: a_E_Field_Propagation,
-                    options: vect_options,
-                    onChanged: (newValue) {
-                      setState(() {
-                        a_E_Field_Propagation = newValue;
-                        _validateWaveVectors();
-                      });
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(children: [
+                  // Input Fields
+                  const Text('Inputs'),
+                  MathField(
+                    controller: _E0Controller,
+                    decoration: const InputDecoration(
+                        labelText: 'Amplitude of E-Field, E₀'),
+                    onChanged: (value) => setState(() {}),
+                  ),
+                  MathField(
+                    controller: _H0Controller,
+                    decoration: const InputDecoration(
+                        labelText: 'Amplitude of H-Field, H₀'),
+                    onChanged: (value) => setState(() {}),
+                  ),
+                  MathField(
+                    controller: _phiController,
+                    decoration:
+                        const InputDecoration(labelText: 'Phase angle, φ'),
+                    onChanged: (value) => setState(() {}),
+                  ),
+                  MathField(
+                    controller: _angularfreq,
+                    decoration: const InputDecoration(
+                        labelText: 'Angular Frequency, ω'),
+                    onChanged: (value) {
+                      _validateAngularFrequency(context, _angularfreq);
+                      setState(() {});
                     },
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Math.tex('\\text{H-Field propagation: }\\vec{a}_{H}=', textStyle: const TextStyle(fontSize: 18),),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: MathDropdown(
-                    initialValue: a_H_Field_Propagation,
-                    options: vect_options,
-                    onChanged: (newValue) {
-                      setState(() {
-                        a_H_Field_Propagation = newValue;
-                        _validateWaveVectors();
-                      });
+                  MathField(
+                    controller: _wavenumber,
+                    decoration:
+                        const InputDecoration(labelText: 'Wavenumber, k'),
+                    onChanged: (value) {
+                      _validateWavenumber(context, _wavenumber);
+                      setState(() {});
                     },
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Math.tex('\\text{Wave propagation: }\\vec{a}_{k}=', textStyle: const TextStyle(fontSize: 18),),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: MathDropdown(
-                    initialValue: a_k_Wave_Propagation,
-                    options: vect_options,
-                    onChanged: (newValue) {
-                      setState(() {
-                        a_k_Wave_Propagation = newValue;
-                        _validateWaveVectors();
-                      });
-                    },
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{E-Field propagation: }\\vec{a}_{E}=',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: MathDropdown(
+                          initialValue: a_E_Field_Propagation,
+                          options: vect_options,
+                          onChanged: (newValue) {
+                            setState(() {
+                              a_E_Field_Propagation = newValue;
+                              _validateWaveVectors();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            // Display Equations
-            const Text('Time Domain Equations:'),
-            Math.tex(_generateETimeDomainEquation(), textStyle: const TextStyle(fontSize: 20)),
-            Math.tex(_generateHTimeDomainEquation(), textStyle: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 20),
-            const Text('Phasor Domain Equations:'),
-            Math.tex(_generateEPhasorDomainEquation(), textStyle: const TextStyle(fontSize: 20)),
-            Math.tex(_generateHPhasorDomainEquation(), textStyle: const TextStyle(fontSize: 20)),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{H-Field propagation: }\\vec{a}_{H}=',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: MathDropdown(
+                          initialValue: a_H_Field_Propagation,
+                          options: vect_options,
+                          onChanged: (newValue) {
+                            setState(() {
+                              a_H_Field_Propagation = newValue;
+                              _validateWaveVectors();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Math.tex(
+                        '\\text{Wave propagation: }\\vec{a}_{k}=',
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: MathDropdown(
+                          initialValue: a_k_Wave_Propagation,
+                          options: vect_options,
+                          onChanged: (newValue) {
+                            setState(() {
+                              a_k_Wave_Propagation = newValue;
+                              _validateWaveVectors();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  // Display Equations
+                  const Text('Time Domain Equations:'),
+                  Math.tex(_generateETimeDomainEquation(),
+                      textStyle: const TextStyle(fontSize: 20)),
+                  Math.tex(_generateHTimeDomainEquation(),
+                      textStyle: const TextStyle(fontSize: 20)),
+                  const SizedBox(height: 20),
+                  const Text('Phasor Domain Equations:'),
+                  Math.tex(_generateEPhasorDomainEquation(),
+                      textStyle: const TextStyle(fontSize: 20)),
+                  Math.tex(_generateHPhasorDomainEquation(),
+                      textStyle: const TextStyle(fontSize: 20)),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.black, width: 2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: GestureDetector(
+                          onScaleUpdate: onScaleUpdate,
+                          child: CustomPaint(
+                            painter: Graph3DPainter(
+                              angleX: angleX,
+                              angleY: angleY,
+                              zoom: zoom,
+                              labeloffset: labeloffset,
+                              eFieldMagnitude1: _E0Controller.isEmpty ? 0 : getDouble(_E0Controller),
+                              hFieldMagnitude1: _H0Controller.isEmpty ? 0 : getDouble(_H0Controller),
+                              eFieldMagnitude2: 0,
+                              hFieldMagnitude2: 0,
+                              waveNumber: _wavenumber.isEmpty ? 0 : getDouble(_wavenumber),
+                              phasorAngle: _phiController.isEmpty ? 0 : getDouble(_phiController),
+                              eFieldDirection1: Point3D(0, 1, 0),
+                              hFieldDirection1: Point3D(0, 0, 1),
+                              eFieldDirection2: Point3D(0, 0, 0),
+                              hFieldDirection2: Point3D(0, 0, 0),
+                              wavePropagationDirection: Point3D(1, 0, 0),
+                            ),
+                            size: Size.infinite,
+                          )
+                        ),
+                    ),
+                  ),
+                ]),
+              ),
+            )
           ],
         ),
       ),
