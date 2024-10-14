@@ -1,12 +1,16 @@
 import 'package:emwavepro/0_test_version/0_globalvariables.dart';
-import 'package:emwavepro/0_test_version/1_MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
-import 'package:emwavepro/0_test_version/14_DirectionVectors.dart';
-import 'package:emwavepro/0_test_version/ErrorSnackBar.dart';
-import 'package:emwavepro/0_test_version/GraphicalPlot.dart';
+import 'package:emwavepro/0_Main_Version/14_DirectionVectors.dart';
+import 'package:emwavepro/0_Main_Version/ErrorSnackBar.dart';
+import 'package:emwavepro/0_Main_Version/GraphicalPlot.dart';
+
+import 'package:emwavepro/widgets/freespaceproperties.dart';
+import 'package:emwavepro/widgets/losslessmediumproperties.dart';
+import 'package:emwavepro/widgets/lossymediumproperties.dart';
 
 class EMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -28,6 +32,19 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
       angleY += details.focalPointDelta.dx * 0.01; // Rotate around Y-axis
       zoom = (zoom * details.scale).clamp(100.0, 800.0); // Zoom range
     });
+  }
+
+  Point3D vectorFromLatex(String latexVector) {
+    final Map<String, Point3D> vectorMap = {
+      '+\\vec{a}_x': Point3D(1, 0, 0),
+      '-\\vec{a}_x': Point3D(-1, 0, 0),
+      '+\\vec{a}_y': Point3D(0, 1, 0),
+      '-\\vec{a}_y': Point3D(0, -1, 0),
+      '+\\vec{a}_z': Point3D(0, 0, 1),
+      '-\\vec{a}_z': Point3D(0, 0, -1),
+    };
+    // Default to (0, 0, 0) if not found
+    return vectorMap[latexVector] ?? Point3D(0, 0, 0); 
   }
 
   final MathFieldEditingController _E0Controller = MathFieldEditingController();
@@ -151,7 +168,12 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: [
+          children: [//Free Space Properties
+          FreespacePropertiesWidget(),
+          //Lossless Medium Properties
+          LosslessMediumPropertiesWidget(),
+          //Lossy Medium Properties
+          LossyMediumPropertiesWidget(),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
@@ -293,11 +315,11 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                               hFieldMagnitude2: 0,
                               waveNumber: _wavenumber.isEmpty ? 0 : getDouble(_wavenumber),
                               phasorAngle: _phiController.isEmpty ? 0 : getDouble(_phiController),
-                              eFieldDirection1: Point3D(0, 1, 0),
-                              hFieldDirection1: Point3D(0, 0, 1),
+                              eFieldDirection1: vectorFromLatex(a_E_Field_Propagation),
+                              hFieldDirection1: vectorFromLatex(a_H_Field_Propagation),
                               eFieldDirection2: Point3D(0, 0, 0),
                               hFieldDirection2: Point3D(0, 0, 0),
-                              wavePropagationDirection: Point3D(1, 0, 0),
+                              wavePropagationDirection: vectorFromLatex(a_k_Wave_Propagation),
                             ),
                             size: Size.infinite,
                           )

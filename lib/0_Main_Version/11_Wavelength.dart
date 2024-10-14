@@ -1,5 +1,5 @@
-import 'package:emwavepro/0_test_version/0_GlobalVariables.dart';
-import 'package:emwavepro/0_test_version/1_MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
 
 void calc_wavelength() {
   double phaseconstantValue = getDouble(phaseconstant);

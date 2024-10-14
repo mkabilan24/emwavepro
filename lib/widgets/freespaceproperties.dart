@@ -14,7 +14,7 @@ class FreespacePropertiesWidget extends StatelessWidget {
         const SizedBox(height: 15),
         Math.tex('\\text{Conductivity, }\\sigma = 0\\,S/m', textStyle: const TextStyle(fontSize: 18)),
         const SizedBox(height: 15),
-        Math.tex('\\text{impedance, }\\eta = \\sqrt{\\frac{\\mu}{\\varepsilon}} = \\frac{E}{H} = 120\\pi \\approx 377\\,\\Omega', textStyle: const TextStyle(fontSize: 18)),
+        Math.tex('\\text{Intrinsic impedance, }\\eta = \\sqrt{\\frac{\\mu}{\\varepsilon}} = \\frac{E}{H} = 120\\pi \\approx 377\\,\\Omega', textStyle: const TextStyle(fontSize: 18)),
         const SizedBox(height: 15),
       ],
     );
