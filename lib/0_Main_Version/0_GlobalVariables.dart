@@ -4,7 +4,7 @@ import 'package:math_keyboard/math_keyboard.dart';
 
 double pi = 3.14159265;
 double permeabilityOfFreeSpace = (4 * pi * pow(10, -7));
-double permittivityOfFreeSpace = (1 * pow(10, -9) / (36 * pi));
+double permittivityOfFreeSpace = ((1/(36 * pi))) * pow(10, -9);
 double conductivitymargin = 20; //This is the margin to compare with the loss tangent to determine if the medium is
                                 //a good conductor or a bad conductor.
 

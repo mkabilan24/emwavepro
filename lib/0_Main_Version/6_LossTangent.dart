@@ -20,3 +20,4 @@ bool determineifGoodConductor() {
     return false;
   }
 }
+

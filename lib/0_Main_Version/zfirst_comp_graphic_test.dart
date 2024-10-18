@@ -1,4 +1,4 @@
-import 'package:emwavepro/0_test_version/0_globalvariables.dart';
+import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
 import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
 
 import 'package:flutter/material.dart';

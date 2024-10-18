@@ -40,6 +40,7 @@ dependencies:
   math_expressions: ^2.6.0
   flutter_plot: ^0.1.0
   flutter_echarts: ^2.5.0
+  expressions: ^0.2.5+2
 
 dev_dependencies:
   flutter_test:

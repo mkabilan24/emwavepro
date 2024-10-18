@@ -1,7 +1,10 @@
 //Main
+import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/12_Frequencies.dart';
 import 'package:emwavepro/0_Main_Version/3_Permeability.dart';
 import 'package:emwavepro/0_Main_Version/3_Permittivity.dart';
 import 'package:emwavepro/0_Main_Version/4_IntrinsicImpedance.dart';
+import 'package:emwavepro/0_Main_Version/5_WaveNumber.dart';
 import 'package:emwavepro/widgets/freespaceproperties.dart';
 import 'package:emwavepro/widgets/losslessmediumproperties.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +15,23 @@ void main() {
   ));
 }
 
-class MainWidget extends StatelessWidget {
+class MainWidget extends StatefulWidget {
+  @override
+  MainWidgetState createState() => MainWidgetState();
+}
+
+class MainWidgetState extends State<MainWidget> {
+
+  void updateState() {
+    setState(() {
+      calc_permittivity();
+      calc_permeability();
+      calc_intrinsicimpedance();
+      calc_angular_freq();
+      calc_wavenumber();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,20 +49,33 @@ class MainWidget extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: PermeabilityWidget(),
+                    child: PermeabilityDisplayWidget(),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: PermittivityWidget(),
+                    child: PermittivityDisplayWidget(),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: IntrinsicImpedanceWidget(),
+                    child: IntrinsicImpedanceDisplayWidget(),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FrequencyDisplayWidget(),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: AngularFrequencyDisplayWidget(),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: WaveNumberDisplayWidget(),
                   ),
                 ],
               ),
             ),
           ),
+          ElevatedButton(onPressed: updateState, child: const Text('Update')),
         ],
       ),
     );
