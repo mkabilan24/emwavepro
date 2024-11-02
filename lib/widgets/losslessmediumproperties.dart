@@ -147,9 +147,11 @@ class _LosslessMediumPropertiesWidgetState extends State<LosslessMediumPropertie
             borderRadius: BorderRadius.circular(8), // Optional: Border radius
           ),
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
+            scrollDirection: Axis.horizontal,
             child: ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 100),
+              constraints: BoxConstraints(
+                minWidth: MediaQuery.of(context).size.width, // Maximum width constraint
+              ), 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
