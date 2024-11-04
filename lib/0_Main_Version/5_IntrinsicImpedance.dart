@@ -5,6 +5,7 @@ import 'package:emwavepro/0_Main_Version/2_LaTexExpressionFormatter.dart';
 import 'package:emwavepro/Calculations/complex_math.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
+import 'package:math_keyboard/math_keyboard.dart';
 
 //Lossless
 void calc_intrinsicimpedance() {
@@ -17,6 +18,7 @@ void calc_intrinsicimpedance() {
   double permeabilityValue = convertMathExpressionToDouble(permeability);
   double intrinsicimpedanceValue = sqrt(permeabilityValue / permittivityValue);
   updateDouble(intrinsicimpedance, intrinsicimpedanceValue);
+  print("The Calculated Intrinsic Impedance is $intrinsicimpedanceValue.");
   return;
 }
 
@@ -62,37 +64,36 @@ Widget IntrinsicImpedanceDisplayWidget() {
         textStyle: const TextStyle(fontSize: 18),
       ),
       const SizedBox(width: 10),
-      // Container(
-      //   width: 100, // Set the fixed width
-      //   height: 40, // Set the fixed height
-      //   decoration: BoxDecoration(
-      //     border: Border.all(color: Colors.grey), // Add border if needed
-      //   ),
-      //   child: SingleChildScrollView(
-      //     scrollDirection: Axis.horizontal,
-      //     child: ConstrainedBox(
-      //       constraints: const BoxConstraints(
-      //         minWidth: 100, // Ensure minimum width matches container width
-      //       ),
-      //       child: IntrinsicWidth(
-      //         child: MathField(
-      //             controller: intrinsicimpedance,
-      //             decoration: const InputDecoration(
-      //               hintText: "Input",
-      //               border: InputBorder.none, // Remove the border
-      //             ),
-      //             keyboardType: MathKeyboardType.expression,
-      //             onChanged: (newvalue) {
-      //               setState(() {
-      //                 //updateintrinsicimpedance();
-      //               }); // Trigger a rebuild to update the UI
-      //             }),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      Math.tex(displayexpression(intrinsicimpedance),
-          textStyle: const TextStyle(fontSize: 18)),
+      Container(
+        width: 100, // Set the fixed width
+        height: 40, // Set the fixed height
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey), // Add border if needed
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minWidth: 100, // Ensure minimum width matches container width
+            ),
+            child: IntrinsicWidth(
+              child: MathField(
+                  controller: intrinsicimpedance,
+                  decoration: const InputDecoration(
+                    hintText: "Input",
+                    border: InputBorder.none, // Remove the border
+                  ),
+                  keyboardType: MathKeyboardType.expression,
+                  onChanged: (newvalue) {
+                    // Trigger a rebuild to update the UI
+                  }),
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(width: 10),
+      // Math.tex(displayexpression(intrinsicimpedance),
+      //     textStyle: const TextStyle(fontSize: 18)),
       Math.tex(
         '\\Omega',
         textStyle: const TextStyle(fontSize: 18),

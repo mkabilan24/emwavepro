@@ -1,4 +1,5 @@
 import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/13_WaveNumber.dart';
 import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
 import 'package:emwavepro/0_Main_Version/2_LaTexExpressionFormatter.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,10 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 void calc_freq() {
+  if (angularfreq.isEmpty) {
+    freq.clear();
+    return;
+  }
   double angularfreqValue = getDouble(angularfreq);
   double freqValue = angularfreqValue / (2 * pi);
   updateDouble(freq, freqValue);
@@ -13,6 +18,10 @@ void calc_freq() {
 }
 
 void calc_angular_freq() {
+  if (freq.isEmpty) {
+    angularfreq.clear();
+    return;
+  }
   double freqValue = getDouble(freq);
   double angularfreqValue = 2 * pi * freqValue;
   updateDouble(angularfreq, angularfreqValue);
@@ -48,6 +57,14 @@ Widget FrequencyDisplayWidget() {
                   border: InputBorder.none, // Remove the border
                 ),
                 keyboardType: MathKeyboardType.expression,
+                onChanged: (value) {
+                  if (!onchange) {
+                    onchange = true;
+                    calc_angular_freq();
+                    calc_wavenumber();
+                    onchange = false;
+                  }
+                },
               ),
             ),
           ),
@@ -91,6 +108,14 @@ Widget AngularFrequencyDisplayWidget() {
                   border: InputBorder.none, // Remove the border
                 ),
                 keyboardType: MathKeyboardType.expression,
+                onChanged: (value) {
+                  if (!onchange) {
+                    onchange = true;
+                    calc_freq();
+                    calc_wavenumber();
+                    onchange = false;
+                  }
+                },
               ),
             ),
           ),
