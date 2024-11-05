@@ -1,22 +1,17 @@
-import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
-import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
+import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
+
+import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
+
+
 //Lossless
 void calc_lossless_phaseconstant() {
-  double wavenumberValue = convertMathExpressionToDouble(wavenumber);
+  double wavenumberValue = convertMathExpressionToDouble(lossless_wavenumber);
   double phaseconstantValue = wavenumberValue; //Good Conductor
-  updateDouble(phaseconstant, phaseconstantValue);
-  print("The calculated Phase Constant is $phaseconstantValue.");
-}
-
-//If Good Consuctor
-void calc_phaseconstant() {
-  double attenuationconstantValue = getDouble(attenuationconstant);
-  double phaseconstantValue = attenuationconstantValue; //Good Conductor
-  updateDouble(phaseconstant, phaseconstantValue);
+  updateDouble(lossless_phaseconstant, phaseconstantValue);
   print("The calculated Phase Constant is $phaseconstantValue.");
 }
 
@@ -43,7 +38,7 @@ Widget Lossless_PhaseConstantDisplayWidget() {
             ),
             child: IntrinsicWidth(
               child: MathField(
-                  controller: phaseconstant,
+                  controller: lossless_phaseconstant,
                   decoration: const InputDecoration(
                     hintText: "Input",
                     border: InputBorder.none, // Remove the border

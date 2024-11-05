@@ -1,14 +1,14 @@
-import 'package:emwavepro/widgets/losslessmediumproperties.dart';
-import 'package:emwavepro/widgets/lossymediumproperties.dart';
+import 'package:emwavepro/Archive/widgets/losslessmediumproperties.dart';
+import 'package:emwavepro/Archive/widgets/lossymediumproperties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
-import 'Miscellaneous/theme.dart'; 
+import 'theme.dart'; 
 import 'package:math_keyboard/math_keyboard.dart';
 import 'Calculations/directionvectors.dart';
 import 'Calculations/update_eqns.dart';
-import 'package:emwavepro/widgets/freespaceproperties.dart';
-import 'package:emwavepro/widgets/1ComponentEquations.dart';
-import 'package:emwavepro/widgets/2ComponentEquations.dart';
+import 'package:emwavepro/Archive/widgets/freespaceproperties.dart';
+import 'package:emwavepro/Archive/widgets/1ComponentEquations.dart';
+import 'package:emwavepro/Archive/widgets/2ComponentEquations.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,6 @@
 import 'dart:math';
-import 'package:emwavepro/Calculations/complex_math.dart';
+import 'package:emwavepro/Archive/Calculations/complex_math.dart';
+import 'package:flutter/material.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 bool onchange = false;
@@ -19,7 +20,7 @@ MathFieldEditingController relativepermittivity = MathFieldEditingController();
 MathFieldEditingController relativepermeability = MathFieldEditingController();
 
 //Conductivity
-//Lossless, Conductivity = 0 && Lossy, Conductivity != 0
+//Lossless & FreeSpace, Conductivity = 0 && Lossy, Conductivity != 0
 MathFieldEditingController conductivity = MathFieldEditingController();
 
 //Permittivity
@@ -66,3 +67,27 @@ MathFieldEditingController phasevelocity = MathFieldEditingController();
 
 //Wavelength
 MathFieldEditingController wavelength = MathFieldEditingController();
+
+
+void clearall() {
+  try {
+    angularfreq.clear();
+    freq.clear();
+    relativepermittivity.clear();
+    relativepermeability.clear();
+    conductivity.clear();
+    permittivity.clear();
+    permeability.clear();
+    electricabsoluteE0.clear();
+    magneticabsoluteH0.clear();
+    intrinsicimpedance.clear();
+    wavenumber.clear();
+    losstangent.clear();
+    attenuationconstant.clear();
+    phaseconstant.clear();
+    skindepth.clear();
+    phasevelocity.clear();
+    wavelength.clear();
+  } catch (e) {
+  }
+}

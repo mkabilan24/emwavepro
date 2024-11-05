@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
-import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
-import 'package:emwavepro/0_Main_Version/2_LaTexExpressionFormatter.dart';
-import 'package:emwavepro/Calculations/complex_math.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
+import 'package:emwavepro/Archive/Calculations/complex_math.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';

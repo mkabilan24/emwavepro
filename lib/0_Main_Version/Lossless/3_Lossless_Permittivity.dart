@@ -1,40 +1,42 @@
-import 'package:emwavepro/0_Main_Version/11_Wavelength.dart';
-import 'package:emwavepro/0_Main_Version/13_WaveNumber.dart';
-import 'package:emwavepro/0_Main_Version/2_LaTexExpressionFormatter.dart';
-import 'package:emwavepro/0_Main_Version/5_IntrinsicImpedance.dart';
 import 'package:flutter/material.dart';
-import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
-import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
-import 'package:emwavepro/0_Main_Version/_0Test.dart';
+import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
 
-//Lossless or Lossy
-void calc_permeability() {
-  //\mu=\mu_r\mu_0
-  if (relativepermeability.isEmpty) {
-    permeability.clear();
+import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
+
+import 'package:emwavepro/0_Main_Version/Lossless/8_Lossless_WaveNumber.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/4_Lossless_IntrinsicImpedance.dart';
+
+//Lossless
+void calc_lossless_permittivity() {
+  //\varepsilon = \varepsilon_r \varepsilon_0
+  if (lossless_relativepermittivity.isEmpty) {
+    lossless_permittivity.clear();
     return;
   }
-  double relativePermeabilityValue = convertMathExpressionToDouble(relativepermeability);
-  double permeabilityValue = relativePermeabilityValue * permeabilityOfFreeSpace;
-  updateDouble(permeability, permeabilityValue);
-  print("The Calculated Permeability is $permeabilityValue.");
-}
-class PermeabilityDisplayWidget extends StatefulWidget {
-  @override
-  _PermeabilityDisplayWidgetState createState() => _PermeabilityDisplayWidgetState();
+  double relativePermittivityValue = convertMathExpressionToDouble(lossless_relativepermittivity);
+  double permittivityValue =
+      relativePermittivityValue * permittivityOfFreeSpace;
+  updateDouble(lossless_permittivity, permittivityValue);
+  print("The Calculated Permittivity is $permittivityValue.");
 }
 
-class _PermeabilityDisplayWidgetState extends State<PermeabilityDisplayWidget> {
+class Lossless_PermittivityDisplayWidget extends StatefulWidget {
+  @override
+  _Lossless_PermittivityDisplayWidgetState createState() => _Lossless_PermittivityDisplayWidgetState();
+}
+
+class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_PermittivityDisplayWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(children: [
         Math.tex(
-          '\\text{Permeability, }\\mu = \\mu_{r}\\mu_{0} = ',
+          '\\text{Permittivity, }\\varepsilon = \\varepsilon_{r}\\varepsilon_{0} = ',
           textStyle: const TextStyle(fontSize: 18),
         ),
         const SizedBox(width: 10),
@@ -52,7 +54,7 @@ class _PermeabilityDisplayWidgetState extends State<PermeabilityDisplayWidget> {
               ),
               child: IntrinsicWidth(
                 child: MathField(
-                  controller: relativepermeability,
+                  controller: lossless_relativepermittivity,
                   decoration: const InputDecoration(
                     hintText: "Input",
                     border: InputBorder.none, // Remove the border
@@ -62,9 +64,9 @@ class _PermeabilityDisplayWidgetState extends State<PermeabilityDisplayWidget> {
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        calc_permeability();
-                        calc_intrinsicimpedance();
-                        calc_wavenumber();
+                        calc_lossless_permittivity();
+                        calc_lossless_intrinsicimpedance();
+                        calc_lossless_wavenumber();
                         onchange = false;
                       });
                     }
@@ -75,14 +77,15 @@ class _PermeabilityDisplayWidgetState extends State<PermeabilityDisplayWidget> {
           ),
         ),
         Math.tex(
-          '\\mu_{0} = ',
+          '\\varepsilon_{0} = ',
           textStyle: const TextStyle(fontSize: 18),
         ),
         const SizedBox(width: 10),
-        Math.tex(displayexpression(permeability),
+        Math.tex(displayexpression(lossless_permittivity),
             textStyle: const TextStyle(fontSize: 18)),
+        const SizedBox(width: 10),
         Math.tex(
-          '\\text{ H/m}',
+          '\\text{ F/m}',
           textStyle: const TextStyle(fontSize: 18),
         ),
       ]),

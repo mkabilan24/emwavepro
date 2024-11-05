@@ -1,16 +1,16 @@
-import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
-import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
-import 'package:emwavepro/0_Main_Version/14_DirectionVectors.dart';
-import 'package:emwavepro/0_Main_Version/ErrorSnackBar.dart';
-import 'package:emwavepro/0_Main_Version/GraphicalPlot.dart';
+import 'package:emwavepro/0_Main_Version/Shared/DirectionVectors.dart';
+import 'package:emwavepro/0_Main_Version/Shared/ErrorSnackBar.dart';
+import 'package:emwavepro/0_Main_Version/Shared/GraphicalPlot.dart';
 
-import 'package:emwavepro/widgets/freespaceproperties.dart';
-import 'package:emwavepro/widgets/losslessmediumproperties.dart';
-import 'package:emwavepro/widgets/lossymediumproperties.dart';
+import 'package:emwavepro/Archive/widgets/freespaceproperties.dart';
+import 'package:emwavepro/Archive/widgets/losslessmediumproperties.dart';
+import 'package:emwavepro/Archive/widgets/lossymediumproperties.dart';
 
 class EMFieldEquationsWidget extends StatefulWidget {
   @override

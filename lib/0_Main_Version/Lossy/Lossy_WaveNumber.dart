@@ -1,9 +1,9 @@
 import 'dart:math';
-import 'package:emwavepro/0_Main_Version/0_GlobalVariables.dart';
-import 'package:emwavepro/0_Main_Version/1_MathFieldEditingFunctions.dart';
-import 'package:emwavepro/0_Main_Version/2_LaTexExpressionFormatter.dart';
-import 'package:emwavepro/0_Main_Version/8_PhaseConstant.dart';
-import 'package:emwavepro/Calculations/complex_math.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/7_Lossless_PhaseConstant.dart';
+import 'package:emwavepro/Archive/Calculations/complex_math.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -22,26 +22,6 @@ void calc_wavenumber() {
   print("The calculated Wave Number is $wavenumberValue.");
   print("The calculated Wave Number is ${displayexpression(wavenumber)}.");
   calc_lossless_phaseconstant();
-}
-
-//Lossy
-void calc_complexwavenumber() {
-  double permittivityValue = convertMathExpressionToDouble(permittivity);
-  double permeabilityValue = convertMathExpressionToDouble(permeability);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
-  double conductivityValue = convertMathExpressionToDouble(conductivity);
-
-  double realvalue = pow(angularfreqValue, 2) * permeabilityValue * permittivityValue;
-  double imaginaryvalue = pow(angularfreqValue, 2) * permeabilityValue * (conductivityValue/angularfreqValue);
-
-  Complex z = Complex(realvalue, -imaginaryvalue);
-
-  // Compute the 2 roots of the complex number
-  waveNumberRoots = z.nthRoots(2);
-  complexwavenumber_root1 = waveNumberRoots[0];
-  complexwavenumber_root2 = waveNumberRoots[1];
-  print("The value of Complex Wave Number Root 1 is: ${complexwavenumber_root1.toString()}");
-  print("The value of Complex Wave Number Root 2 is: ${complexwavenumber_root2.toString()}");
 }
 
 Widget WaveNumberDisplayWidget() {
