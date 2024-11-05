@@ -1,5 +1,3 @@
-import 'package:emwavepro/0_Main_Version/Lossless/10_Lossless_H0.dart';
-import 'package:emwavepro/0_Main_Version/Lossless/11_Lossless_PhaseConstant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:emwavepro/0_Main_Version/Lossless/5_Lossless_Frequencies.dart';
@@ -7,6 +5,8 @@ import 'package:emwavepro/0_Main_Version/Lossless/6_Lossless_AttenuationConstant
 import 'package:emwavepro/0_Main_Version/Lossless/7_Lossless_PhaseConstant.dart';
 import 'package:emwavepro/0_Main_Version/Lossless/8_Lossless_WaveNumber.dart';
 import 'package:emwavepro/0_Main_Version/Lossless/9_Lossless_E0.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/10_Lossless_H0.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/11_Lossless_PhaseAngle.dart';
 
 /// A widget that displays properties of a lossless medium.
 class LosslessWaveEMPropertiesWidget extends StatelessWidget {

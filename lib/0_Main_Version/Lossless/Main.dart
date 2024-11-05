@@ -207,8 +207,14 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                       const SizedBox(width: 20), // Add space between buttons
                       ElevatedButton(
                         onPressed: () {
-                          // Add your onPressed logic here
+                          setState(() {
+                            clearAllFields();
+                          });
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 255, 122, 112), // Background color
+                          foregroundColor: Colors.black, // Font color
+                        ),
                         child: const Text('Clear All'),
                       ),
                     ],

@@ -42,13 +42,13 @@ MathFieldEditingController lossless_attenuationconstant = MathFieldEditingContro
 //Phase Constant
 MathFieldEditingController lossless_phaseconstant = MathFieldEditingController();
 
-//
-//
+
+//Equations
 MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
 MathFieldEditingController phaseangle = MathFieldEditingController();
 
-//
+//Not Included Yet
 //Skin Depth
 MathFieldEditingController skindepth = MathFieldEditingController();
 
@@ -57,3 +57,18 @@ MathFieldEditingController phasevelocity = MathFieldEditingController();
 
 //Wavelength
 MathFieldEditingController wavelength = MathFieldEditingController();
+
+void clearAllFields() {
+  lossless_relativepermittivity.clear();
+  lossless_relativepermeability.clear();
+  lossless_conductivity.clear();
+  lossless_permittivity.clear();
+  lossless_permeability.clear();
+  lossless_intrinsicimpedance.clear();
+  lossless_wavenumber.clear();
+  lossless_attenuationconstant.clear();
+  lossless_phaseconstant.clear();
+  electricabsoluteE0.clear();
+  magneticabsoluteH0.clear();
+  phaseangle.clear();
+}
