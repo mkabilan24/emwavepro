@@ -16,48 +16,45 @@ MathFieldEditingController angularfreq = MathFieldEditingController();
 MathFieldEditingController freq = MathFieldEditingController();
 
 //Relative Permittivity and Permeability
-MathFieldEditingController relativepermittivity = MathFieldEditingController();
-MathFieldEditingController relativepermeability = MathFieldEditingController();
+MathFieldEditingController lossy_relativepermittivity = MathFieldEditingController();
+MathFieldEditingController lossy_relativepermeability = MathFieldEditingController();
 
 //Conductivity
 //Lossless & FreeSpace, Conductivity = 0 && Lossy, Conductivity != 0
-MathFieldEditingController conductivity = MathFieldEditingController();
+MathFieldEditingController lossy_conductivity = MathFieldEditingController();
 
 //Permittivity
-//Lossless
-MathFieldEditingController permittivity = MathFieldEditingController();
 //Lossy
 Complex complexpermittivity = Complex(0, 0);
 
 //Permeability
-MathFieldEditingController permeability = MathFieldEditingController();
+MathFieldEditingController lossy_permeability = MathFieldEditingController();
 
 
 MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
 
 //Intrinsic impedance
-//Lossless
-MathFieldEditingController intrinsicimpedance = MathFieldEditingController();
 //Lossy
 List intrinsicimpedanceroots = [];
 Complex complexintrinsicimpedance = Complex(0, 0);
 
 //Wave Number
-//Lossless
-MathFieldEditingController wavenumber = MathFieldEditingController();
 //Lossy
 List waveNumberRoots = [];
 Complex complexwavenumber_root1 = Complex(0, 0);
 Complex complexwavenumber_root2 = Complex(0, 0);
 
-MathFieldEditingController losstangent = MathFieldEditingController();
-
 //Attenuation Constant
-MathFieldEditingController attenuationconstant = MathFieldEditingController();
+MathFieldEditingController lossy_attenuationconstant = MathFieldEditingController();
 
 //Phase Constant
-MathFieldEditingController phaseconstant = MathFieldEditingController();
+MathFieldEditingController lossy_phaseconstant = MathFieldEditingController();
+
+
+//
+//
+MathFieldEditingController losstangent = MathFieldEditingController();
 
 //Skin Depth
 MathFieldEditingController skindepth = MathFieldEditingController();
@@ -67,27 +64,3 @@ MathFieldEditingController phasevelocity = MathFieldEditingController();
 
 //Wavelength
 MathFieldEditingController wavelength = MathFieldEditingController();
-
-
-void clearall() {
-  try {
-    angularfreq.clear();
-    freq.clear();
-    relativepermittivity.clear();
-    relativepermeability.clear();
-    conductivity.clear();
-    permittivity.clear();
-    permeability.clear();
-    electricabsoluteE0.clear();
-    magneticabsoluteH0.clear();
-    intrinsicimpedance.clear();
-    wavenumber.clear();
-    losstangent.clear();
-    attenuationconstant.clear();
-    phaseconstant.clear();
-    skindepth.clear();
-    phasevelocity.clear();
-    wavelength.clear();
-  } catch (e) {
-  }
-}

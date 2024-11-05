@@ -32,7 +32,7 @@ class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_Permeabili
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(5.0),
       child: Row(children: [
         Math.tex(
           '\\text{Permeability, }\\mu = \\mu_{r}\\mu_{0} = ',

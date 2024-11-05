@@ -17,7 +17,7 @@ void calc_lossless_phaseconstant() {
 
 Widget Lossless_PhaseConstantDisplayWidget() {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
         '\\text{Phase Constant, } \\beta = k = ',
@@ -51,6 +51,10 @@ Widget Lossless_PhaseConstantDisplayWidget() {
           ),
         ),
       ),
+      Math.tex(
+        '\\text{ rad/m}',
+        textStyle: const TextStyle(fontSize: 18),
+      )
     ]),
   );
 }

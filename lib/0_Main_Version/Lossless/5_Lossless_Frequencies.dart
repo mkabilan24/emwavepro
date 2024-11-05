@@ -32,7 +32,7 @@ void calc_angular_freq() {
 
 Widget FrequencyDisplayWidget() {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
         '\\text{Frequency, }f = ',
@@ -83,7 +83,7 @@ Widget FrequencyDisplayWidget() {
 
 Widget AngularFrequencyDisplayWidget() {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
         '\\text{Angular Frequency, }\\omega = 2\\pi f = ',
@@ -115,6 +115,7 @@ Widget AngularFrequencyDisplayWidget() {
                     onchange = true;
                     calc_freq();
                     calc_lossless_wavenumber();
+                    
                     onchange = false;
                   }
                 },

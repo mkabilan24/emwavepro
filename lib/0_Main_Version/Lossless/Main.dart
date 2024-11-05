@@ -1,16 +1,16 @@
-import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
-import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
+import 'dart:math';
 
+import 'package:emwavepro/0_Main_Version/Lossless/Lossless_WaveEM_Properties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
+
+import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/Lossless_Medium_Properties.dart';
+import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/0_Main_Version/Shared/DirectionVectors.dart';
 import 'package:emwavepro/0_Main_Version/Shared/ErrorSnackBar.dart';
 import 'package:emwavepro/0_Main_Version/Shared/GraphicalPlot.dart';
-
-import 'package:emwavepro/Archive/widgets/freespaceproperties.dart';
-import 'package:emwavepro/Archive/widgets/losslessmediumproperties.dart';
-import 'package:emwavepro/Archive/widgets/lossymediumproperties.dart';
 
 class EMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -47,11 +47,11 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     return vectorMap[latexVector] ?? Point3D(0, 0, 0); 
   }
 
-  final MathFieldEditingController _E0Controller = MathFieldEditingController();
-  final MathFieldEditingController _H0Controller = MathFieldEditingController();
-  final MathFieldEditingController _phiController = MathFieldEditingController();
-  final MathFieldEditingController _angularfreq = MathFieldEditingController();
-  final MathFieldEditingController _wavenumber = MathFieldEditingController();
+  final MathFieldEditingController _E0Controller = electricabsoluteE0;
+  final MathFieldEditingController _H0Controller = magneticabsoluteH0;
+  final MathFieldEditingController _phiController = phaseangle;
+  final MathFieldEditingController _angularfreq = angularfreq;
+  final MathFieldEditingController _wavenumber = lossless_wavenumber;
 
   // Default directions of EM Wave
   String a_E_Field_Propagation = '+\\vec{a}_x';
@@ -129,9 +129,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
 
   void _validateAngularFrequency(
       BuildContext context, MathFieldEditingController controller) {
-    double? angularFrequency =
-        double.tryParse(controller.currentEditingValue());
-    if (angularFrequency != null && angularFrequency < 0) {
+    double? angularFrequency = convertMathExpressionToDouble(controller);
+    if (angularFrequency < 0) {
       snackbarController.showTemporaryErrorSnackBar(
           context, "Angular Frequency (ω) must be positive!");
       controller.clear();
@@ -140,8 +139,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
 
   void _validateWavenumber(
       BuildContext context, MathFieldEditingController controller) {
-    double? wavenumber = double.tryParse(controller.currentEditingValue());
-    if (wavenumber != null && wavenumber < 0) {
+    double? wavenumber = convertMathExpressionToDouble(controller);
+    if (wavenumber < 0) {
       snackbarController.showTemporaryErrorSnackBar(
           context, "Wavenumber (k) must be positive!");
       controller.clear();
@@ -159,62 +158,49 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     }
   }
 
+  double scaleNumber(double number, double minScale, double maxScale) {
+    if (number == 0) return minScale;
+    
+    // Calculate the logarithmic scale factor
+    double logMin = -10; // Adjust this value based on the smallest expected input
+    double logMax = 10;  // Adjust this value based on the largest expected input
+
+    // Apply logarithmic scaling
+    double logNumber = number.sign * (log(number.abs()) / ln10);
+
+    // Normalize the logNumber to the range [0, 1]
+    double normalized = (logNumber - logMin) / (logMax - logMin);
+
+    // Scale to the desired range [minScale, maxScale]
+    double scaledNumber = minScale + normalized * (maxScale - minScale);
+
+    // Clamp the result to ensure it's within the range
+    return scaledNumber.clamp(minScale, maxScale);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EM Wave Equations'),
+        title: const Text('EM Wave Analysis'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: [//Free Space Properties
-          FreespacePropertiesWidget(),
-          //Lossless Medium Properties
-          LosslessMediumPropertiesWidget(),
-          //Lossy Medium Properties
-          LossyMediumPropertiesWidget(),
+          children: [
             Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
-                  // Input Fields
-                  const Text('Inputs'),
-                  MathField(
-                    controller: _E0Controller,
-                    decoration: const InputDecoration(
-                        labelText: 'Amplitude of E-Field, E₀'),
-                    onChanged: (value) => setState(() {}),
-                  ),
-                  MathField(
-                    controller: _H0Controller,
-                    decoration: const InputDecoration(
-                        labelText: 'Amplitude of H-Field, H₀'),
-                    onChanged: (value) => setState(() {}),
-                  ),
-                  MathField(
-                    controller: _phiController,
-                    decoration:
-                        const InputDecoration(labelText: 'Phase angle, φ'),
-                    onChanged: (value) => setState(() {}),
-                  ),
-                  MathField(
-                    controller: _angularfreq,
-                    decoration: const InputDecoration(
-                        labelText: 'Angular Frequency, ω'),
-                    onChanged: (value) {
-                      _validateAngularFrequency(context, _angularfreq);
+                  LosslessMediumDropdown(),
+                  LosslessWaveEMDropdown(),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
                       setState(() {});
                     },
+                    child: const Text('Generare EM Wave'),
                   ),
-                  MathField(
-                    controller: _wavenumber,
-                    decoration:
-                        const InputDecoration(labelText: 'Wavenumber, k'),
-                    onChanged: (value) {
-                      _validateWavenumber(context, _wavenumber);
-                      setState(() {});
-                    },
-                  ),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       Math.tex(
@@ -280,17 +266,29 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                   ),
                   const SizedBox(height: 20),
                   // Display Equations
-                  const Text('Time Domain Equations:'),
-                  Math.tex(_generateETimeDomainEquation(),
-                      textStyle: const TextStyle(fontSize: 20)),
-                  Math.tex(_generateHTimeDomainEquation(),
-                      textStyle: const TextStyle(fontSize: 20)),
-                  const SizedBox(height: 20),
-                  const Text('Phasor Domain Equations:'),
-                  Math.tex(_generateEPhasorDomainEquation(),
-                      textStyle: const TextStyle(fontSize: 20)),
-                  Math.tex(_generateHPhasorDomainEquation(),
-                      textStyle: const TextStyle(fontSize: 20)),
+                  Container(
+                    padding: const EdgeInsets.all(0.0), // You can adjust the padding as needed
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Time Domain Equations:'),
+                            Math.tex(_generateETimeDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                            Math.tex(_generateHTimeDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                            const SizedBox(height: 20),
+                            const Text('Phasor Domain Equations:'),
+                            Math.tex(_generateEPhasorDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                            Math.tex(_generateHPhasorDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                          ],
+                        ),
+                      ),
+                  ),
+                  
                   const SizedBox(height: 20),
                   Center(
                     child: Container(
@@ -309,12 +307,12 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                               angleY: angleY,
                               zoom: zoom,
                               labeloffset: labeloffset,
-                              eFieldMagnitude1: _E0Controller.isEmpty ? 0 : getDouble(_E0Controller),
-                              hFieldMagnitude1: _H0Controller.isEmpty ? 0 : getDouble(_H0Controller),
+                              eFieldMagnitude1: _E0Controller.isEmpty ? 0 : scaleNumber(getDouble(_E0Controller), 0, 100),
+                              hFieldMagnitude1: _H0Controller.isEmpty ? 0 : scaleNumber(getDouble(_H0Controller), 0, 100),
                               eFieldMagnitude2: 0,
                               hFieldMagnitude2: 0,
-                              waveNumber: _wavenumber.isEmpty ? 0 : getDouble(_wavenumber),
-                              phasorAngle: _phiController.isEmpty ? 0 : getDouble(_phiController),
+                              waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
+                              phasorAngle: _phiController.isEmpty ? 0 : convertMathExpressionToDouble(_phiController),
                               eFieldDirection1: vectorFromLatex(a_E_Field_Propagation),
                               hFieldDirection1: vectorFromLatex(a_H_Field_Propagation),
                               eFieldDirection2: Point3D(0, 0, 0),

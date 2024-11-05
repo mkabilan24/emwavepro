@@ -1,37 +1,29 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
 
 import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
 
-import 'package:emwavepro/0_Main_Version/Lossless/7_Lossless_PhaseConstant.dart';
-
-//Lossless
-void calc_lossless_wavenumber() {
-  if (lossless_permittivity.isEmpty || lossless_permeability.isEmpty || angularfreq.isEmpty) {
-    lossless_wavenumber.clear();
+void calc_lossless_E0() {
+  if (lossless_intrinsicimpedance.isEmpty || magneticabsoluteH0.isEmpty) {
+    electricabsoluteE0.clear();
     return;
   }
-  double permittivityValue = convertMathExpressionToDouble(lossless_permittivity);
-  double permeabilityValue = convertMathExpressionToDouble(lossless_permeability);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
-  double wavenumberValue = sqrt(pow(angularfreqValue, 2) * permittivityValue * permeabilityValue);
-  updateDouble(lossless_wavenumber, wavenumberValue);
-  print("The calculated Wave Number is $wavenumberValue.");
-  print("The calculated Wave Number is ${displayexpression(lossless_wavenumber)}.");
-  calc_lossless_phaseconstant();
+  double intrinsicimpedanceValue = convertMathExpressionToDouble(lossless_intrinsicimpedance);
+  double magneticabsoluteH0Value = convertMathExpressionToDouble(magneticabsoluteH0);
+  double electricabsoluteE0Value = intrinsicimpedanceValue * magneticabsoluteH0Value;
+  updateDouble(electricabsoluteE0, electricabsoluteE0Value);
+  print("|E₀| = $electricabsoluteE0Value.");
 }
 
-Widget Lossless_WaveNumberDisplayWidget() {
+Widget H0DisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
-        '\\text{Wave Number, }k = \\sqrt{\\omega^{2}\\mu\\varepsilon} = ',
+        "\\text{Amplitude of H-Field, H₀ = }",
         textStyle: const TextStyle(fontSize: 18),
       ),
       const SizedBox(width: 10),
@@ -49,17 +41,28 @@ Widget Lossless_WaveNumberDisplayWidget() {
             ),
             child: IntrinsicWidth(
               child: MathField(
-                controller: lossless_wavenumber,
+                controller: magneticabsoluteH0,
                 decoration: const InputDecoration(
                   hintText: "Input",
                   border: InputBorder.none, // Remove the border
                 ),
                 keyboardType: MathKeyboardType.expression,
+                onChanged: (value) {
+                  if (!onchange) {
+                    onchange = true;
+                    calc_lossless_E0();
+                    onchange = false;
+                  }
+                },
               ),
             ),
           ),
         ),
       ),
+      Math.tex(
+        '\\text{ A/m}',
+        textStyle: const TextStyle(fontSize: 18),
+      )
     ]),
   );
 }

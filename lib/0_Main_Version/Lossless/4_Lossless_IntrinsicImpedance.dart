@@ -42,7 +42,7 @@ void calc_H0() {
 
 Widget Lossless_IntrinsicImpedanceDisplayWidget() {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
         '\\text{Intrinsic Impedance, }',

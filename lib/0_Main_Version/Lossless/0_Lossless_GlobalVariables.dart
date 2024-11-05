@@ -46,8 +46,9 @@ MathFieldEditingController lossless_phaseconstant = MathFieldEditingController()
 //
 MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
+MathFieldEditingController phaseangle = MathFieldEditingController();
 
-
+//
 //Skin Depth
 MathFieldEditingController skindepth = MathFieldEditingController();
 

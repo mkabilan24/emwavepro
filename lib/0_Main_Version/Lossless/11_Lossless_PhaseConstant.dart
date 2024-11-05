@@ -1,37 +1,15 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
-import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
-
 import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
 
-import 'package:emwavepro/0_Main_Version/Lossless/7_Lossless_PhaseConstant.dart';
-
-//Lossless
-void calc_lossless_wavenumber() {
-  if (lossless_permittivity.isEmpty || lossless_permeability.isEmpty || angularfreq.isEmpty) {
-    lossless_wavenumber.clear();
-    return;
-  }
-  double permittivityValue = convertMathExpressionToDouble(lossless_permittivity);
-  double permeabilityValue = convertMathExpressionToDouble(lossless_permeability);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
-  double wavenumberValue = sqrt(pow(angularfreqValue, 2) * permittivityValue * permeabilityValue);
-  updateDouble(lossless_wavenumber, wavenumberValue);
-  print("The calculated Wave Number is $wavenumberValue.");
-  print("The calculated Wave Number is ${displayexpression(lossless_wavenumber)}.");
-  calc_lossless_phaseconstant();
-}
-
-Widget Lossless_WaveNumberDisplayWidget() {
+Widget PhaseAngleDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
-        '\\text{Wave Number, }k = \\sqrt{\\omega^{2}\\mu\\varepsilon} = ',
+        "\\text{Phase angle, φ =}",
         textStyle: const TextStyle(fontSize: 18),
       ),
       const SizedBox(width: 10),
@@ -49,7 +27,7 @@ Widget Lossless_WaveNumberDisplayWidget() {
             ),
             child: IntrinsicWidth(
               child: MathField(
-                controller: lossless_wavenumber,
+                controller: phaseangle,
                 decoration: const InputDecoration(
                   hintText: "Input",
                   border: InputBorder.none, // Remove the border
@@ -60,6 +38,10 @@ Widget Lossless_WaveNumberDisplayWidget() {
           ),
         ),
       ),
+      Math.tex(
+        '\\text{ degrees}',
+        textStyle: const TextStyle(fontSize: 18),
+      )
     ]),
   );
 }
