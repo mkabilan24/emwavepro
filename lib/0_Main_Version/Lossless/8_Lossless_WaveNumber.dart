@@ -55,6 +55,13 @@ Widget Lossless_WaveNumberDisplayWidget() {
                   border: InputBorder.none, // Remove the border
                 ),
                 keyboardType: MathKeyboardType.expression,
+                onChanged: (value) {
+                  if (!onchange) {
+                    onchange = true;
+                    calc_lossless_phaseconstant();
+                    onchange = false;
+                  }
+                },
               ),
             ),
           ),

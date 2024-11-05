@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:emwavepro/0_Main_Version/Lossless/Lossless_WaveEM_Properties.dart';
+import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -103,28 +104,28 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     String wavepropagationsign = _getSign(a_k_Wave_Propagation);
     String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
 
-    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $wavepropagationsign ${(_wavenumber.isEmpty) ? 'k' : _wavenumber.currentEditingValue()}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
+    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $wavepropagationsign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
   }
 
   String _generateEPhasorDomainEquation() {
     String sign = _getSign(a_k_Wave_Propagation);
     String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
 
-    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : _wavenumber.currentEditingValue()}$wavePropagationAxis}';
+    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
   }
 
   String _generateHTimeDomainEquation() {
     String sign = _getSign(a_k_Wave_Propagation);
     String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
 
-    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $sign ${(_wavenumber.isEmpty) ? 'k' : _wavenumber.currentEditingValue()}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
+    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $sign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
   }
 
   String _generateHPhasorDomainEquation() {
     String sign = _getSign(a_k_Wave_Propagation);
     String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
 
-    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : _wavenumber.currentEditingValue()}$wavePropagationAxis}';
+    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
   }
 
   void _validateAngularFrequency(
@@ -194,11 +195,23 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                   LosslessMediumDropdown(),
                   LosslessWaveEMDropdown(),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: const Text('Generare EM Wave'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: const Text('Generare EM Wave'),
+                      ),
+                      const SizedBox(width: 20), // Add space between buttons
+                      ElevatedButton(
+                        onPressed: () {
+                          // Add your onPressed logic here
+                        },
+                        child: const Text('Clear All'),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Row(

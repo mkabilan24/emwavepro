@@ -9,10 +9,24 @@ import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dar
 
 //Lossless
 void calc_lossless_phaseconstant() {
+  if (lossless_wavenumber.isEmpty) {
+    lossless_phaseconstant.clear();
+    return;
+  }
   double wavenumberValue = convertMathExpressionToDouble(lossless_wavenumber);
-  double phaseconstantValue = wavenumberValue; //Good Conductor
+  double phaseconstantValue = wavenumberValue;
   updateDouble(lossless_phaseconstant, phaseconstantValue);
   print("The calculated Phase Constant is $phaseconstantValue.");
+}
+
+void sync_lossless_phaseconstant_wavenumber() {
+  if (lossless_phaseconstant.isEmpty) {
+    lossless_wavenumber.clear();
+    return;
+  }
+  double phaseconstantValue = convertMathExpressionToDouble(lossless_phaseconstant);
+  updateDouble(lossless_wavenumber, phaseconstantValue);
+  print("The calculated Wave Number is $phaseconstantValue.");
 }
 
 Widget Lossless_PhaseConstantDisplayWidget() {
@@ -45,7 +59,11 @@ Widget Lossless_PhaseConstantDisplayWidget() {
                   ),
                   keyboardType: MathKeyboardType.expression,
                   onChanged: (newvalue) {
-                    // Trigger a rebuild to update the UI
+                    if (!onchange) {
+                      onchange = true;
+                      sync_lossless_phaseconstant_wavenumber();
+                      onchange = false;
+                    }
                   }),
             ),
           ),
