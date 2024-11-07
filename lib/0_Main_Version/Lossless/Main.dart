@@ -1,17 +1,17 @@
 import 'dart:math';
-
-import 'package:emwavepro/0_Main_Version/Lossless/Lossless_WaveEM_Properties.dart';
-import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
+import 'package:emwavepro/0_Main_Version/Lossless/Lossless_WaveEM_Properties.dart';
 import 'package:emwavepro/0_Main_Version/Lossless/0_Lossless_GlobalVariables.dart';
 import 'package:emwavepro/0_Main_Version/Lossless/Lossless_Medium_Properties.dart';
+
 import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/0_Main_Version/Shared/DirectionVectors.dart';
 import 'package:emwavepro/0_Main_Version/Shared/ErrorSnackBar.dart';
 import 'package:emwavepro/0_Main_Version/Shared/GraphicalPlot.dart';
+import 'package:emwavepro/0_Main_Version/Shared/LaTexExpressionFormatter.dart';
 
 class EMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -331,7 +331,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                               eFieldMagnitude2: 0,
                               hFieldMagnitude2: 0,
                               waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
-                              phasorAngle: _phiController.isEmpty ? 0 : convertMathExpressionToDouble(_phiController),
+                              phasorAngle1: _phiController.isEmpty ? 0 : convertMathExpressionToDouble(_phiController),
+                              phasorAngle2: 0,
                               eFieldDirection1: vectorFromLatex(a_E_Field_Propagation),
                               hFieldDirection1: vectorFromLatex(a_H_Field_Propagation),
                               eFieldDirection2: Point3D(0, 0, 0),

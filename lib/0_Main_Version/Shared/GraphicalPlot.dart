@@ -4,76 +4,77 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'dart:ui' as ui;
 
 //FOR TESTING PURPOSES
-// void main() => runApp(MaterialApp(home: Scaffold(body: Custom3DGraph())));
+void main() => runApp(MaterialApp(home: Scaffold(body: Custom3DGraph())));
 
-// class Custom3DGraph extends StatefulWidget {
-//   @override
-//   _Custom3DGraphState createState() => _Custom3DGraphState();
-// }
+class Custom3DGraph extends StatefulWidget {
+  @override
+  _Custom3DGraphState createState() => _Custom3DGraphState();
+}
 
-// class _Custom3DGraphState extends State<Custom3DGraph> {
-//   double angleX = pi;
-//   double angleY = 0;
-//   double zoom = 500.0; // Increased zoom for a closer view
-//   double labeloffset = 0.0;
-//   double eFieldMagnitude1 = 30.0;
-//   double hFieldMagnitude1 = 30.0;
-//   double eFieldMagnitude2 = 30; // Second component magnitude
-//   double hFieldMagnitude2 = 30; // Second component magnitude
-//   double waveNumber = 2; // Wavenumber (example value)
-//   double phasorAngle = 90; // Phasor angle
-//   Point3D eFieldDirection1 = Point3D(0, 1, 0); // E-Field direction along X-axis
-//   Point3D hFieldDirection1 = Point3D(0, 0, 1); // H-Field direction along Y-axis
-//   Point3D eFieldDirection2 = Point3D(0, 0, -1); // Second E-Field direction
-//   Point3D hFieldDirection2 = Point3D(0, 1, 0); // Second H-Field direction
-//   Point3D wavePropagationDirection = Point3D(1, 0, 0); // Wave propagation along Z-axis
+class _Custom3DGraphState extends State<Custom3DGraph> {
+  double angleX = pi;
+  double angleY = 0;
+  double zoom = 500.0; // Increased zoom for a closer view
+  double labeloffset = 0.0;
+  double eFieldMagnitude1 = 30.0;
+  double hFieldMagnitude1 = 30.0;
+  double eFieldMagnitude2 = 30; // Second component magnitude
+  double hFieldMagnitude2 = 30; // Second component magnitude
+  double waveNumber = 2; // Wavenumber (example value)
+  double phasorAngle = 90; // Phasor angle
+  Point3D eFieldDirection1 = Point3D(0, 1, 0); // E-Field direction along X-axis
+  Point3D hFieldDirection1 = Point3D(0, 0, 1); // H-Field direction along Y-axis
+  Point3D eFieldDirection2 = Point3D(0, 0, -1); // Second E-Field direction
+  Point3D hFieldDirection2 = Point3D(0, 1, 0); // Second H-Field direction
+  Point3D wavePropagationDirection = Point3D(1, 0, 0); // Wave propagation along Z-axis
 
-//   void onScaleUpdate(ScaleUpdateDetails details) {
-//     setState(() {
-//       angleX += details.focalPointDelta.dy * 0.01; // Rotate around X-axis
-//       angleY += details.focalPointDelta.dx * 0.01; // Rotate around Y-axis
-//       zoom = (zoom * details.scale).clamp(100.0, 800.0); // Zoom range
-//     });
-//   }
+  void onScaleUpdate(ScaleUpdateDetails details) {
+    setState(() {
+      angleX += details.focalPointDelta.dy * 0.01; // Rotate around X-axis
+      angleY += details.focalPointDelta.dx * 0.01; // Rotate around Y-axis
+      zoom = (zoom * details.scale).clamp(100.0, 800.0); // Zoom range
+    });
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Container(
-//         width: 300, 
-//         height: 300,
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           border: Border.all(color: Colors.black, width: 2),
-//           borderRadius: BorderRadius.circular(10),
-//         ),
-//         child: GestureDetector(
-//           onScaleUpdate: onScaleUpdate,
-//           child: CustomPaint(
-//             painter: Graph3DPainter(
-//               angleX: angleX,
-//               angleY: angleY,
-//               zoom: zoom,
-//               labeloffset: labeloffset,
-//               eFieldMagnitude1: 30.0,
-//               hFieldMagnitude1: 30.0,
-//               eFieldMagnitude2: 30.0,
-//               hFieldMagnitude2: 30.0,
-//               waveNumber: 2.0,
-//               phasorAngle: 90.0,
-//               eFieldDirection1: Point3D(0, 1, 0),
-//               hFieldDirection1: Point3D(0, 0, 1),
-//               eFieldDirection2: Point3D(0, 0, -1),
-//               hFieldDirection2: Point3D(0, 1, 0),
-//               wavePropagationDirection: Point3D(1, 0, 0),
-//             ),
-//             size: Size.infinite,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 300, 
+        height: 300,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.black, width: 2),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: GestureDetector(
+          onScaleUpdate: onScaleUpdate,
+          child: CustomPaint(
+            painter: Graph3DPainter(
+              angleX: angleX,
+              angleY: angleY,
+              zoom: zoom,
+              labeloffset: labeloffset,
+              eFieldMagnitude1: 30.0,
+              hFieldMagnitude1: 30.0,
+              eFieldMagnitude2: 30.0,
+              hFieldMagnitude2: 30.0,
+              waveNumber: 2.0,
+              phasorAngle1: 90.0,
+              phasorAngle2: 30.0,
+              eFieldDirection1: Point3D(0, 1, 0),
+              hFieldDirection1: Point3D(0, 0, 1),
+              eFieldDirection2: Point3D(0, 0, -1),
+              hFieldDirection2: Point3D(0, 1, 0),
+              wavePropagationDirection: Point3D(1, 0, 0),
+            ),
+            size: Size.infinite,
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class Graph3DPainter extends CustomPainter {
   final double angleX;
@@ -85,7 +86,8 @@ class Graph3DPainter extends CustomPainter {
   final double eFieldMagnitude2;
   final double hFieldMagnitude2;
   final double waveNumber;
-  final double phasorAngle;
+  final double phasorAngle1;
+  final double phasorAngle2;
   final Point3D eFieldDirection1;
   final Point3D hFieldDirection1;
   final Point3D eFieldDirection2;
@@ -96,7 +98,7 @@ class Graph3DPainter extends CustomPainter {
     {required this.angleX, required this.angleY, required this.zoom,required this.labeloffset, 
     required this.eFieldMagnitude1, required this.hFieldMagnitude1, 
     required this.eFieldMagnitude2, required this.hFieldMagnitude2, 
-    required this.waveNumber, required this.phasorAngle, 
+    required this.waveNumber, required this.phasorAngle1, required this.phasorAngle2,
     required this.eFieldDirection1, required this.hFieldDirection1, 
     required this.eFieldDirection2, required this.hFieldDirection2, 
     required this.wavePropagationDirection}
@@ -219,36 +221,46 @@ class Graph3DPainter extends CustomPainter {
   }
 
   void drawResultantEMWave(Canvas canvas, Offset center, Paint wavePaint) {
-  const int pointsCount = 200;
-  List<Point3D> emWavePoints = List.generate(pointsCount, (i) {
-    double t = i / 10.0;
-    double eFieldX = eFieldMagnitude1 * eFieldDirection1.x * sin(waveNumber * t + phasorAngle) + eFieldMagnitude2 * eFieldDirection2.x * sin(waveNumber * t + phasorAngle);
-    double eFieldY = eFieldMagnitude1 * eFieldDirection1.y * sin(waveNumber * t + phasorAngle) + eFieldMagnitude2 * eFieldDirection2.y * sin(waveNumber * t + phasorAngle);
-    double eFieldZ = eFieldMagnitude1 * eFieldDirection1.z * sin(waveNumber * t + phasorAngle) + eFieldMagnitude2 * eFieldDirection2.z * sin(waveNumber * t + phasorAngle);
-    double hFieldX = hFieldMagnitude1 * hFieldDirection1.x * cos(waveNumber * t + phasorAngle) + hFieldMagnitude2 * hFieldDirection2.x * cos(waveNumber * t + phasorAngle);
-    double hFieldY = hFieldMagnitude1 * hFieldDirection1.y * cos(waveNumber * t + phasorAngle) + hFieldMagnitude2 * hFieldDirection2.y * cos(waveNumber * t + phasorAngle);
-    double hFieldZ = hFieldMagnitude1 * hFieldDirection1.z * cos(waveNumber * t + phasorAngle) + hFieldMagnitude2 * hFieldDirection2.z * cos(waveNumber * t + phasorAngle);
+    const int pointsCount = 200;
+    List<Point3D> emWavePoints = List.generate(pointsCount, (i) {
+      double t = i / 10.0;
+      
+      // Apply phasorAngle1 to the first field components and phasorAngle2 to the second components
+      double eFieldX = eFieldMagnitude1 * eFieldDirection1.x * sin(waveNumber * t + phasorAngle1) + 
+                      eFieldMagnitude2 * eFieldDirection2.x * sin(waveNumber * t + phasorAngle2);
+      double eFieldY = eFieldMagnitude1 * eFieldDirection1.y * sin(waveNumber * t + phasorAngle1) + 
+                      eFieldMagnitude2 * eFieldDirection2.y * sin(waveNumber * t + phasorAngle2);
+      double eFieldZ = eFieldMagnitude1 * eFieldDirection1.z * sin(waveNumber * t + phasorAngle1) + 
+                      eFieldMagnitude2 * eFieldDirection2.z * sin(waveNumber * t + phasorAngle2);
+      
+      double hFieldX = hFieldMagnitude1 * hFieldDirection1.x * cos(waveNumber * t + phasorAngle1) + 
+                      hFieldMagnitude2 * hFieldDirection2.x * cos(waveNumber * t + phasorAngle2);
+      double hFieldY = hFieldMagnitude1 * hFieldDirection1.y * cos(waveNumber * t + phasorAngle1) + 
+                      hFieldMagnitude2 * hFieldDirection2.y * cos(waveNumber * t + phasorAngle2);
+      double hFieldZ = hFieldMagnitude1 * hFieldDirection1.z * cos(waveNumber * t + phasorAngle1) + 
+                      hFieldMagnitude2 * hFieldDirection2.z * cos(waveNumber * t + phasorAngle2);
 
-    // Calculate the wave propagation along the specified direction
-    double waveX = wavePropagationDirection.x * t * 5;
-    double waveY = wavePropagationDirection.y * t * 5;
-    double waveZ = wavePropagationDirection.z * t * 5;
+      // Wave propagation along the specified direction
+      double waveX = wavePropagationDirection.x * t * 5;
+      double waveY = wavePropagationDirection.y * t * 5;
+      double waveZ = wavePropagationDirection.z * t * 5;
 
-    return Point3D(eFieldX + hFieldX + waveX, eFieldY + hFieldY + waveY, eFieldZ + hFieldZ + waveZ);
-  });
+      return Point3D(eFieldX + hFieldX + waveX, eFieldY + hFieldY + waveY, eFieldZ + hFieldZ + waveZ);
+    });
 
-  emWavePoints = emWavePoints.map((point) {
-    point = rotateX(point, angleX);
-    point = rotateY(point, angleY);
-    return point;
-  }).toList();
+    // Rotate and draw the points as before
+    emWavePoints = emWavePoints.map((point) {
+      point = rotateX(point, angleX);
+      point = rotateY(point, angleY);
+      return point;
+    }).toList();
 
-  for (int i = 0; i < emWavePoints.length - 1; i++) {
-    Offset start = project3DTo2D(emWavePoints[i], zoom) + center;
-    Offset end = project3DTo2D(emWavePoints[i + 1], zoom) + center;
-    canvas.drawLine(start, end, wavePaint);
+    for (int i = 0; i < emWavePoints.length - 1; i++) {
+      Offset start = project3DTo2D(emWavePoints[i], zoom) + center;
+      Offset end = project3DTo2D(emWavePoints[i + 1], zoom) + center;
+      canvas.drawLine(start, end, wavePaint);
+    }
   }
-}
 
   void _drawText(Canvas canvas, String text, Offset position, Paint paint) {
     final TextPainter textPainter = TextPainter(
