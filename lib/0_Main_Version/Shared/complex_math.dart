@@ -82,4 +82,37 @@ class Complex {
     // Construct the formatted string
     return '$realPart $sign ${imaginaryPart}j';
   }
+
+  String displayComplexExpression() {
+    // Helper function to format numbers in scientific notation with 10^
+    String formatNumber(num value) {
+      String expString = value.toStringAsExponential();
+
+      // Extract the exponent value
+      RegExp expRegExp = RegExp(r'e([+-]?\d+)');
+      Match? match = expRegExp.firstMatch(expString);
+      if (match != null) {
+        int exponentValue = int.parse(match.group(1)!);
+        if (exponentValue >= 3 || exponentValue <= -3) {
+          return expString.replaceAllMapped(
+            expRegExp,
+            (Match m) => ' \\times 10^{${m[1]}}',
+          );
+        }
+      }
+
+      // Return the original value if the condition is not met
+      return value.toString();
+    }
+
+    // Format the real and imaginary parts
+    String realPart = formatNumber(real);
+    String imaginaryPart = formatNumber(imaginary.abs()); // Absolute value for imaginary part
+
+    // Determine the sign to display
+    String sign = imaginary >= 0 ? '+' : '-';
+
+    // Construct the formatted string
+    return '$realPart $sign ${imaginaryPart}j';
+}
 }

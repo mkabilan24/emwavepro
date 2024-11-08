@@ -1,11 +1,11 @@
 import 'dart:ffi';
 import 'dart:math';
 
+import 'package:emwavepro/0_Main_Version/Shared/complex_math.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:math_keyboard/math_keyboard.dart';
-import 'package:emwavepro/Archive/Calculations/complex_math.dart';
 
 class LossyMediumPropertiesWidget extends StatefulWidget {
   @override

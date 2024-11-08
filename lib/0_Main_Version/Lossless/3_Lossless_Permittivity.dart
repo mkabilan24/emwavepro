@@ -18,8 +18,7 @@ void calc_lossless_permittivity() {
     return;
   }
   double relativePermittivityValue = convertMathExpressionToDouble(lossless_relativepermittivity);
-  double permittivityValue =
-      relativePermittivityValue * permittivityOfFreeSpace;
+  double permittivityValue = relativePermittivityValue * permittivityOfFreeSpace;
   updateDouble(lossless_permittivity, permittivityValue);
   print("The Calculated Permittivity is $permittivityValue.");
 }

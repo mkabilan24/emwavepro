@@ -1,5 +1,6 @@
 import 'dart:math';
-import 'package:emwavepro/Archive/Calculations/complex_math.dart';
+
+import 'package:emwavepro/0_Main_Version/Shared/complex_math.dart';
 import 'package:flutter/material.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
@@ -25,6 +26,7 @@ MathFieldEditingController lossy_conductivity = MathFieldEditingController();
 
 //Permittivity
 //Lossy
+MathFieldEditingController lossy_permittivity = MathFieldEditingController();
 Complex complexpermittivity = Complex(0, 0);
 
 //Permeability
@@ -33,6 +35,7 @@ MathFieldEditingController lossy_permeability = MathFieldEditingController();
 
 MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
+MathFieldEditingController phaseangle = MathFieldEditingController();
 
 //Intrinsic impedance
 //Lossy
@@ -45,22 +48,30 @@ List waveNumberRoots = [];
 Complex complexwavenumber_root1 = Complex(0, 0);
 Complex complexwavenumber_root2 = Complex(0, 0);
 
+//Propagation Constant
+Complex propagation_constant = Complex(0, 0);
+
 //Attenuation Constant
 MathFieldEditingController lossy_attenuationconstant = MathFieldEditingController();
 
 //Phase Constant
 MathFieldEditingController lossy_phaseconstant = MathFieldEditingController();
 
+//Phase Velocity
+MathFieldEditingController lossy_phasevelocity = MathFieldEditingController();
 
+//Wavelength
+MathFieldEditingController lossy_wavelength = MathFieldEditingController();
+
+//Skin Depth
+MathFieldEditingController lossy_skindepth = MathFieldEditingController();
+
+//
 //
 //
 MathFieldEditingController losstangent = MathFieldEditingController();
 
-//Skin Depth
-MathFieldEditingController skindepth = MathFieldEditingController();
 
-//Phase Velocity
-MathFieldEditingController phasevelocity = MathFieldEditingController();
 
-//Wavelength
-MathFieldEditingController wavelength = MathFieldEditingController();
+
+

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:emwavepro/0_Main_Version/Lossy/1_Lossy_Conductivity.dart';
-import 'package:emwavepro/0_Main_Version/Lossy/2_Lossy_Permeability.dart';
-import 'package:emwavepro/0_Main_Version/Lossy/3_Lossy_Permittivity.dart';
+import 'package:emwavepro/0_Main_Version/Lossy/4_Lossy_Frequencies.dart';
 
 /// A widget that displays properties of a lossless medium.
-class LossyMediumPropertiesWidget extends StatefulWidget {
+class LossyWaveEMFreqPropertiesWidget extends StatefulWidget {
   @override
-  _LossyMediumPropertiesWidgetState createState() => _LossyMediumPropertiesWidgetState();
+  _LossyWaveEMFreqPropertiesWidgetState createState() => _LossyWaveEMFreqPropertiesWidgetState();
 }
 
-class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidget> {
+class _LossyWaveEMFreqPropertiesWidgetState extends State<LossyWaveEMFreqPropertiesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,9 +18,8 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Lossy_ConductivityDisplayWidget(),
-            Lossy_PermeabilityDisplayWidget(),
-            Lossy_PermittivityDisplayWidget(),
+            FrequencyDisplayWidget(),
+            AngularFrequencyDisplayWidget(),
           ],
         ),
       ),
@@ -30,12 +27,12 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
   }
 }
 
-class LossyMediumDropdown extends StatefulWidget {
+class LossyWaveEMFreqDropdown extends StatefulWidget {
   @override
-  _LossyMediumDropdownState createState() => _LossyMediumDropdownState();
+  _LossyWaveEMFreqDropdownState createState() => _LossyWaveEMFreqDropdownState();
 }
 
-class _LossyMediumDropdownState extends State<LossyMediumDropdown> {
+class _LossyWaveEMFreqDropdownState extends State<LossyWaveEMFreqDropdown> {
   bool isExpanded = false; // Controls visibility of widget content
 
   @override
@@ -55,22 +52,15 @@ class _LossyMediumDropdownState extends State<LossyMediumDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Lossy Medium Properties"),
+                const Text("EM Wave Frequency in Lossy Medium"),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),
           ),
         ),
         // Show the widget content if expanded
-        if (isExpanded) LossyMediumPropertiesWidget(),
+        if (isExpanded) LossyWaveEMFreqPropertiesWidget(),
       ],
     );
   }
 }
-
-// void main() {
-//   runApp(MaterialApp(
-//     home: Scaffold(
-//       appBar: AppBar(title: const Text('Lossy Medium Properties')),
-//       body: LossyMediumDropdown())));
-// }

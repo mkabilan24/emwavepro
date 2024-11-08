@@ -48,16 +48,6 @@ MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
 MathFieldEditingController phaseangle = MathFieldEditingController();
 
-//Not Included Yet
-//Skin Depth
-MathFieldEditingController skindepth = MathFieldEditingController();
-
-//Phase Velocity
-MathFieldEditingController phasevelocity = MathFieldEditingController();
-
-//Wavelength
-MathFieldEditingController wavelength = MathFieldEditingController();
-
 void clearAllFields() {
   lossless_relativepermittivity.clear();
   lossless_relativepermeability.clear();
@@ -71,4 +61,6 @@ void clearAllFields() {
   electricabsoluteE0.clear();
   magneticabsoluteH0.clear();
   phaseangle.clear();
+  freq.clear();
+  angularfreq.clear();
 }

@@ -1,15 +1,16 @@
-
-import 'package:emwavepro/0_Main_Version/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
+import 'package:emwavepro/0_Main_Version/Lossy/0_Lossy_GlobalVariables.dart';
+import 'package:emwavepro/0_Main_Version/Lossy/6_Lossy_Complex_Permittivity.dart';
+
 Widget Lossy_ConductivityDisplayWidget() {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(5.0),
     child: Row(children: [
       Math.tex(
-        '\\text{Conductivity, }\\sigma = 0',
+        '\\text{Conductivity, }\\sigma \\neq 0 = ',
         textStyle: const TextStyle(fontSize: 18),
       ),
       const SizedBox(width: 10),
@@ -33,6 +34,9 @@ Widget Lossy_ConductivityDisplayWidget() {
                   border: InputBorder.none, // Remove the border
                 ),
                 keyboardType: MathKeyboardType.expression,
+                onChanged: (value) {
+                  calc_complex_permittivity();
+                },
               ),
             ),
           ),

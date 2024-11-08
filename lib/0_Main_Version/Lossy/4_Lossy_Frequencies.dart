@@ -3,7 +3,11 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
+import 'package:emwavepro/0_Main_Version/Lossy/6_Lossy_Complex_Permittivity.dart';
+import 'package:emwavepro/0_Main_Version/Lossy/14_Lossy_WaveNumber.dart';
+import 'package:emwavepro/0_Main_Version/Lossy/11_Lossy_PhaseVelocity.dart';
 
+import 'package:emwavepro/0_Main_Version/Lossy/0_Lossy_GlobalVariables.dart';
 
 void calc_freq() {
   if (angularfreq.isEmpty) {
@@ -60,7 +64,9 @@ Widget FrequencyDisplayWidget() {
                   if (!onchange) {
                     onchange = true;
                     calc_angular_freq();
-                    calc_lossless_wavenumber();
+                    calc_lossy_phasevelocity();
+                    calc_complex_permittivity();
+                    calc_wave_number_roots();
                     onchange = false;
                   }
                 },
@@ -111,8 +117,9 @@ Widget AngularFrequencyDisplayWidget() {
                   if (!onchange) {
                     onchange = true;
                     calc_freq();
-                    calc_lossless_wavenumber();
-                    
+                    calc_lossy_phasevelocity();
+                    calc_complex_permittivity();
+                    calc_wave_number_roots();
                     onchange = false;
                   }
                 },
