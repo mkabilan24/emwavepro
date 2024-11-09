@@ -37,7 +37,8 @@ class _LossyWaveEMPropertiesWidgetState extends State<LossyWaveEMPropertiesWidge
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(0.0), // You can adjust the padding as needed
-      child: SingleChildScrollView(
+      child: Column(children: [
+        SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,13 +53,15 @@ class _LossyWaveEMPropertiesWidgetState extends State<LossyWaveEMPropertiesWidge
             Lossy_PhaseVelocityDisplayWidget(),
             Lossy_WavelengthDisplayWidget(),
             Lossy_SkindepthDisplayWidget(),
-            ElevatedButton(
-              onPressed: _updateComplexEquations,
-              child: const Text('Update'),
-            ),
           ],
         ),
       ),
+      ElevatedButton(
+            onPressed: _updateComplexEquations,
+            child: const Text('Update'),
+          ),
+        ],
+      )
     );
   }
 }
@@ -99,21 +102,4 @@ class _LossyWaveEMDropdownState extends State<LossyWaveEMDropdown> {
       ],
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(title: const Text('Lossy Medium Properties')),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            LossyMediumDropdown(),
-            LossyWaveEMFreqDropdown(),
-            LossyWaveEMDropdown(),
-          ],
-        ),
-      ),
-    ),
-  ));
 }

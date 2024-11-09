@@ -1,3 +1,4 @@
+import 'package:emwavepro/0_Main_Version/Lossy/5_LossTangent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -62,6 +63,7 @@ class _Lossy_PermittivityDisplayWidgetState extends State<Lossy_PermittivityDisp
                     if (!onchange) {
                       setState(() {
                         onchange = true;
+                        calc_losstangent();
                         calc_lossy_permittivity();
                         calc_complex_permittivity();
                         calc_wave_number_roots();

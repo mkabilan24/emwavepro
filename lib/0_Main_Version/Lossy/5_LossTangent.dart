@@ -5,8 +5,10 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:emwavepro/0_Main_Version/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
 
+bool isGoodConductor = false;
+
 void calc_losstangent() {
-  if (lossy_conductivity.isEmpty || lossy_permittivity.isEmpty) {
+  if (lossy_conductivity.isEmpty || angularfreq.isEmpty || lossy_permittivity.isEmpty) {
     losstangent.clear();
     return;
   }
@@ -17,10 +19,11 @@ void calc_losstangent() {
   double losstangentValue = conductivityValue/(angularfreqValue * permittivityValue);
   updateDouble(losstangent, losstangentValue);
   print("The calculated Loss Tangent is $losstangentValue.");
+  isGoodConductor = determineifGoodConductor();
 }
 
 bool determineifGoodConductor() {
-  double losstangentValue = getDouble(losstangent);
+  double losstangentValue = convertMathExpressionToDouble(losstangent);
   if (losstangentValue > conductivitymargin) {
     return true;
   }
@@ -36,6 +39,10 @@ Widget Lossy_LosstangentDisplayWidget() {
       Math.tex(
         '\\text{Loss Tangent, }\\frac{\\sigma}{\\omega\\varepsilon}= ${losstangent.isEmpty ? 0 : displayexpression(losstangent)}',
         textStyle: const TextStyle(fontSize: 18),
+      ),
+      Text(
+        isGoodConductor ? ' > $conductivitymargin (Good Conductor)' : ' < $conductivitymargin (Bad Conductor)',
+        style: TextStyle(fontSize: 18, color: isGoodConductor ? Colors.green : Colors.red),
       ),
     ]),
   );

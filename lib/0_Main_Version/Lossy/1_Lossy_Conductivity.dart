@@ -1,3 +1,4 @@
+import 'package:emwavepro/0_Main_Version/Lossy/5_LossTangent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -36,6 +37,7 @@ Widget Lossy_ConductivityDisplayWidget() {
                 keyboardType: MathKeyboardType.expression,
                 onChanged: (value) {
                   calc_complex_permittivity();
+                  calc_losstangent();
                 },
               ),
             ),

@@ -182,11 +182,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('EM Wave Analysis'),
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(0),
         child: Column(
           children: [
             Expanded(
@@ -220,99 +217,106 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Row(
+                  Padding(padding: const EdgeInsets.only(left: 5, right: 5),
+                  child: Column(
                     children: [
-                      Math.tex(
-                        '\\text{E-Field propagation: }\\vec{a}_{E}=',
-                        textStyle: const TextStyle(fontSize: 18),
+                      Row(
+                        children: [
+                          Math.tex(
+                            '\\text{E-Field propagation: }\\vec{a}_{E}=',
+                            textStyle: const TextStyle(fontSize: 18),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: MathDropdown(
+                              initialValue: a_E_Field_Propagation,
+                              options: vect_options,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  a_E_Field_Propagation = newValue;
+                                  _validateWaveVectors();
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: MathDropdown(
-                          initialValue: a_E_Field_Propagation,
-                          options: vect_options,
-                          onChanged: (newValue) {
-                            setState(() {
-                              a_E_Field_Propagation = newValue;
-                              _validateWaveVectors();
-                            });
-                          },
-                        ),
+                      Row(
+                        children: [
+                          Math.tex(
+                            '\\text{H-Field propagation: }\\vec{a}_{H}=',
+                            textStyle: const TextStyle(fontSize: 18),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: MathDropdown(
+                              initialValue: a_H_Field_Propagation,
+                              options: vect_options,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  a_H_Field_Propagation = newValue;
+                                  _validateWaveVectors();
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
+                      Row(
+                        children: [
+                          Math.tex(
+                            '\\text{Wave propagation: }\\vec{a}_{k}=',
+                            textStyle: const TextStyle(fontSize: 18),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: MathDropdown(
+                              initialValue: a_k_Wave_Propagation,
+                              options: vect_options,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  a_k_Wave_Propagation = newValue;
+                                  _validateWaveVectors();
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      // Display Equations
+                      Container(
+                        padding: const EdgeInsets.all(0.0), // You can adjust the padding as needed
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Time Domain Equations:'),
+                                Math.tex(_generateETimeDomainEquation(),
+                                    textStyle: const TextStyle(fontSize: 20)),
+                                Math.tex(_generateHTimeDomainEquation(),
+                                    textStyle: const TextStyle(fontSize: 20)),
+                                const SizedBox(height: 20),
+                                const Text('Phasor Domain Equations:'),
+                                Math.tex(_generateEPhasorDomainEquation(),
+                                    textStyle: const TextStyle(fontSize: 20)),
+                                Math.tex(_generateHPhasorDomainEquation(),
+                                    textStyle: const TextStyle(fontSize: 20)),
+                              ],
+                            ),
+                          ),
+                      ),
+
                     ],
-                  ),
-                  Row(
-                    children: [
-                      Math.tex(
-                        '\\text{H-Field propagation: }\\vec{a}_{H}=',
-                        textStyle: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: MathDropdown(
-                          initialValue: a_H_Field_Propagation,
-                          options: vect_options,
-                          onChanged: (newValue) {
-                            setState(() {
-                              a_H_Field_Propagation = newValue;
-                              _validateWaveVectors();
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Math.tex(
-                        '\\text{Wave propagation: }\\vec{a}_{k}=',
-                        textStyle: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: MathDropdown(
-                          initialValue: a_k_Wave_Propagation,
-                          options: vect_options,
-                          onChanged: (newValue) {
-                            setState(() {
-                              a_k_Wave_Propagation = newValue;
-                              _validateWaveVectors();
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  // Display Equations
-                  Container(
-                    padding: const EdgeInsets.all(0.0), // You can adjust the padding as needed
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Time Domain Equations:'),
-                            Math.tex(_generateETimeDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                            Math.tex(_generateHTimeDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                            const SizedBox(height: 20),
-                            const Text('Phasor Domain Equations:'),
-                            Math.tex(_generateEPhasorDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                            Math.tex(_generateHPhasorDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                          ],
-                        ),
-                      ),
+                  )
                   ),
                   
                   const SizedBox(height: 20),
                   Center(
                     child: Container(
-                      width: 300,
-                      height: 300,
+                      width: 350,
+                      height: 350,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: Colors.black, width: 2),
@@ -344,16 +348,19 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                         ),
                     ),
                   ),
+                  const SizedBox(height: 100),
                 ]),
               ),
             )
           ],
+          
         ),
+        
       ),
     );
   }
 }
 
-void main() {
+void main_lossless() {
   runApp(MaterialApp(home: EMFieldEquationsWidget()));
 }

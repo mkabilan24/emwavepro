@@ -1,3 +1,4 @@
+import 'package:emwavepro/0_Main_Version/Lossy/5_LossTangent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -64,6 +65,7 @@ Widget FrequencyDisplayWidget() {
                   if (!onchange) {
                     onchange = true;
                     calc_angular_freq();
+                    calc_losstangent();
                     calc_lossy_phasevelocity();
                     calc_complex_permittivity();
                     calc_wave_number_roots();
@@ -117,6 +119,7 @@ Widget AngularFrequencyDisplayWidget() {
                   if (!onchange) {
                     onchange = true;
                     calc_freq();
+                    calc_losstangent();
                     calc_lossy_phasevelocity();
                     calc_complex_permittivity();
                     calc_wave_number_roots();
