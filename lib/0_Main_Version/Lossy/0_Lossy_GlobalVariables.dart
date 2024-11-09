@@ -24,6 +24,10 @@ MathFieldEditingController lossy_relativepermeability = MathFieldEditingControll
 //Lossless & FreeSpace, Conductivity = 0 && Lossy, Conductivity != 0
 MathFieldEditingController lossy_conductivity = MathFieldEditingController();
 
+//Loss Tangent
+MathFieldEditingController losstangent = MathFieldEditingController();
+bool isGoodConductor = false;
+
 //Permittivity
 //Lossy
 MathFieldEditingController lossy_permittivity = MathFieldEditingController();
@@ -66,12 +70,32 @@ MathFieldEditingController lossy_wavelength = MathFieldEditingController();
 //Skin Depth
 MathFieldEditingController lossy_skindepth = MathFieldEditingController();
 
-//
-//
-//
-MathFieldEditingController losstangent = MathFieldEditingController();
 
-
+void clearAllFields() {
+  angularfreq.clear();
+  freq.clear();
+  lossy_relativepermittivity.clear();
+  lossy_relativepermeability.clear();
+  lossy_conductivity.clear();
+  isGoodConductor = false;
+  lossy_permittivity.clear();
+  lossy_permeability.clear();
+  electricabsoluteE0.clear();
+  magneticabsoluteH0.clear();
+  phaseangle.clear();
+  lossy_attenuationconstant.clear();
+  lossy_phaseconstant.clear();
+  lossy_phasevelocity.clear();
+  lossy_wavelength.clear();
+  lossy_skindepth.clear();
+  losstangent.clear();
+  intrinsicimpedanceroots.clear();
+  waveNumberRoots.clear();
+  complexintrinsicimpedance = Complex(0, 0);
+  complexwavenumber_root1 = Complex(0, 0);
+  complexwavenumber_root2 = Complex(0, 0);
+  propagation_constant = Complex(0, 0);
+}
 
 
 

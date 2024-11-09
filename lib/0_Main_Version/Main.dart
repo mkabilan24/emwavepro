@@ -129,7 +129,7 @@ class _RadioButtonsRowState extends State<RadioButtonsRow> {
         ),
         Expanded(
           child: _selectedValue == 1
-              ? main_lossy()
+              ? LossyEMFieldEquationsWidget()
               : EMFieldEquationsWidget(),
         ),
       ],

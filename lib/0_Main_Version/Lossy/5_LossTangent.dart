@@ -5,8 +5,6 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:emwavepro/0_Main_Version/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/0_Main_Version/Shared/MathFieldEditingFunctions.dart';
 
-bool isGoodConductor = false;
-
 void calc_losstangent() {
   if (lossy_conductivity.isEmpty || angularfreq.isEmpty || lossy_permittivity.isEmpty) {
     losstangent.clear();
