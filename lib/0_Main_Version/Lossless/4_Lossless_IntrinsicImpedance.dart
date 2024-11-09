@@ -22,21 +22,21 @@ void calc_lossless_intrinsicimpedance() {
   return;
 }
 
-void calc_E0() {
+void calc_E1() {
   double intrinsicimpedanceValue = convertMathExpressionToDouble(lossless_intrinsicimpedance);
-  double magneticabsoluteH0Value = convertMathExpressionToDouble(magneticabsoluteH0);
+  double magneticabsoluteH0Value = convertMathExpressionToDouble(magneticabsoluteH1);
   double electricabsoluteE0Value =
       intrinsicimpedanceValue * magneticabsoluteH0Value;
-  updateDouble(electricabsoluteE0, electricabsoluteE0Value);
+  updateDouble(electricabsoluteE1, electricabsoluteE0Value);
   print("|E_0| = $electricabsoluteE0Value.");
 }
 
-void calc_H0() {
+void calc_H1() {
   double intrinsicimpedanceValue = convertMathExpressionToDouble(lossless_intrinsicimpedance);
-  double electricabsoluteE0Value = convertMathExpressionToDouble(electricabsoluteE0);
+  double electricabsoluteE0Value = convertMathExpressionToDouble(electricabsoluteE1);
   double magneticabsoluteH0Value =
       electricabsoluteE0Value / intrinsicimpedanceValue;
-  updateDouble(electricabsoluteE0, electricabsoluteE0Value);
+  updateDouble(electricabsoluteE1, electricabsoluteE0Value);
   print("|H_0| = $magneticabsoluteH0Value.");
 }
 

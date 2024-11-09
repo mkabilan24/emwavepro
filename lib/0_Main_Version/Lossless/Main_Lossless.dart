@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:emwavepro/0_Main_Version/Lossless/10_Lossless_Component2_Field_Equations.dart';
+import 'package:emwavepro/0_Main_Version/Lossless/9_Lossless_Component1_Field_Equations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -48,16 +50,13 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     return vectorMap[latexVector] ?? Point3D(0, 0, 0); 
   }
 
-  final MathFieldEditingController _E0Controller = electricabsoluteE0;
-  final MathFieldEditingController _H0Controller = magneticabsoluteH0;
-  final MathFieldEditingController _phiController = phaseangle;
+  final MathFieldEditingController _E0Controller = electricabsoluteE1;
+  final MathFieldEditingController _H0Controller = magneticabsoluteH1;
+  final MathFieldEditingController _phiController = phaseangle1;
   final MathFieldEditingController _angularfreq = angularfreq;
   final MathFieldEditingController _wavenumber = lossless_wavenumber;
 
-  // Default directions of EM Wave
-  String a_E_Field_Propagation = '+\\vec{a}_x';
-  String a_H_Field_Propagation = '+\\vec{a}_y';
-  String a_k_Wave_Propagation = '+\\vec{a}_z';
+  
 
   String _getSign(String direction) {
     return direction.startsWith('+') ? '-' : '+';
@@ -101,31 +100,31 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   }
 
   String _generateETimeDomainEquation() {
-    String wavepropagationsign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
+    String wavepropagationsign = _getSign(a_k_Wave_Propagation1);
+    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation1);
 
-    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $wavepropagationsign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
+    return '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E0Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $wavepropagationsign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
   }
 
   String _generateEPhasorDomainEquation() {
-    String sign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
+    String sign = _getSign(a_k_Wave_Propagation1);
+    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation1);
 
-    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
+    return '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E0Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
   }
 
   String _generateHTimeDomainEquation() {
-    String sign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
+    String sign = _getSign(a_k_Wave_Propagation1);
+    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation1);
 
-    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $sign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
+    return '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H0Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $sign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
   }
 
   String _generateHPhasorDomainEquation() {
-    String sign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
+    String sign = _getSign(a_k_Wave_Propagation1);
+    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation1);
 
-    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
+    return '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H0Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
   }
 
   void _validateAngularFrequency(
@@ -150,7 +149,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
 
   void _validateWaveVectors() {
     bool isvalid = validateWaveVectors(
-        a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation);
+        a_E_Field_Propagation1, a_H_Field_Propagation1, a_k_Wave_Propagation1);
     if (!isvalid) {
       snackbarController.showPermanentErrorSnackBar(
           context, "Direction Vectors are Invalid!");
@@ -191,7 +190,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                 child: Column(children: [
                   LosslessMediumDropdown(),
                   LosslessWaveEMDropdown(),
-                  const SizedBox(height: 20),
+                  Component1EquationsDropdown(),
+                  Component2EquationsDropdown(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -217,101 +217,29 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Padding(padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Math.tex(
-                            '\\text{E-Field propagation: }\\vec{a}_{E}=',
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: MathDropdown(
-                              initialValue: a_E_Field_Propagation,
-                              options: vect_options,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  a_E_Field_Propagation = newValue;
-                                  _validateWaveVectors();
-                                });
-                              },
-                            ),
-                          ),
-                        ],
+                  // Display Equations
+                  Container(
+                    padding: const EdgeInsets.all(0.0), // You can adjust the padding as needed
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Time Domain Equations:'),
+                            Math.tex(_generateETimeDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                            Math.tex(_generateHTimeDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                            const SizedBox(height: 20),
+                            const Text('Phasor Domain Equations:'),
+                            Math.tex(_generateEPhasorDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                            Math.tex(_generateHPhasorDomainEquation(),
+                                textStyle: const TextStyle(fontSize: 20)),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Math.tex(
-                            '\\text{H-Field propagation: }\\vec{a}_{H}=',
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: MathDropdown(
-                              initialValue: a_H_Field_Propagation,
-                              options: vect_options,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  a_H_Field_Propagation = newValue;
-                                  _validateWaveVectors();
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Math.tex(
-                            '\\text{Wave propagation: }\\vec{a}_{k}=',
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: MathDropdown(
-                              initialValue: a_k_Wave_Propagation,
-                              options: vect_options,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  a_k_Wave_Propagation = newValue;
-                                  _validateWaveVectors();
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      // Display Equations
-                      Container(
-                        padding: const EdgeInsets.all(0.0), // You can adjust the padding as needed
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('Time Domain Equations:'),
-                                Math.tex(_generateETimeDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                                Math.tex(_generateHTimeDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                                const SizedBox(height: 20),
-                                const Text('Phasor Domain Equations:'),
-                                Math.tex(_generateEPhasorDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                                Math.tex(_generateHPhasorDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                              ],
-                            ),
-                          ),
-                      ),
-
-                    ],
-                  )
                   ),
-                  
                   const SizedBox(height: 20),
                   Center(
                     child: Container(
@@ -337,11 +265,11 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                               waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
                               phasorAngle1: _phiController.isEmpty ? 0 : convertMathExpressionToDouble(_phiController),
                               phasorAngle2: 0,
-                              eFieldDirection1: vectorFromLatex(a_E_Field_Propagation),
-                              hFieldDirection1: vectorFromLatex(a_H_Field_Propagation),
+                              eFieldDirection1: vectorFromLatex(a_E_Field_Propagation1),
+                              hFieldDirection1: vectorFromLatex(a_H_Field_Propagation1),
                               eFieldDirection2: Point3D(0, 0, 0),
                               hFieldDirection2: Point3D(0, 0, 0),
-                              wavePropagationDirection: vectorFromLatex(a_k_Wave_Propagation),
+                              wavePropagationDirection: vectorFromLatex(a_k_Wave_Propagation1),
                             ),
                             size: Size.infinite,
                           )
@@ -349,13 +277,12 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                     ),
                   ),
                   const SizedBox(height: 100),
-                ]),
+                  ]
+                ),
               ),
             )
           ],
-          
         ),
-        
       ),
     );
   }

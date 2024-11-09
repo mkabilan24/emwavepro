@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'package:emwavepro/0_Main_Version/Shared/ErrorSnackBar.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 bool onchange = false;
+SnackbarController snackbarController = SnackbarController();
 
 double pi = 3.14159265;
 double permeabilityOfFreeSpace = (4 * pi * pow(10, -7));
@@ -44,9 +46,23 @@ MathFieldEditingController lossless_phaseconstant = MathFieldEditingController()
 
 
 //Equations
-MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
-MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
-MathFieldEditingController phaseangle = MathFieldEditingController();
+MathFieldEditingController electricabsoluteE1 = MathFieldEditingController();
+MathFieldEditingController magneticabsoluteH1 = MathFieldEditingController();
+MathFieldEditingController phaseangle1 = MathFieldEditingController();
+
+// Default directions of EM Wave
+String a_E_Field_Propagation1 = '+\\vec{a}_x';
+String a_H_Field_Propagation1 = '+\\vec{a}_y';
+String a_k_Wave_Propagation1 = '+\\vec{a}_z';
+
+MathFieldEditingController electricabsoluteE2 = MathFieldEditingController();
+MathFieldEditingController magneticabsoluteH2 = MathFieldEditingController();
+MathFieldEditingController phaseangle2 = MathFieldEditingController();
+
+// Default directions of EM Wave
+String a_E_Field_Propagation2 = '+\\vec{a}_y';
+String a_H_Field_Propagation2 = '-\\vec{a}_x';
+String a_k_Wave_Propagation2 = '+\\vec{a}_z';
 
 void clearAllFields() {
   lossless_relativepermittivity.clear();
@@ -58,9 +74,18 @@ void clearAllFields() {
   lossless_wavenumber.clear();
   lossless_attenuationconstant.clear();
   lossless_phaseconstant.clear();
-  electricabsoluteE0.clear();
-  magneticabsoluteH0.clear();
-  phaseangle.clear();
+  electricabsoluteE1.clear();
+  magneticabsoluteH1.clear();
+  phaseangle1.clear();
+  electricabsoluteE2.clear();
+  magneticabsoluteH2.clear();
+  phaseangle2.clear();
   freq.clear();
   angularfreq.clear();
+  a_E_Field_Propagation1 = '+\\vec{a}_x';
+  a_H_Field_Propagation1 = '+\\vec{a}_y';
+  a_k_Wave_Propagation1 = '+\\vec{a}_z';
 }
+
+
+
