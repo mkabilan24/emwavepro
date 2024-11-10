@@ -220,7 +220,13 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                       ),
                   ),
                   const SizedBox(height: 20),
-                  Text("Wave Polarization: ${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}"),
+                  Container(
+                    color: Colors.blue[300],
+                    child: Text(
+                      "Wave Polarization: ${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}",
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   const SizedBox(height: 5),
                   Center(
                     child: Container(

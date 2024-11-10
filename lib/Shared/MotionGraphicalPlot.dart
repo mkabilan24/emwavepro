@@ -1,80 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-// import 'package:flutter_math_fork/flutter_math.dart';
-// import 'dart:ui' as ui;
-
-//FOR TESTING PURPOSES
-// void main() => runApp(MaterialApp(home: Scaffold(body: Custom3DGraph())));
-
-// class Custom3DGraph extends StatefulWidget {
-//   @override
-//   _Custom3DGraphState createState() => _Custom3DGraphState();
-// }
-
-// class _Custom3DGraphState extends State<Custom3DGraph> {
-//   double angleX = pi;
-//   double angleY = 0;
-//   double zoom = 500.0; // Increased zoom for a closer view
-//   double labeloffset = 0.0;
-//   double eFieldMagnitude1 = 30.0;
-//   double hFieldMagnitude1 = 30.0;
-//   double eFieldMagnitude2 = 30; // Second component magnitude
-//   double hFieldMagnitude2 = 30; // Second component magnitude
-//   double waveNumber = 2; // Wavenumber (example value)
-//   double phasorAngle = 90; // Phasor angle
-//   Point3D eFieldDirection1 = Point3D(0, 1, 0); // E-Field direction along X-axis
-//   Point3D hFieldDirection1 = Point3D(0, 0, 1); // H-Field direction along Y-axis
-//   Point3D eFieldDirection2 = Point3D(0, 0, -1); // Second E-Field direction
-//   Point3D hFieldDirection2 = Point3D(0, 1, 0); // Second H-Field direction
-//   Point3D wavePropagationDirection = Point3D(1, 0, 0); // Wave propagation along Z-axis
-
-//   void onScaleUpdate(ScaleUpdateDetails details) {
-//     setState(() {
-//       angleX += details.focalPointDelta.dy * 0.01; // Rotate around X-axis
-//       angleY += details.focalPointDelta.dx * 0.01; // Rotate around Y-axis
-//       zoom = (zoom * details.scale).clamp(100.0, 800.0); // Zoom range
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Container(
-//         width: 300, 
-//         height: 300,
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           border: Border.all(color: Colors.black, width: 2),
-//           borderRadius: BorderRadius.circular(10),
-//         ),
-//         child: GestureDetector(
-//           onScaleUpdate: onScaleUpdate,
-//           child: CustomPaint(
-//             painter: Graph3DPainter(
-//               angleX: angleX,
-//               angleY: angleY,
-//               zoom: zoom,
-//               labeloffset: labeloffset,
-//               eFieldMagnitude1: 30.0,
-//               hFieldMagnitude1: 30.0,
-//               eFieldMagnitude2: 30.0,
-//               hFieldMagnitude2: 30.0,
-//               waveNumber: 2.0,
-//               phasorAngle1: 90.0,
-//               phasorAngle2: 30.0,
-//               eFieldDirection1: Point3D(0, 1, 0),
-//               hFieldDirection1: Point3D(0, 0, 1),
-//               eFieldDirection2: Point3D(0, 0, -1),
-//               hFieldDirection2: Point3D(0, 1, 0),
-//               wavePropagationDirection: Point3D(1, 0, 0),
-//             ),
-//             size: Size.infinite,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:flutter_math_fork/flutter_math.dart';
+import 'dart:ui' as ui;
 
 class Graph3DPainter extends CustomPainter {
   final double angleX;
@@ -302,6 +229,12 @@ class Graph3DPainter extends CustomPainter {
   }
 
   void drawEWave(Canvas canvas, Offset center, Paint wavePaint) {
+    print("Drawing E-Field Wave");
+    print("E-Field Magnitude 1: $eFieldMagnitude1");
+    print("E-Field Magnitude 2: $eFieldMagnitude2");
+    print("Phasor Angle 1: $phasorAngle1");
+    print("Phasor Angle 2: $phasorAngle2");
+
     const int pointsCount = 200;
     List<Point3D> eFieldPoints = List.generate(pointsCount, (i) {
       double t = i / 10.0;
@@ -354,6 +287,7 @@ class Graph3DPainter extends CustomPainter {
     return true;
   }
 }
+
 class Point3D {
   double x, y, z;
   Point3D(this.x, this.y, this.z);
