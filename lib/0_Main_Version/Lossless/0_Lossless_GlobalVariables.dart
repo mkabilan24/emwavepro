@@ -4,6 +4,7 @@ import 'package:math_keyboard/math_keyboard.dart';
 
 bool onchange = false;
 SnackbarController snackbarController = SnackbarController();
+int numofcomponents = 1; //Number of components of the EM wave Equations
 
 double pi = 3.14159265;
 double permeabilityOfFreeSpace = (4 * pi * pow(10, -7));
@@ -53,7 +54,6 @@ MathFieldEditingController phaseangle1 = MathFieldEditingController();
 // Default directions of EM Wave
 String a_E_Field_Propagation1 = '+\\vec{a}_x';
 String a_H_Field_Propagation1 = '+\\vec{a}_y';
-String a_k_Wave_Propagation1 = '+\\vec{a}_z';
 
 MathFieldEditingController electricabsoluteE2 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH2 = MathFieldEditingController();
@@ -62,7 +62,9 @@ MathFieldEditingController phaseangle2 = MathFieldEditingController();
 // Default directions of EM Wave
 String a_E_Field_Propagation2 = '+\\vec{a}_y';
 String a_H_Field_Propagation2 = '-\\vec{a}_x';
-String a_k_Wave_Propagation2 = '+\\vec{a}_z';
+
+//Resultant Direction of Wave Propagation
+String a_k_Wave_Propagation = '+\\vec{a}_z';
 
 void clearAllFields() {
   lossless_relativepermittivity.clear();
@@ -74,17 +76,25 @@ void clearAllFields() {
   lossless_wavenumber.clear();
   lossless_attenuationconstant.clear();
   lossless_phaseconstant.clear();
+
   electricabsoluteE1.clear();
   magneticabsoluteH1.clear();
   phaseangle1.clear();
+
   electricabsoluteE2.clear();
   magneticabsoluteH2.clear();
   phaseangle2.clear();
+  
   freq.clear();
   angularfreq.clear();
+
   a_E_Field_Propagation1 = '+\\vec{a}_x';
   a_H_Field_Propagation1 = '+\\vec{a}_y';
-  a_k_Wave_Propagation1 = '+\\vec{a}_z';
+
+  a_E_Field_Propagation2 = '+\\vec{a}_y';
+  a_H_Field_Propagation2 = '-\\vec{a}_x';
+
+  a_k_Wave_Propagation = '+\\vec{a}_z';
 }
 
 

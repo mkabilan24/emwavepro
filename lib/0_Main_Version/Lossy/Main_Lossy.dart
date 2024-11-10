@@ -153,7 +153,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
   }
 
   void _validateWaveVectors() {
-    bool isvalid = validateWaveVectors(
+    bool isvalid = validateRHRWaveVectors(
         a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation);
     if (!isvalid) {
       snackbarController.showPermanentErrorSnackBar(

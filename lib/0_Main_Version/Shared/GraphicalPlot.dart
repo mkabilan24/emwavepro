@@ -286,4 +286,8 @@ class Point3D {
   Point3D(this.x, this.y, this.z);
 
   Offset toOffset() => Offset(x, y);
+  
+  Point3D add(Point3D other) {
+    return Point3D(x + other.x, y + other.y, z + other.z);
+  }
 }

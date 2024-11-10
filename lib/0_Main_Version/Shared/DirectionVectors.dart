@@ -10,7 +10,7 @@ final List<String> vect_options = [
   '-\\vec{a}_z',
 ];
 
-bool validateWaveVectors(String eField, String hField, String kWave) {
+bool validateRHRWaveVectors(String eField, String hField, String kWave) {
   // Define a mapping for the unit vectors along x, y, z axes.
   Map<String, List<int>> directions = {
     '+\\vec{a}_x': [1, 0, 0],
