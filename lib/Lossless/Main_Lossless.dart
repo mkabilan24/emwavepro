@@ -177,27 +177,6 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {});
-                          print("EM Wave Generated!");
-                          print("E1: ${_E1Controller.currentEditingValue()}");
-                          print("H1: ${_H1Controller.currentEditingValue()}");
-                          print("Phi1: ${_phi1Controller.currentEditingValue()}");
-
-                          print("E2: ${_E2Controller.currentEditingValue()}");
-                          print("H2: ${_H2Controller.currentEditingValue()}");
-                          print("Phi2: ${_phi2Controller.currentEditingValue()}");
-
-                          print("E-Field Propagation 1: $a_E_Field_Propagation1");
-                          print("E-Field Propagation 2: $a_E_Field_Propagation2");
-
-                          print("H-Field Propagation 1: $a_H_Field_Propagation1");
-                          print("H-Field Propagation 2: $a_H_Field_Propagation2");
-
-                          print("Wave Propagation: $a_k_Wave_Propagation");
-
-
-                          print("Angular Frequency: ${_angularfreq.currentEditingValue()}");
-                          print("Wavenumber: ${_wavenumber.currentEditingValue()}");
-
                         },
                         child: const Text('Generare EM Wave'),
                       ),
@@ -260,11 +239,11 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                               angleY: angleY,
                               zoom: zoom,
                               labeloffset: labeloffset,
-                              eFieldMagnitude1: _E1Controller.isEmpty ? 0 : scaleNumber(getDouble(_E1Controller), 50, 100),
-                              hFieldMagnitude1: _H1Controller.isEmpty ? 0 : scaleNumber(getDouble(_H1Controller), 50, 100),
+                              eFieldMagnitude1: _E1Controller.isEmpty ? 0 : scaleNumber(getDouble(_E1Controller), 0, 100),
+                              hFieldMagnitude1: _H1Controller.isEmpty ? 0 : scaleNumber(getDouble(_H1Controller), 0, 100),
 
-                              eFieldMagnitude2: (numofcomponents == 2) ? (_E2Controller.isEmpty ? 0 : scaleNumber(getDouble(_E2Controller), 50, 100)) : 0,
-                              hFieldMagnitude2: (numofcomponents == 2) ? (_H2Controller.isEmpty ? 0 : scaleNumber(getDouble(_H2Controller), 50, 100)) : 0,
+                              eFieldMagnitude2: (numofcomponents == 2) ? (_E2Controller.isEmpty ? 0 : scaleNumber(getDouble(_E2Controller), 0, 100)) : 0,
+                              hFieldMagnitude2: (numofcomponents == 2) ? (_H2Controller.isEmpty ? 0 : scaleNumber(getDouble(_H2Controller), 0, 100)) : 0,
 
                               waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
                               phasorAngle1: _phi1Controller.isEmpty ? 0 : _convertdegreetoradian(_phi1Controller),

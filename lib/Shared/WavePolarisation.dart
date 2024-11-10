@@ -12,8 +12,10 @@ String determinepolarisation(MathFieldEditingController EH1Controller, MathField
     return "None";
   }
 
-  double EH01 = convertMathExpressionToDouble(EH1Controller);
-  double EH02 = convertMathExpressionToDouble(EH2Controller);
+  if ((convertMathExpressionToDouble(EH1Controller) == 0) || (convertMathExpressionToDouble(EH2Controller) == 0)) {
+    return "Linear";
+  }
+
   double phi1 = 0;
   double phi2 = 0;
 
@@ -23,16 +25,14 @@ String determinepolarisation(MathFieldEditingController EH1Controller, MathField
   if (!phi2Controller.isEmpty) {
     phi2 = convertMathExpressionToDouble(phi2Controller);
   }
-
-  if ((EH01 == 0) || (EH02 == 0)) {
-    return "Linear";
-  }
   double absolutePhaseDiff = (phi1 - phi2).abs();
   if ((absolutePhaseDiff == 0) || (absolutePhaseDiff == 180)) {
     return "Linear";
   }
-  if ((absolutePhaseDiff == 90) && (EH01 == EH02)) {
+
+  if ((absolutePhaseDiff == 90) && (convertMathExpressionToDouble(EH1Controller) == convertMathExpressionToDouble(EH2Controller))) {
     return "Circular";
   }
+  
   return "Elliptical";
 }

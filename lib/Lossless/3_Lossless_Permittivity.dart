@@ -82,7 +82,6 @@ class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_Permittivi
         const SizedBox(width: 10),
         Math.tex(displayexpression(lossless_permittivity),
             textStyle: const TextStyle(fontSize: 18)),
-        const SizedBox(width: 10),
         Math.tex(
           '\\text{ F/m}',
           textStyle: const TextStyle(fontSize: 18),

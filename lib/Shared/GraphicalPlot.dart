@@ -157,11 +157,13 @@ class Graph3DPainter extends CustomPainter {
     drawGrid(canvas, size, gridPaint);
 
     final Paint axisPaint = Paint()..color = Colors.black..strokeWidth = 2.0;
-    final Paint wavePaint = Paint()..color = Colors.blueAccent..strokeWidth = 2.5;
+
+    final Paint haxisPaint = Paint()..color = Colors.blue..strokeWidth = 3.0;
+    final Paint eaxisPaint = Paint()..color = Colors.red..strokeWidth = 3.0;
 
     final Paint hfieldPaint = Paint()..color = Colors.blue..strokeWidth = 2.0;
     final Paint efieldPaint = Paint()..color = Colors.red..strokeWidth = 2.0;
-    final Paint wavepropPaint = Paint()..color = Colors.orange..strokeWidth = 2.0;
+    final Paint wavepropPaint = Paint()..color = Colors.orange..strokeWidth = 3.0;
 
     final Offset center = Offset(size.width / 2, size.height / 2);
 
@@ -188,31 +190,30 @@ class Graph3DPainter extends CustomPainter {
 
     // Calculate resultant vectors
     Point3D resultantEField = Point3D(
-      eFieldDirection1.x * eFieldMagnitude1 + eFieldDirection2.x * eFieldMagnitude2,
-      eFieldDirection1.y * eFieldMagnitude1 + eFieldDirection2.y * eFieldMagnitude2,
-      eFieldDirection1.z * eFieldMagnitude1 + eFieldDirection2.z * eFieldMagnitude2,
+      eFieldDirection1.x * eFieldMagnitude1 * cos(phasorAngle1) + eFieldDirection2.x * eFieldMagnitude2 * cos(phasorAngle2),
+      eFieldDirection1.y * eFieldMagnitude1 * cos(phasorAngle1) + eFieldDirection2.y * eFieldMagnitude2 * cos(phasorAngle2),
+      eFieldDirection1.z * eFieldMagnitude1 * cos(phasorAngle1) + eFieldDirection2.z * eFieldMagnitude2 * cos(phasorAngle2),
     );
 
     Point3D resultantHField = Point3D(
-      hFieldDirection1.x * hFieldMagnitude1 + hFieldDirection2.x * hFieldMagnitude2,
-      hFieldDirection1.y * hFieldMagnitude1 + hFieldDirection2.y * hFieldMagnitude2,
-      hFieldDirection1.z * hFieldMagnitude1 + hFieldDirection2.z * hFieldMagnitude2,
+      hFieldDirection1.x * hFieldMagnitude1 * cos(phasorAngle1) + hFieldDirection2.x * hFieldMagnitude2 * cos(phasorAngle2),
+      hFieldDirection1.y * hFieldMagnitude1 * cos(phasorAngle1) + hFieldDirection2.y * hFieldMagnitude2 * cos(phasorAngle2),
+      hFieldDirection1.z * hFieldMagnitude1 * cos(phasorAngle1) + hFieldDirection2.z * hFieldMagnitude2 * cos(phasorAngle2),
     );
 
     // Drawing resultant vectors if magnitudes are not zero
     if (eFieldMagnitude1 != 0 || eFieldMagnitude2 != 0) {
-      drawVector(canvas, center, resultantEField, 1, "E-Field", efieldPaint);
+      drawVector(canvas, center, resultantEField, 1, "E-Field", eaxisPaint);
     }
     if (hFieldMagnitude1 != 0 || hFieldMagnitude2 != 0) {
-      drawVector(canvas, center, resultantHField, 1, "H-Field", hfieldPaint);
+      drawVector(canvas, center, resultantHField, 1, "H-Field", haxisPaint);
     }
     if (eFieldMagnitude1 != 0 || eFieldMagnitude2 != 0 || hFieldMagnitude1 != 0 || hFieldMagnitude2 != 0) {
-      drawVector(canvas, center, wavePropagationDirection, 50, "Wave Propagation", wavepropPaint);
+      drawVector(canvas, center, wavePropagationDirection,150, "Wave Propagation", wavepropPaint);
       //drawResultantEMWave(canvas, center, wavePaint);
       drawEWave(canvas, center, efieldPaint);
       drawHWave(canvas, center, hfieldPaint);
     }
-
   }
 
   void drawVector(Canvas canvas, Offset center, Point3D direction, double magnitude, String label, Paint paint) {
@@ -222,7 +223,7 @@ class Graph3DPainter extends CustomPainter {
     drawArrow(canvas, center, center + project3DTo2D(field, zoom), paint);
     _drawText(canvas, label, center + project3DTo2D(field, zoom) + Offset(10, 10), paint);
   }
-
+  
   void drawResultantEMWave(Canvas canvas, Offset center, Paint wavePaint) {
     const int pointsCount = 200;
     List<Point3D> emWavePoints = List.generate(pointsCount, (i) {
@@ -301,6 +302,12 @@ class Graph3DPainter extends CustomPainter {
   }
 
   void drawEWave(Canvas canvas, Offset center, Paint wavePaint) {
+    print("Drawing E-Field Wave");
+    print("E-Field Magnitude 1: $eFieldMagnitude1");
+    print("E-Field Magnitude 2: $eFieldMagnitude2");
+    print("Phasor Angle 1: $phasorAngle1");
+    print("Phasor Angle 2: $phasorAngle2");
+
     const int pointsCount = 200;
     List<Point3D> eFieldPoints = List.generate(pointsCount, (i) {
       double t = i / 10.0;
@@ -337,7 +344,7 @@ class Graph3DPainter extends CustomPainter {
 
   void _drawText(Canvas canvas, String text, Offset position, Paint paint) {
     final TextPainter textPainter = TextPainter(
-      text: TextSpan(text: text, style: TextStyle(color: paint.color, fontSize: 14)),
+      text: TextSpan(text: text, style: TextStyle(color: paint.color, fontSize: 18, fontWeight: FontWeight.bold)),
       textDirection: TextDirection.ltr,
     );
 

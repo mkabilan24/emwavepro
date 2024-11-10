@@ -6,7 +6,6 @@ import 'package:math_keyboard/math_keyboard.dart';
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 import 'package:emwavepro/Lossy/14_Lossy_WaveNumber.dart';
-import 'package:emwavepro/Lossy/7_Lossy_IntrinsicImpedance.dart';
 
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 
