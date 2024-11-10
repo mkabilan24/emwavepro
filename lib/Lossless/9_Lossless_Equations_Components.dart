@@ -620,7 +620,7 @@ class _LosslessEquationComponentsDropdownState extends State<LosslessEquationCom
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Components of EM Wave in Lossless Medium"),
+                const Text("Components of EM Wave", style: TextStyle(fontSize: 16,)),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),

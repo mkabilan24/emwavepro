@@ -52,7 +52,7 @@ class _LosslessMediumDropdownState extends State<LosslessMediumDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Lossless Medium Properties"),
+                const Text("Lossless Medium Properties", style: TextStyle(fontSize: 16,)),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),

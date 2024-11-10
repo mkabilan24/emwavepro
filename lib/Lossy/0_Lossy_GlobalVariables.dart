@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:emwavepro/Shared/complex_math.dart';
-import 'package:flutter/material.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 bool onchange = false;

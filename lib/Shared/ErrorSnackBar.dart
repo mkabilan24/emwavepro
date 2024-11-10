@@ -44,7 +44,7 @@ class SnackbarController {
     );
 
     // Insert the overlay entry
-    overlayState?.insert(_overlayEntry!);
+    overlayState.insert(_overlayEntry!);
 
     // Remove the overlay after 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
@@ -92,7 +92,7 @@ class SnackbarController {
     );
 
     // Insert the overlay entry
-    overlayState?.insert(_overlayEntry!);
+    overlayState.insert(_overlayEntry!);
   }
 
   // Function to hide the snackbar
