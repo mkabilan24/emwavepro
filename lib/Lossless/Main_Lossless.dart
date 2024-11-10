@@ -180,7 +180,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                         },
                         child: const Text('Generare EM Wave'),
                       ),
-                      const SizedBox(width: 20), // Add space between buttons
+                      const SizedBox(width: 20),
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -188,8 +188,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 255, 122, 112), // Background color
-                          foregroundColor: Colors.black, // Font color
+                          backgroundColor: Color.fromARGB(255, 255, 122, 112),
+                          foregroundColor: Colors.black,
                         ),
                         child: const Text('Clear All'),
                       ),

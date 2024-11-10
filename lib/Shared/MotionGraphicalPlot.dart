@@ -229,12 +229,6 @@ class Graph3DPainter extends CustomPainter {
   }
 
   void drawEWave(Canvas canvas, Offset center, Paint wavePaint) {
-    print("Drawing E-Field Wave");
-    print("E-Field Magnitude 1: $eFieldMagnitude1");
-    print("E-Field Magnitude 2: $eFieldMagnitude2");
-    print("Phasor Angle 1: $phasorAngle1");
-    print("Phasor Angle 2: $phasorAngle2");
-
     const int pointsCount = 200;
     List<Point3D> eFieldPoints = List.generate(pointsCount, (i) {
       double t = i / 10.0;
