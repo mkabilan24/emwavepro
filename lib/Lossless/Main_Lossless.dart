@@ -10,7 +10,6 @@ import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 import 'package:emwavepro/Lossless/Lossless_Medium_Properties.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/Shared/ErrorSnackBar.dart';
 import 'package:emwavepro/Shared/GraphicalPlot.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 
@@ -20,7 +19,6 @@ class EMFieldEquationsWidget extends StatefulWidget {
 }
 
 class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
-  SnackbarController snackbarController = SnackbarController();
 
   //For Graphical Plot
   double angleX = pi;
@@ -183,6 +181,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                         onPressed: () {
                           setState(() {
                             clearAllFields();
+                            snackbarController.hideErrorSnackBar();
                           });
                         },
                         style: ElevatedButton.styleFrom(
