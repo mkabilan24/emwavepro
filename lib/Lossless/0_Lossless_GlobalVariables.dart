@@ -44,7 +44,6 @@ MathFieldEditingController lossless_attenuationconstant = MathFieldEditingContro
 //Phase Constant
 MathFieldEditingController lossless_phaseconstant = MathFieldEditingController();
 
-
 //Equations
 MathFieldEditingController electricabsoluteE1 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH1 = MathFieldEditingController();
