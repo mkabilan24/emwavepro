@@ -1,5 +1,6 @@
 import 'package:emwavepro/Lossless/Main_Lossless.dart';
 import 'package:emwavepro/Lossy/Main_Lossy.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,45 +11,56 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'EMWavePro',
-            style: TextStyle(
-              fontFamily: 'Roboto', // You can use a custom font here
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-              color: Colors.white,
-            ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'EMWavePro',
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+            color: Colors.white,
           ),
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.blue, Colors.purple],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-          actions: [
-            Padding(padding: const EdgeInsets.only(right: 10.0),
-            child: IconButton(
-                icon: const Icon(
-                  Icons.settings,
-                  size: 30.0,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  // Add settings functionality here
-                },
-                tooltip: 'Settings', // Add a tooltip for better accessibility
-              ),
-            ),
-          ],
         ),
-        body: RadioButtonsRow(),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.purple],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.settings,
+                size: 30.0,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserSettings()),
+                );
+              },
+              tooltip: 'Settings',
+            ),
+          ),
+        ],
       ),
+      body: RadioButtonsRow(),
     );
   }
 }
