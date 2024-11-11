@@ -30,6 +30,18 @@ void calc_angular_freq() {
   print("The angular frequency is $angularfreqValue.");
 }
 
+//  void validateAngularFrequency(
+//     BuildContext context, MathFieldEditingController controller) {
+//     if (!controller.isEmpty) {
+//       double? angularFrequency = convertMathExpressionToDouble(controller);
+//       if (angularFrequency < 0) {
+//         snackbarController.showTemporaryErrorSnackBar(
+//             context, "Angular Frequency (ω) must be positive!");
+//         controller.clear();
+//       }
+//     }
+//   }
+
 Widget FrequencyDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
@@ -81,7 +93,7 @@ Widget FrequencyDisplayWidget() {
   );
 }
 
-Widget AngularFrequencyDisplayWidget() {
+Widget AngularFrequencyDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -113,6 +125,7 @@ Widget AngularFrequencyDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
+                    //validateAngularFrequency(context, angularfreq);
                     calc_freq();
                     calc_lossless_wavenumber();
                     

@@ -17,7 +17,7 @@ class LosslessWaveEMPropertiesWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FrequencyDisplayWidget(),
-            AngularFrequencyDisplayWidget(),
+            AngularFrequencyDisplayWidget(context),
             Lossless_WaveNumberDisplayWidget(),
             Lossless_AttenuationConstantDisplayWidget(),
             Lossless_PhaseConstantDisplayWidget(),

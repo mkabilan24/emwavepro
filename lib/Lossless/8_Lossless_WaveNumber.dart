@@ -26,6 +26,16 @@ void calc_lossless_wavenumber() {
   calc_lossless_phaseconstant();
 }
 
+// void _validateWavenumber(
+  //     BuildContext context, MathFieldEditingController controller) {
+  //   double? wavenumber = convertMathExpressionToDouble(controller);
+  //   if (wavenumber < 0) {
+  //     snackbarController.showTemporaryErrorSnackBar(
+  //         context, "Wavenumber (k) must be positive!");
+  //     controller.clear();
+  //   }
+  // }
+
 Widget Lossless_WaveNumberDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),

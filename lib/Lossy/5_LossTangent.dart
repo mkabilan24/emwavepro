@@ -1,4 +1,5 @@
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 

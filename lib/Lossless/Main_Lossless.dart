@@ -95,10 +95,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     return phiSign;
   }
 
-  String _getabsoluteValue(
-      MathFieldEditingController controller, String variable) {
-    double? controllerNumeric =
-        double.tryParse(controller.currentEditingValue());
+  String _getabsoluteValue(MathFieldEditingController controller, String variable) {
+    double? controllerNumeric = double.tryParse(displayexpression(controller));
     if (controllerNumeric == null) {
       return variable;
     } else {
@@ -107,9 +105,9 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   }
 
   String _generateETimeDomainEquation() {
-    String ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi1Controller)})';
+    String ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi1Controller)})';
     if (numofcomponents == 2) {
-      ETimeDomainEquation += '$a_E_Field_Propagation2 ${_getabsoluteValue(_E2Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation2)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi2Controller)})';
+      ETimeDomainEquation += '$a_E_Field_Propagation2 ${_getabsoluteValue(_E2Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation2)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi2Controller)})';
     }
     return ETimeDomainEquation;
   }
@@ -123,9 +121,9 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   }
 
   String _generateHTimeDomainEquation() {
-    String HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi1Controller)})';
+    String HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi1Controller)})';
     if (numofcomponents == 2) {
-      HTimeDomainEquation += '$a_H_Field_Propagation2 ${_getabsoluteValue(_H2Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation2)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi2Controller)})';
+      HTimeDomainEquation += '$a_H_Field_Propagation2 ${_getabsoluteValue(_H2Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation2)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation)} ${_getPhiStringTimeDomainForm(_phi2Controller)})';
     }
     return HTimeDomainEquation;
   }
@@ -282,36 +280,3 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
 void main_lossless() {
   runApp(MaterialApp(home: EMFieldEquationsWidget()));
 }
-
-
-
-
-  // void _validateAngularFrequency(
-  //     BuildContext context, MathFieldEditingController controller) {
-  //   double? angularFrequency = convertMathExpressionToDouble(controller);
-  //   if (angularFrequency < 0) {
-  //     snackbarController.showTemporaryErrorSnackBar(
-  //         context, "Angular Frequency (ω) must be positive!");
-  //     controller.clear();
-  //   } 
-  // }
-
-  // void _validateWavenumber(
-  //     BuildContext context, MathFieldEditingController controller) {
-  //   double? wavenumber = convertMathExpressionToDouble(controller);
-  //   if (wavenumber < 0) {
-  //     snackbarController.showTemporaryErrorSnackBar(
-  //         context, "Wavenumber (k) must be positive!");
-  //     controller.clear();
-  //   }
-  // }
-
-  // void _validateWaveVectors(a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation) {
-  //   bool isvalid = validateRHRWaveVectors(a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation);
-  //   if (!isvalid) {
-  //     snackbarController.showPermanentErrorSnackBar(
-  //         context, "Direction Vectors are Invalid!");
-  //   } else {
-  //     snackbarController.hideErrorSnackBar();
-  //   }
-  // }
