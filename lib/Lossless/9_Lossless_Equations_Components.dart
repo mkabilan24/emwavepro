@@ -560,7 +560,7 @@ class _LosslessEquationComponentsDropdownState extends State<LosslessEquationCom
           children: [
             const Text(
               'No. of Components:',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
             const SizedBox(width: 10), // Add some space between the text and the toggle buttons
             Expanded(

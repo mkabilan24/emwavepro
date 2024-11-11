@@ -26,7 +26,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   double angleX = pi;
   double angleY = 0;
   double zoom = 500.0;
-  double labeloffset = 10.0;
+  double labeloffset = 5.0;
 
   void onScaleUpdate(ScaleUpdateDetails details) {
     setState(() {
@@ -193,33 +193,52 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
                   // Display Equations
-                  Container(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0), // You can adjust the padding as needed
+                  Card(
+                    margin: const EdgeInsets.all(10.0),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Time Domain Equations:'),
-                            Math.tex(_generateETimeDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                            Math.tex(_generateHTimeDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                            const SizedBox(height: 20),
-                            const Text('Phasor Domain Equations:'),
-                            Math.tex(_generateEPhasorDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
-                            Math.tex(_generateHPhasorDomainEquation(),
-                                textStyle: const TextStyle(fontSize: 20)),
+                            const Text(
+                              'Time Domain Equations:',
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Math.tex(
+                              _generateETimeDomainEquation(),
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            Math.tex(
+                              _generateHTimeDomainEquation(),
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            const Divider(),
+                            const Text(
+                              'Phasor Domain Equations:',
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            Math.tex(
+                              _generateEPhasorDomainEquation(),
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            Math.tex(
+                              _generateHPhasorDomainEquation(),
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
                           ],
                         ),
                       ),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    color: Colors.blue[300],
+                    color: Colors.grey[300],
                     child: Text(
                       "Wave Polarization: ${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}",
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
