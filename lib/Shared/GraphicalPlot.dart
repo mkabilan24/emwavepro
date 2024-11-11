@@ -147,6 +147,33 @@ class Graph3DPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
   }
+    void drawLegend(Canvas canvas, Size size) {
+    final TextPainter textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+    );
+
+    final List<Map<String, dynamic>> legends = [
+      {'text': 'H-Field', 'color': Colors.blue},
+      {'text': 'E-Field', 'color': Colors.red},
+      {'text': 'Wave Propagation', 'color': Colors.orange},
+    ];
+
+    double xOffset = 10;
+    double yOffset = size.height - 25 * legends.length;
+
+    for (var legend in legends) {
+      final textSpan = TextSpan(
+        text: legend['text'],
+        style: TextStyle(color: legend['color'], fontSize: 16, fontWeight: FontWeight.bold),
+      );
+
+      textPainter.text = textSpan;
+      textPainter.layout();
+      textPainter.paint(canvas, Offset(xOffset, yOffset));
+
+      yOffset += 20;
+    }
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -167,7 +194,9 @@ class Graph3DPainter extends CustomPainter {
 
     final Offset center = Offset(size.width / 2, size.height / 2);
 
-    List<Point3D> axes = [Point3D(110, 0, 0), Point3D(0, 110, 0), Point3D(0, 0, 110)];
+    drawLegend(canvas, size);
+
+    List<Point3D> axes = [Point3D(120, 0, 0), Point3D(0, 120, 0), Point3D(0, 0, 120)];
 
     List<Point3D> rotatedAxes = axes.map((point) {
       Point3D rotatedPoint = rotateX(point, angleX);
@@ -180,9 +209,9 @@ class Graph3DPainter extends CustomPainter {
       drawArrow(canvas, center - projected, center + projected, axisPaint);
     }
 
-    Offset xLabelPosition = center + project3DTo2D(rotateY(rotateX(Point3D(120, labeloffset, labeloffset), angleX), angleY), zoom);
-    Offset yLabelPosition = center + project3DTo2D(rotateY(rotateX(Point3D(labeloffset, 120, labeloffset), angleX), angleY), zoom);
-    Offset zLabelPosition = center + project3DTo2D(rotateY(rotateX(Point3D(labeloffset, labeloffset, 120), angleX), angleY), zoom);
+    Offset xLabelPosition = center + project3DTo2D(rotateY(rotateX(Point3D(125, labeloffset, labeloffset), angleX), angleY), zoom);
+    Offset yLabelPosition = center + project3DTo2D(rotateY(rotateX(Point3D(labeloffset, 125, labeloffset), angleX), angleY), zoom);
+    Offset zLabelPosition = center + project3DTo2D(rotateY(rotateX(Point3D(labeloffset, labeloffset, 125), angleX), angleY), zoom);
 
     _drawText(canvas, "X", xLabelPosition, axisPaint);
     _drawText(canvas, "Y", yLabelPosition, axisPaint);
@@ -203,13 +232,13 @@ class Graph3DPainter extends CustomPainter {
 
     // Drawing resultant vectors if magnitudes are not zero
     if (eFieldMagnitude1 != 0 || eFieldMagnitude2 != 0) {
-      drawVector(canvas, center, resultantEField, 1, "E-Field", eaxisPaint);
+      drawVector(canvas, center, resultantEField, 1, "", eaxisPaint);
     }
     if (hFieldMagnitude1 != 0 || hFieldMagnitude2 != 0) {
-      drawVector(canvas, center, resultantHField, 1, "H-Field", haxisPaint);
+      drawVector(canvas, center, resultantHField, 1, "", haxisPaint);
     }
     if (eFieldMagnitude1 != 0 || eFieldMagnitude2 != 0 || hFieldMagnitude1 != 0 || hFieldMagnitude2 != 0) {
-      drawVector(canvas, center, wavePropagationDirection,150, "Wave Propagation", wavepropPaint);
+      drawVector(canvas, center, wavePropagationDirection,150, "", wavepropPaint);
       //drawResultantEMWave(canvas, center, wavePaint);
       drawEWave(canvas, center, efieldPaint);
       drawHWave(canvas, center, hfieldPaint);

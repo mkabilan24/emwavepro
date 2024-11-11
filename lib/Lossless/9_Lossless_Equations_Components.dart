@@ -581,6 +581,11 @@ class _LosslessEquationComponentsDropdownState extends State<LosslessEquationCom
                       }
                       numofcomponents = index + 1;
                       print("Number of Components: $numofcomponents");
+                      if (numofcomponents == 1) {
+                        electricabsoluteE2.clear();
+                        magneticabsoluteH2.clear();
+                        phaseangle2.clear();
+                      }
                     });
                   },
                   children: const <Widget>[

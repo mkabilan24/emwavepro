@@ -115,6 +115,8 @@ class Graph3DPainter extends CustomPainter {
     _drawText(canvas, "Y", yLabelPosition, axisPaint);
     _drawText(canvas, "Z", zLabelPosition, axisPaint);
 
+    
+
     // Calculate resultant vectors
     Point3D resultantEField = Point3D(
       eFieldDirection1.x * eFieldMagnitude1 * cos(phasorAngle1) + eFieldDirection2.x * eFieldMagnitude2 * cos(phasorAngle2),

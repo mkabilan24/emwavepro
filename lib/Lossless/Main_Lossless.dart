@@ -26,7 +26,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   double angleX = pi;
   double angleY = 0;
   double zoom = 500.0;
-  double labeloffset = 0.0;
+  double labeloffset = 10.0;
 
   void onScaleUpdate(ScaleUpdateDetails details) {
     setState(() {
