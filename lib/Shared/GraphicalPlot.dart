@@ -76,6 +76,8 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
+
+
 class Graph3DPainter extends CustomPainter {
   final double angleX;
   final double angleY;
@@ -92,7 +94,8 @@ class Graph3DPainter extends CustomPainter {
   final Point3D hFieldDirection1;
   final Point3D eFieldDirection2;
   final Point3D hFieldDirection2;
-  final Point3D wavePropagationDirection;
+  final Point3D wavePropagationDirection1;
+  final Point3D wavePropagationDirection2;
 
   Graph3DPainter(
     {required this.angleX, required this.angleY, required this.zoom,required this.labeloffset, 
@@ -101,7 +104,7 @@ class Graph3DPainter extends CustomPainter {
     required this.waveNumber, required this.phasorAngle1, required this.phasorAngle2,
     required this.eFieldDirection1, required this.hFieldDirection1, 
     required this.eFieldDirection2, required this.hFieldDirection2, 
-    required this.wavePropagationDirection}
+    required this.wavePropagationDirection1, required this.wavePropagationDirection2,}
   );
 
   Point3D rotateX(Point3D point, double angle) {
@@ -238,10 +241,11 @@ class Graph3DPainter extends CustomPainter {
       drawVector(canvas, center, resultantHField, 1, "", haxisPaint);
     }
     if (eFieldMagnitude1 != 0 || eFieldMagnitude2 != 0 || hFieldMagnitude1 != 0 || hFieldMagnitude2 != 0) {
-      drawVector(canvas, center, wavePropagationDirection,150, "", wavepropPaint);
       //drawResultantEMWave(canvas, center, wavePaint);
+      drawVector(canvas, center, wavePropagationDirection1, 1, "", wavepropPaint);
       drawEWave(canvas, center, efieldPaint);
       drawHWave(canvas, center, hfieldPaint);
+      //drawResultantEMWave(canvas, center, wavepropPaint);
     }
   }
 
@@ -274,6 +278,7 @@ class Graph3DPainter extends CustomPainter {
                       hFieldMagnitude2 * hFieldDirection2.z * cos(waveNumber * t + phasorAngle2);
 
       // Wave propagation along the specified direction
+      Point3D wavePropagationDirection = getWavePropagationDirection();
       double waveX = wavePropagationDirection.x * t * 5;
       double waveY = wavePropagationDirection.y * t * 5;
       double waveZ = wavePropagationDirection.z * t * 5;
@@ -295,6 +300,11 @@ class Graph3DPainter extends CustomPainter {
     }
   }
 
+  Point3D getWavePropagationDirection() {
+    return wavePropagationDirection1;
+  }
+  
+  
   void drawHWave(Canvas canvas, Offset center, Paint wavePaint) {
     const int pointsCount = 200;
     List<Point3D> eFieldPoints = List.generate(pointsCount, (i) {
@@ -309,6 +319,7 @@ class Graph3DPainter extends CustomPainter {
                       hFieldMagnitude2 * hFieldDirection2.z * cos(waveNumber * t + phasorAngle2);
 
       // Wave propagation along the specified direction
+      Point3D wavePropagationDirection = getWavePropagationDirection();
       double waveX = wavePropagationDirection.x * t * 5;
       double waveY = wavePropagationDirection.y * t * 5;
       double waveZ = wavePropagationDirection.z * t * 5;
@@ -344,6 +355,7 @@ class Graph3DPainter extends CustomPainter {
                       eFieldMagnitude2 * eFieldDirection2.z * cos(waveNumber * t + phasorAngle2);
 
       // Wave propagation along the specified direction
+      Point3D wavePropagationDirection = getWavePropagationDirection();
       double waveX = wavePropagationDirection.x * t * 5;
       double waveY = wavePropagationDirection.y * t * 5;
       double waveZ = wavePropagationDirection.z * t * 5;

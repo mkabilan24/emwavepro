@@ -346,7 +346,8 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                               hFieldDirection1: vectorFromLatex(a_H_Field_Propagation),
                               eFieldDirection2: Point3D(0, 0, 0),
                               hFieldDirection2: Point3D(0, 0, 0),
-                              wavePropagationDirection: vectorFromLatex(a_k_Wave_Propagation),
+                              wavePropagationDirection1: vectorFromLatex(a_k_Wave_Propagation),
+                              wavePropagationDirection2: vectorFromLatex(a_k_Wave_Propagation)
                             ),
                             size: Size.infinite,
                           )

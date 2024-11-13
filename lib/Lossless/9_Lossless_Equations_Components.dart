@@ -42,17 +42,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
     print("Validating Wave Vectors");
     print("a_E_Field_Propagation1: $a_E_Field_Propagation1");
     print("a_H_Field_Propagation1: $a_H_Field_Propagation1");
-    print("a_k_Wave_Propagation1: $a_k_Wave_Propagation");
+    print("a_k_Wave_Propagation1: $a_k_Wave_Propagation1");
     print("a_E_Field_Propagation2: $a_E_Field_Propagation2");
     print("a_H_Field_Propagation2: $a_H_Field_Propagation2");
+    print("a_k_Wave_Propagation1: $a_k_Wave_Propagation2");
 
-    bool RHRComponent1 = validateRHRWaveVectors(a_E_Field_Propagation1, a_H_Field_Propagation1, a_k_Wave_Propagation);
-    bool RHRComponent2 = validateRHRWaveVectors(a_E_Field_Propagation2, a_H_Field_Propagation2, a_k_Wave_Propagation);
+    bool RHRComponent1 = validateRHRWaveVectors(a_E_Field_Propagation1, a_H_Field_Propagation1, a_k_Wave_Propagation1);
+    bool RHRComponent2 = validateRHRWaveVectors(a_E_Field_Propagation2, a_H_Field_Propagation2, a_k_Wave_Propagation2);
 
     bool isvalid = (RHRComponent1 && RHRComponent2);
+    print("isvalid: $isvalid");
 
     if (numofcomponents == 2) {
       if ((_getWavePropagationAxis(a_E_Field_Propagation1) == _getWavePropagationAxis(a_E_Field_Propagation2)) || (_getWavePropagationAxis(a_H_Field_Propagation1) == _getWavePropagationAxis(a_H_Field_Propagation2))) {
+        isvalid = false;
+      }
+      if (_getWavePropagationAxis(a_k_Wave_Propagation1) != _getWavePropagationAxis(a_k_Wave_Propagation2)) {
         isvalid = false;
       }
     }
@@ -278,6 +283,27 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                   )
                 ]
               ),
+              Row(
+                children: [
+                  Math.tex(
+                    '\\text{Wave propagation: }\\vec{a}_{k}=',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: MathDropdown(
+                      initialValue: a_k_Wave_Propagation1,
+                      options: vect_options,
+                      onChanged: (newValue) {
+                        setState(() {
+                          a_k_Wave_Propagation1 = newValue;
+                          _validateAllWaveVectors();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
           )
         ),
@@ -490,6 +516,27 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                   )
                 ]
               ),
+              Row(
+                children: [
+                  Math.tex(
+                    '\\text{Wave propagation: }\\vec{a}_{k}=',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: MathDropdown(
+                      initialValue: a_k_Wave_Propagation2,
+                      options: vect_options,
+                      onChanged: (newValue) {
+                        setState(() {
+                          a_k_Wave_Propagation2 = newValue;
+                          _validateAllWaveVectors();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
           )
         ),
@@ -501,7 +548,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
     return Column(
       children: [
         Container(
-          height: 320,
+          height: 370,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
           ),
@@ -512,30 +559,6 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Math.tex(
-                '\\text{Wave propagation: }\\vec{a}_{k}=',
-                textStyle: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: MathDropdown(
-                  initialValue: a_k_Wave_Propagation,
-                  options: vect_options,
-                  onChanged: (newValue) {
-                    setState(() {
-                      a_k_Wave_Propagation = newValue;
-                      _validateAllWaveVectors();
-                    });
-                  },
-                ),
-              ),
-            ],
-          ),
-        )
       ],
     );
   }
