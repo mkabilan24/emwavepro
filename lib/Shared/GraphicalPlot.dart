@@ -242,7 +242,7 @@ class Graph3DPainter extends CustomPainter {
     }
     if (eFieldMagnitude1 != 0 || eFieldMagnitude2 != 0 || hFieldMagnitude1 != 0 || hFieldMagnitude2 != 0) {
       //drawResultantEMWave(canvas, center, wavePaint);
-      drawVector(canvas, center, wavePropagationDirection1, 1, "", wavepropPaint);
+      drawVector(canvas, center, wavePropagationDirection1, 150, "", wavepropPaint);
       drawEWave(canvas, center, efieldPaint);
       drawHWave(canvas, center, hfieldPaint);
       //drawResultantEMWave(canvas, center, wavepropPaint);
