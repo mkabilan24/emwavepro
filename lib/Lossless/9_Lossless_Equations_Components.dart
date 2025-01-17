@@ -156,7 +156,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!errorneousInputFilter(electricabsoluteE1)) {
+                                if (!inputHandler(electricabsoluteE1)) {
                                   calc_lossless_H(
                                       electricabsoluteE1, magneticabsoluteH1, 1);
                                 }
@@ -228,7 +228,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!errorneousInputFilter(magneticabsoluteH1)) {
+                                if (!inputHandler(magneticabsoluteH1)) {
                                   calc_lossless_E(
                                     electricabsoluteE1, magneticabsoluteH1, 1);
                                 }
@@ -276,7 +276,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              errorneousInputFilter(phaseangle1);
+                              inputHandler(phaseangle1);
                               setState(() {});
                             },
                           ),
@@ -394,7 +394,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!errorneousInputFilter(electricabsoluteE2)) {
+                                if (!inputHandler(electricabsoluteE2)) {
                                   calc_lossless_H(
                                     electricabsoluteE2, magneticabsoluteH2, 1);
                                 }
@@ -466,7 +466,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!errorneousInputFilter(magneticabsoluteH2)) {
+                                if (!inputHandler(magneticabsoluteH2)) {
                                   calc_lossless_E(
                                     electricabsoluteE2, magneticabsoluteH2, 1);
                                 }
@@ -514,7 +514,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              errorneousInputFilter(phaseangle2);
+                              inputHandler(phaseangle2);
                               setState(() {});
                             },
                           ),

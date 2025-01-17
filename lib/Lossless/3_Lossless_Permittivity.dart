@@ -63,7 +63,7 @@ class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_Permittivi
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        if (!errorneousInputFilter(lossless_relativepermittivity)) {
+                        if (!inputHandler(lossless_relativepermittivity)) {
                           calc_lossless_permittivity();
                           calc_lossless_intrinsicimpedance();
                           calc_lossless_wavenumber();

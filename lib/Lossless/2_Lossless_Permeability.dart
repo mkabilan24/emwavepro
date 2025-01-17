@@ -63,7 +63,7 @@ class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_Permeabili
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        if (!errorneousInputFilter(lossless_relativepermeability)) {
+                        if (!inputHandler(lossless_relativepermeability)) {
                           if (lossless_relativepermeability.isEmpty || convertMathExpressionToDouble(lossless_relativepermeability) >= 0) {
                             calc_lossless_permeability();
                             calc_lossless_intrinsicimpedance();

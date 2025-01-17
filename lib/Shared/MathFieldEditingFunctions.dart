@@ -63,7 +63,7 @@ double convertMathExpressionToDouble(MathFieldEditingController controller) {
 // Function for errorneous inputs
 // Purpose: To strictly accept only digits and a single decimal place and empty controller so the app will not crash
 // Additional: This function can be redeveloped to parse and evaluate logical mathematical expressions including small and large numbers
-bool errorneousInputFilter(MathFieldEditingController controller) {
+bool inputHandler(MathFieldEditingController controller) {
   String expressionString = controller.currentEditingValue();
   //print('Expression String: $expressionString');
 

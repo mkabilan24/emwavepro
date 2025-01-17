@@ -69,7 +69,7 @@ Widget Lossless_WaveNumberDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    if (!errorneousInputFilter(lossless_wavenumber)) {
+                    if (!inputHandler(lossless_wavenumber)) {
                       calc_lossless_phaseconstant();
                     }
                     onchange = false;

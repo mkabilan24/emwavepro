@@ -74,7 +74,7 @@ Widget FrequencyDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    if (!errorneousInputFilter(freq)) {
+                    if (!inputHandler(freq)) {
                       calc_angular_freq();
                       calc_lossless_wavenumber();
                     }
@@ -132,7 +132,7 @@ Widget AngularFrequencyDisplayWidget(context) {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    if (!errorneousInputFilter(angularfreq)) {
+                    if (!inputHandler(angularfreq)) {
                       //validateAngularFrequency(context, angularfreq);
                       calc_freq();
                       calc_lossless_wavenumber();
