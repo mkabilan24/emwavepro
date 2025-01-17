@@ -18,7 +18,7 @@ double convertMathExpressionToDouble(MathFieldEditingController controller) {
 
   String ExpressionString = controller.currentEditingValue();
   // Debugging: Print the input string
-  //print('Expression String: $ExpressionString');
+  // print('Expression String: $ExpressionString');
 
   // Check if the string contains 'e'
   if (ExpressionString.contains('e')) {
@@ -55,4 +55,49 @@ double convertMathExpressionToDouble(MathFieldEditingController controller) {
   
   // If the string does not contain 'e' or is not a very big or small number, return the original string
   return getDouble(controller);
+}
+
+
+//Newly Added 2025
+
+// Function for errorneous inputs
+// Purpose: To strictly accept only digits and a single decimal place and empty controller so the app will not crash
+// Additional: This function can be redeveloped to parse and evaluate logical mathematical expressions including small and large numbers
+bool errorneousInputFilter(MathFieldEditingController controller) {
+  String expressionString = controller.currentEditingValue();
+  //print('Expression String: $expressionString');
+
+  // Regular expression to match only digits and a single decimal place (Including + or - sign in front)
+  RegExp validChars = RegExp(r'^[+-]?\d+(\.\d+)?$');
+
+  if (controller.isEmpty) {
+    return false;
+  }
+  else if (!validChars.hasMatch(expressionString)) {
+    print('Input Error Detected!');
+    return true;
+  }
+  return false;
+}
+// Function to convert small and large numbers in scientific notation to double (INPROGRESS & UNUSED)
+void convertsmallandlargenumberMathExpressiontoDouble(MathFieldEditingController controller) {
+  String ExpressionString = controller.currentEditingValue();
+  // Debugging: Print the input string
+  print('Expression String: $ExpressionString');
+
+  // Check if the string contains 'e'
+  if (ExpressionString.contains('e')) {
+    // Use a regular expression to extract the coefficient and exponent
+    RegExp exp = RegExp(r'\^\{([0-9.]+)\}([+-]?[0-9]+)');
+    RegExpMatch? match = exp.firstMatch(ExpressionString);
+    if (match != null) {
+      double coefficient = double.parse(match.group(1)!);
+      //print("Double Coefficient: $coefficient");
+      double exponent = double.parse(match.group(2)!);
+      //print("Double Exponent: $exponent"); 
+      double value = coefficient * pow(10, exponent);
+      //print("Doulbe Value: $value");
+      updateDouble(controller, value);
+    }
+  }
 }

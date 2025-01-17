@@ -74,8 +74,15 @@ Widget FrequencyDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    calc_angular_freq();
-                    calc_lossless_wavenumber();
+                    if (!errorneousInputFilter(freq)) {
+                      calc_angular_freq();
+                      calc_lossless_wavenumber();
+                    }
+                    if (freq.isEmpty) {
+                      angularfreq.clear();
+                      lossless_wavenumber.clear();
+                      lossless_phaseconstant.clear();
+                    }
                     onchange = false;
                   }
                 },
@@ -125,10 +132,16 @@ Widget AngularFrequencyDisplayWidget(context) {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    //validateAngularFrequency(context, angularfreq);
-                    calc_freq();
-                    calc_lossless_wavenumber();
-                    
+                    if (!errorneousInputFilter(angularfreq)) {
+                      //validateAngularFrequency(context, angularfreq);
+                      calc_freq();
+                      calc_lossless_wavenumber();
+                    }
+                    if (angularfreq.isEmpty) {
+                      freq.clear();
+                      lossless_wavenumber.clear();
+                      lossless_phaseconstant.clear();
+                    }
                     onchange = false;
                   }
                 },

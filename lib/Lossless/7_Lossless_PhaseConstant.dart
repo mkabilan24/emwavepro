@@ -61,7 +61,9 @@ Widget Lossless_PhaseConstantDisplayWidget() {
                   onChanged: (newvalue) {
                     if (!onchange) {
                       onchange = true;
-                      sync_lossless_phaseconstant_wavenumber();
+                      if (!errorneousInputFilter(lossless_phaseconstant)) {
+                        sync_lossless_phaseconstant_wavenumber();
+                      }
                       onchange = false;
                     }
                   }),

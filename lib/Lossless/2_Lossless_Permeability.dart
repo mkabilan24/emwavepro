@@ -63,9 +63,22 @@ class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_Permeabili
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        calc_lossless_permeability();
-                        calc_lossless_intrinsicimpedance();
-                        calc_lossless_wavenumber();
+                        if (!errorneousInputFilter(lossless_relativepermeability)) {
+                          if (lossless_relativepermeability.isEmpty || convertMathExpressionToDouble(lossless_relativepermeability) >= 0) {
+                            calc_lossless_permeability();
+                            calc_lossless_intrinsicimpedance();
+                            calc_lossless_wavenumber();
+                            snackbarController.hideErrorSnackBar();
+                          }
+                          else {
+                            snackbarController.showPermanentErrorSnackBar(
+                                context, "Input Error: Permeability (μ) must be positive!");
+                          }
+                        }
+                        else {
+                          snackbarController.showPermanentErrorSnackBar(
+                              context, "Input Error: Permeability (μ)");
+                        }
                         onchange = false;
                       });
                     }

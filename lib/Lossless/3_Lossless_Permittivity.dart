@@ -63,9 +63,17 @@ class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_Permittivi
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        calc_lossless_permittivity();
-                        calc_lossless_intrinsicimpedance();
-                        calc_lossless_wavenumber();
+                        if (!errorneousInputFilter(lossless_relativepermittivity)) {
+                          calc_lossless_permittivity();
+                          calc_lossless_intrinsicimpedance();
+                          calc_lossless_wavenumber();
+                        }
+                        if (lossless_relativepermittivity.isEmpty) {
+                          lossless_permittivity.clear();
+                          lossless_intrinsicimpedance.clear();
+                          lossless_wavenumber.clear();
+                          lossless_phaseconstant.clear();
+                        }
                         onchange = false;
                       });
                     }

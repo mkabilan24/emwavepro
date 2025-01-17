@@ -14,6 +14,7 @@ import 'package:emwavepro/Lossless/7_Lossless_PhaseConstant.dart';
 void calc_lossless_wavenumber() {
   if (lossless_permittivity.isEmpty || lossless_permeability.isEmpty || angularfreq.isEmpty) {
     lossless_wavenumber.clear();
+    lossless_phaseconstant.clear();
     return;
   }
   double permittivityValue = convertMathExpressionToDouble(lossless_permittivity);
@@ -68,7 +69,9 @@ Widget Lossless_WaveNumberDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    calc_lossless_phaseconstant();
+                    if (!errorneousInputFilter(lossless_wavenumber)) {
+                      calc_lossless_phaseconstant();
+                    }
                     onchange = false;
                   }
                 },

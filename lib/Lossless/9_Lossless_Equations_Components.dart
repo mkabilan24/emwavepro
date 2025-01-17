@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -154,8 +156,10 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                calc_lossless_H(
-                                    electricabsoluteE1, magneticabsoluteH1, 1);
+                                if (!errorneousInputFilter(electricabsoluteE1)) {
+                                  calc_lossless_H(
+                                      electricabsoluteE1, magneticabsoluteH1, 1);
+                                }
                                 setState(() {});
                                 onchange = false;
                               }
@@ -224,8 +228,10 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                calc_lossless_E(
+                                if (!errorneousInputFilter(magneticabsoluteH1)) {
+                                  calc_lossless_E(
                                     electricabsoluteE1, magneticabsoluteH1, 1);
+                                }
                                 setState(() {});
                                 onchange = false;
                               }
@@ -270,6 +276,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
+                              errorneousInputFilter(phaseangle1);
                               setState(() {});
                             },
                           ),
@@ -387,8 +394,10 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                calc_lossless_H(
+                                if (!errorneousInputFilter(electricabsoluteE2)) {
+                                  calc_lossless_H(
                                     electricabsoluteE2, magneticabsoluteH2, 1);
+                                }
                                 setState(() {});
                                 onchange = false;
                               }
@@ -457,8 +466,10 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                calc_lossless_E(
+                                if (!errorneousInputFilter(magneticabsoluteH2)) {
+                                  calc_lossless_E(
                                     electricabsoluteE2, magneticabsoluteH2, 1);
+                                }
                                 setState(() {});
                                 onchange = false;
                               }
@@ -503,6 +514,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
+                              errorneousInputFilter(phaseangle2);
                               setState(() {});
                             },
                           ),
