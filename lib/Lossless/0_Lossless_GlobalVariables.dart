@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/Shared/ErrorSnackBar.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
@@ -95,5 +96,26 @@ void clearAllFields() {
   a_k_Wave_Propagation2 = '+\\vec{a}_z';
 }
 
-
+bool isfieldsempty() {
+  if (numofcomponents == 1) {
+    if (electricabsoluteE1.isEmpty || magneticabsoluteH1.isEmpty) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  else if (numofcomponents == 2) {
+    if (electricabsoluteE1.isEmpty || magneticabsoluteH1.isEmpty
+    || electricabsoluteE2.isEmpty || magneticabsoluteH2.isEmpty) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  else {
+    return true;
+  }
+}
 

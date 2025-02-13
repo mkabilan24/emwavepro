@@ -172,12 +172,19 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          setState(() {});
-                          if (phaseangle1.isEmpty) {
-                            updateDouble(phaseangle1, 0);
+                          if (isfieldsempty()) {
+                            print('Fields are empty');
+                            snackbarController.showTemporaryErrorSnackBar(context, 'Please fill in all fields');
+                            return;
                           }
-                          if (numofcomponents == 2 && phaseangle2.isEmpty) {
-                            updateDouble(phaseangle2, 0);
+                          else {
+                            setState(() {});
+                            if (phaseangle1.isEmpty) {
+                              updateDouble(phaseangle1, 0);
+                            }
+                            if (numofcomponents == 2 && phaseangle2.isEmpty) {
+                              updateDouble(phaseangle2, 0);
+                            }
                           }
                         },
                         child: const Text('Generare EM Wave'),

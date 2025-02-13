@@ -203,6 +203,9 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                       ElevatedButton(
                         onPressed: () {
                           setState(() {});
+                          // if (phaseangle.isEmpty) {
+                          //   updateDouble(phaseangle, 0);
+                          // }
                         },
                         child: const Text('Generare EM Wave'),
                       ),
@@ -367,6 +370,6 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
   }
 }
 
-void main_lossless() {
+void main_lossy() {
   runApp(MaterialApp(home: LossyEMFieldEquationsWidget()));
 }
