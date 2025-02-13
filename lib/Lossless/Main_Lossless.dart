@@ -173,6 +173,12 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {});
+                          if (phaseangle1.isEmpty) {
+                            updateDouble(phaseangle1, 0);
+                          }
+                          if (numofcomponents == 2 && phaseangle2.isEmpty) {
+                            updateDouble(phaseangle2, 0);
+                          }
                         },
                         child: const Text('Generare EM Wave'),
                       ),
