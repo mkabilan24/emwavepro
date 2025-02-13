@@ -63,16 +63,29 @@ class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_Permittivi
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        if (!inputHandler(lossless_relativepermittivity)) {
-                          calc_lossless_permittivity();
-                          calc_lossless_intrinsicimpedance();
-                          calc_lossless_wavenumber();
-                        }
                         if (lossless_relativepermittivity.isEmpty) {
                           lossless_permittivity.clear();
                           lossless_intrinsicimpedance.clear();
                           lossless_wavenumber.clear();
                           lossless_phaseconstant.clear();
+                          snackbarController.hideErrorSnackBar();
+                        }
+
+                        else if (!inputHandler(lossless_relativepermittivity)) {
+                          if (convertMathExpressionToDouble(lossless_relativepermittivity) >= 0) {
+                            calc_lossless_permittivity();
+                            calc_lossless_intrinsicimpedance();
+                            calc_lossless_wavenumber();
+                            snackbarController.hideErrorSnackBar();
+                          }
+                          else {
+                            snackbarController.showPermanentErrorSnackBar(
+                                context, "Input Error: Permittivity (ε) must be positive!");
+                          }
+                        }
+                        else {
+                          snackbarController.showPermanentErrorSnackBar(
+                              context, "Input Error: Permittivity (ε)");
                         }
                         onchange = false;
                       });
