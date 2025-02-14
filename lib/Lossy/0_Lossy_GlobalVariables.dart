@@ -1,9 +1,14 @@
 import 'dart:math';
 
 import 'package:emwavepro/Shared/Complex_Math.dart';
+import 'package:emwavepro/Shared/ErrorSnackBar.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 bool onchange = false;
+SnackbarController snackbarController = SnackbarController();
+
+//Given Field Component
+String givenfield = 'E';
 
 double pi = 3.14159265;
 double permeabilityOfFreeSpace = (4 * pi * pow(10, -7));
@@ -34,9 +39,24 @@ Complex complexpermittivity = Complex(0, 0);
 MathFieldEditingController lossy_permeability = MathFieldEditingController();
 
 
-MathFieldEditingController electricabsoluteE0 = MathFieldEditingController();
-MathFieldEditingController magneticabsoluteH0 = MathFieldEditingController();
-MathFieldEditingController phaseangle = MathFieldEditingController();
+//Equations
+MathFieldEditingController electricabsoluteE1 = MathFieldEditingController();
+MathFieldEditingController magneticabsoluteH1 = MathFieldEditingController();
+MathFieldEditingController phaseangle1 = MathFieldEditingController();
+
+// Default directions of EM Wave
+String a_E_Field_Propagation1 = '+\\vec{a}_x';
+String a_H_Field_Propagation1 = '+\\vec{a}_y';
+String a_k_Wave_Propagation1 = '+\\vec{a}_z';
+
+MathFieldEditingController electricabsoluteE2 = MathFieldEditingController();
+MathFieldEditingController magneticabsoluteH2 = MathFieldEditingController();
+MathFieldEditingController phaseangle2 = MathFieldEditingController();
+
+// Default directions of EM Wave
+String a_E_Field_Propagation2 = '+\\vec{a}_y';
+String a_H_Field_Propagation2 = '-\\vec{a}_x';
+String a_k_Wave_Propagation2 = '+\\vec{a}_z';
 
 //Intrinsic impedance
 //Lossy
@@ -77,9 +97,12 @@ void clearAllFields() {
   isGoodConductor = false;
   lossy_permittivity.clear();
   lossy_permeability.clear();
-  electricabsoluteE0.clear();
-  magneticabsoluteH0.clear();
-  phaseangle.clear();
+  electricabsoluteE1.clear();
+  magneticabsoluteH1.clear();
+  phaseangle1.clear();
+  electricabsoluteE2.clear();
+  magneticabsoluteH2.clear();
+  phaseangle2.clear();
   lossy_attenuationconstant.clear();
   lossy_phaseconstant.clear();
   lossy_phasevelocity.clear();
@@ -92,7 +115,35 @@ void clearAllFields() {
   complexwavenumber_root1 = Complex(0, 0);
   complexwavenumber_root2 = Complex(0, 0);
   propagation_constant = Complex(0, 0);
+  a_E_Field_Propagation1 = '+\\vec{a}_x';
+  a_H_Field_Propagation1 = '+\\vec{a}_y';
+  a_k_Wave_Propagation1 = '+\\vec{a}_z';
+
+  a_E_Field_Propagation2 = '+\\vec{a}_y';
+  a_H_Field_Propagation2 = '-\\vec{a}_x';
+  a_k_Wave_Propagation2 = '+\\vec{a}_z';
 }
 
-
+// bool isfieldsempty() {
+//   if (numofcomponents == 1) {
+//     if (electricabsoluteE1.isEmpty || magneticabsoluteH1.isEmpty) {
+//       return true;
+//     }
+//     else {
+//       return false;
+//     }
+//   }
+//   else if (numofcomponents == 2) {
+//     if (electricabsoluteE1.isEmpty || magneticabsoluteH1.isEmpty
+//     || electricabsoluteE2.isEmpty || magneticabsoluteH2.isEmpty) {
+//       return true;
+//     }
+//     else {
+//       return false;
+//     }
+//   }
+//   else {
+//     return true;
+//   }
+// }
 

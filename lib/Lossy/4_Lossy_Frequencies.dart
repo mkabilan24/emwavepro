@@ -32,7 +32,7 @@ void calc_angular_freq() {
   print("The angular frequency is $angularfreqValue.");
 }
 
-Widget FrequencyDisplayWidget() {
+Widget FrequencyDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -64,11 +64,28 @@ Widget FrequencyDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    calc_angular_freq();
-                    calc_losstangent();
-                    calc_lossy_phasevelocity();
-                    calc_complex_permittivity();
-                    calc_wave_number_roots();
+                    if (freq.isEmpty) {
+                      angularfreq.clear();
+                      snackbarController.hideErrorSnackBar();
+                    }
+                    else if (!inputHandler(freq)) {
+                      if (convertMathExpressionToDouble(freq) >= 0) {
+                        calc_angular_freq();
+                        calc_losstangent();
+                        calc_lossy_phasevelocity();
+                        calc_complex_permittivity();
+                        calc_wave_number_roots();
+                        snackbarController.hideErrorSnackBar();
+                      }
+                      else {
+                        snackbarController.showPermanentErrorSnackBar(
+                            context, "Input Error: Frequency (f) must be positive!");
+                      }
+                    }
+                    else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Frequency (f)");
+                    }
                     onchange = false;
                   }
                 },

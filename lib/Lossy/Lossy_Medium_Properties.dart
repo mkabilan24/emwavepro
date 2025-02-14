@@ -20,7 +20,7 @@ class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidge
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Lossy_ConductivityDisplayWidget(),
+            Lossy_ConductivityDisplayWidget(context),
             Lossy_PermeabilityDisplayWidget(),
             Lossy_PermittivityDisplayWidget(),
           ],

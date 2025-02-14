@@ -62,9 +62,22 @@ class _Lossy_PermeabilityDisplayWidgetState extends State<Lossy_PermeabilityDisp
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        calc_lossy_permeability();
-                        calc_wave_number_roots();
-                        calc_propagation_constant();
+                        if (!inputHandler(lossy_relativepermeability)) {
+                          if (lossy_relativepermeability.isEmpty || convertMathExpressionToDouble(lossy_relativepermeability) >= 0) {
+                            calc_lossy_permeability();
+                            calc_wave_number_roots();
+                            calc_propagation_constant();
+                            snackbarController.hideErrorSnackBar();
+                          }
+                          else {
+                            snackbarController.showPermanentErrorSnackBar(
+                                context, "Input Error: Permeability (μ) must be positive!");
+                          }
+                        }
+                        else {
+                          snackbarController.showPermanentErrorSnackBar(
+                              context, "Input Error: Permeability (μ)");
+                        }
                         onchange = false;
                       });
                     }

@@ -1,17 +1,18 @@
 import 'dart:math';
+import 'package:emwavepro/Lossy/Lossy_Equations_Components.dart';
+import 'package:emwavepro/Lossy/Lossy_WaveEM_Frequency_Properties.dart';
+import 'package:emwavepro/Shared/Complex_Math.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
+import 'package:emwavepro/Shared/WavePolarisation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
-import 'package:emwavepro/Lossy/Lossy_Medium_Properties.dart';
-import 'package:emwavepro/Lossy/Lossy_WaveEM_Frequency_Properties.dart';
 import 'package:emwavepro/Lossy/Lossy_WaveEM_Properties.dart';
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
-
+import 'package:emwavepro/Lossy/Lossy_Medium_Properties.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/Shared/DirectionVectors.dart';
-import 'package:emwavepro/Shared/ErrorSnackBar.dart';
 import 'package:emwavepro/Shared/GraphicalPlot.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 
@@ -21,13 +22,13 @@ class LossyEMFieldEquationsWidget extends StatefulWidget {
 }
 
 class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidget> {
-  SnackbarController snackbarController = SnackbarController();
 
   //For Graphical Plot
   double angleX = pi;
   double angleY = 0;
   double zoom = 500.0;
-  double labeloffset = 0.0;
+  double labeloffset = 20.0;
+  int numofcomponents = 1;
 
   void onScaleUpdate(ScaleUpdateDetails details) {
     setState(() {
@@ -50,18 +51,32 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     return vectorMap[latexVector] ?? Point3D(0, 0, 0); 
   }
 
+  final MathFieldEditingController _E1Controller = electricabsoluteE1;
+  final MathFieldEditingController _H1Controller = magneticabsoluteH1;
+  final MathFieldEditingController _phi1Controller = phaseangle1;
 
-  //Need Edit
-  final MathFieldEditingController _E0Controller = electricabsoluteE0;
-  final MathFieldEditingController _H0Controller = magneticabsoluteH0;
-  final MathFieldEditingController _phiController = phaseangle;
+  final MathFieldEditingController _E2Controller = electricabsoluteE2;
+  final MathFieldEditingController _H2Controller = magneticabsoluteH2;
+  final MathFieldEditingController _phi2Controller = phaseangle2;
+
   final MathFieldEditingController _angularfreq = angularfreq;
-  final MathFieldEditingController _wavenumber = MathFieldEditingController();
+  final MathFieldEditingController _wavenumber = angularfreq;
 
-  // Default directions of EM Wave
-  String a_E_Field_Propagation = '+\\vec{a}_x';
-  String a_H_Field_Propagation = '+\\vec{a}_y';
-  String a_k_Wave_Propagation = '+\\vec{a}_z';
+  String ETimeDomainEquation = '';
+  String EPhasorDomainEquation = '';
+  String HTimeDomainEquation = '';
+  String HPhasorDomainEquation = '';
+
+  @override
+  void initState() {
+    super.initState();
+    reseteqns();
+  }
+
+  double _convertdegreetoradian(MathFieldEditingController controller) {
+    double degree = convertMathExpressionToDouble(controller);
+    return degree * (pi / 180);
+  }
 
   String _getSign(String direction) {
     return direction.startsWith('+') ? '-' : '+';
@@ -71,9 +86,9 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     return direction[direction.length - 1];
   }
 
-  String _getPhiStringTimeDomainForm() {
+  String _getPhiStringDomainForm(MathFieldEditingController phiController) {
     String phiSign; // Determine the sign for the phase angle
-    double? phiNumeric = double.tryParse(_phiController.currentEditingValue());
+    double? phiNumeric = double.tryParse(phiController.currentEditingValue());
     if (phiNumeric == null) {
       phiSign = '+ \\phi'; // Default to showing φ if parsing fails
     } else {
@@ -82,21 +97,8 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     return phiSign;
   }
 
-  String _getPhiStringPhasorDomainForm() {
-    String phiSign; // Determine the sign for the phase angle
-    double? phiNumeric = double.tryParse(_phiController.currentEditingValue());
-    if (phiNumeric == null) {
-      phiSign = '\\phi'; // Default to showing φ if parsing fails
-    } else {
-      phiSign = phiNumeric >= 0 ? '$phiNumeric' : '- ${phiNumeric.abs()}';
-    }
-    return phiSign;
-  }
-
-  String _getabsoluteValue(
-      MathFieldEditingController controller, String variable) {
-    double? controllerNumeric =
-        double.tryParse(controller.currentEditingValue());
+  String _getabsoluteValue(MathFieldEditingController controller, String variable) {
+    double? controllerNumeric = double.tryParse(displayexpression(controller));
     if (controllerNumeric == null) {
       return variable;
     } else {
@@ -104,63 +106,51 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     }
   }
 
-  String _generateETimeDomainEquation() {
-    String wavepropagationsign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
+  void get_lossy_H_eqn(MathFieldEditingController electricabsoluteE, MathFieldEditingController magneticabsoluteH) {
 
-    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $wavepropagationsign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
+    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
+    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
+
+    //print(":::::::::Calculating H Equations");
+    Complex complexmagneticabsoluteH = Complex.divide(Complex(getDouble(electricabsoluteE), 0), complexintrinsicimpedance);
+    //print("Complex Magnetic H_y: ${complexmagneticabsoluteH.displayComplexExpression()}");
+    updateDouble(magneticabsoluteH, complexmagneticabsoluteH.magnitude());
+    double magneticabsoluteHArgument = complexmagneticabsoluteH.argument();
+    //print("Absolute of Magnetic H_y: ${magneticabsoluteH.currentEditingValue()}");
+    //print("Argument of Magnetic H_y: $magneticabsoluteHArgument");
+    double phaseangleofH = getDouble(phaseangle1) + magneticabsoluteHArgument;
+    //print("Phase angle of Magnetic H_y: $phaseangleofH");
+    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${displayexpression(magneticabsoluteH)} e^{-${displayexpression(lossy_attenuationconstant)} z} \\cos(${displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${(phaseangleofH >= 0 ? '+ ${phaseangleofH.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofH.abs().toStringAsFixed(decimalPlaces)}')})';
+    //print("HTimeDomainEquation: $HTimeDomainEquation");
+    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${displayexpression(magneticabsoluteH)} e^{-${displayexpression(lossy_attenuationconstant)} z} e^{-j (${displayexpression(lossy_phaseconstant)} z ${(phaseangleofH >= 0 ? '+ ${phaseangleofH.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofH.abs().toStringAsFixed(decimalPlaces)}')})}';
+    //print("HPhasorDomainEquation: $HPhasorDomainEquation");
   }
 
-  String _generateEPhasorDomainEquation() {
-    String sign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
+  void get_lossy_E_eqn(MathFieldEditingController electricabsoluteE, MathFieldEditingController magneticabsoluteH) {
 
-    return '\\vec{E} = $a_E_Field_Propagation ${_getabsoluteValue(_E0Controller, '|E_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
+    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
+    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
+
+    //print(":::::::::Calculating E Equations");
+    Complex complexelectricabsoluteE = Complex.multiply(Complex(getDouble(magneticabsoluteH), 0), complexintrinsicimpedance);
+    //print("Complex Magnetic E_x: ${complexelectricabsoluteE.displayComplexExpression()}");
+    updateDouble(electricabsoluteE, complexelectricabsoluteE.magnitude());
+    double electricabsoluteEArgument = complexelectricabsoluteE.argument();
+    //print("Absolute of Electric E_x: ${electricabsoluteE.currentEditingValue()}");
+    //print("Argument of Electric E_x: $electricabsoluteEArgument");
+    double phaseangleofE = getDouble(phaseangle1) + electricabsoluteEArgument;
+    //print("Phase angle of Electric E_x: $phaseangleofE");
+    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${displayexpression(electricabsoluteE)} e^{-${displayexpression(lossy_attenuationconstant)} z} \\cos(${displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${(phaseangleofE >= 0 ? '+ ${phaseangleofE.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofE.abs().toStringAsFixed(decimalPlaces)}')})';
+    //print("ETimeDomainEquation: $ETimeDomainEquation");
+    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${displayexpression(electricabsoluteE)} e^{-${displayexpression(lossy_attenuationconstant)} z} e^{-j (${displayexpression(lossy_phaseconstant)} z ${(phaseangleofE >= 0 ? '+ ${phaseangleofE.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofE.abs().toStringAsFixed(decimalPlaces)}')})}';
+    //print("EPhasorDomainEquation: $EPhasorDomainEquation");
   }
 
-  String _generateHTimeDomainEquation() {
-    String sign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
-
-    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : _angularfreq.currentEditingValue()} t $sign ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis ${_getPhiStringTimeDomainForm()})';
-  }
-
-  String _generateHPhasorDomainEquation() {
-    String sign = _getSign(a_k_Wave_Propagation);
-    String wavePropagationAxis = _getWavePropagationAxis(a_k_Wave_Propagation);
-
-    return '\\vec{H} = $a_H_Field_Propagation ${_getabsoluteValue(_H0Controller, '|H_{0}|')}\\angle${_getPhiStringPhasorDomainForm()} e^{$sign j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}$wavePropagationAxis}';
-  }
-
-  void _validateAngularFrequency(
-      BuildContext context, MathFieldEditingController controller) {
-    double? angularFrequency = convertMathExpressionToDouble(controller);
-    if (angularFrequency < 0) {
-      snackbarController.showTemporaryErrorSnackBar(
-          context, "Angular Frequency (ω) must be positive!");
-      controller.clear();
-    } 
-  }
-
-  void _validateWavenumber(
-      BuildContext context, MathFieldEditingController controller) {
-    double? wavenumber = convertMathExpressionToDouble(controller);
-    if (wavenumber < 0) {
-      snackbarController.showTemporaryErrorSnackBar(
-          context, "Wavenumber (k) must be positive!");
-      controller.clear();
-    }
-  }
-
-  void _validateWaveVectors() {
-    bool isvalid = validateRHRWaveVectors(
-        a_E_Field_Propagation, a_H_Field_Propagation, a_k_Wave_Propagation);
-    if (!isvalid) {
-      snackbarController.showPermanentErrorSnackBar(
-          context, "Direction Vectors are Invalid!");
-    } else {
-      snackbarController.hideErrorSnackBar();
-    }
+  void reseteqns() {
+    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
+    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
+    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
+    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
   }
 
   double scaleNumber(double number, double minScale, double maxScale) {
@@ -196,131 +186,101 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                   LossyMediumDropdown(),
                   LossyWaveEMFreqDropdown(),
                   LossyWaveEMDropdown(),
-                  const SizedBox(height: 20),
+                  LossyEquationComponentsDropdown(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          setState(() {});
-                          // if (phaseangle.isEmpty) {
-                          //   updateDouble(phaseangle, 0);
-                          // }
+                          if (electricabsoluteE1.isEmpty && magneticabsoluteH1.isEmpty) {
+                            print('Fields are empty');
+                            snackbarController.showTemporaryErrorSnackBar(context, 'Please fill in all fields');
+                            return;
+                          }
+                          else {
+                            setState(() {});
+                            if (phaseangle1.isEmpty) {
+                              updateDouble(phaseangle1, 0);
+                            }
+                            if (givenfield == "E") {
+                              get_lossy_H_eqn(_E1Controller, _H1Controller);
+                            }
+                            if (givenfield == "H") {
+                              get_lossy_E_eqn(_E1Controller, _H1Controller);
+                            }
+                          }
                         },
                         child: const Text('Generare EM Wave'),
                       ),
-                      const SizedBox(width: 20), // Add space between buttons
+                      const SizedBox(width: 20),
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
                             clearAllFields();
+                            snackbarController.hideErrorSnackBar();
+                            reseteqns();
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 255, 122, 112), // Background color
-                          foregroundColor: Colors.black, // Font color
+                          backgroundColor: Color.fromARGB(255, 255, 122, 112),
+                          foregroundColor: Colors.black,
                         ),
                         child: const Text('Clear All'),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  Padding(padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Math.tex(
-                            '\\text{E-Field propagation: }\\vec{a}_{E}=',
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: MathDropdown(
-                              initialValue: a_E_Field_Propagation,
-                              options: vect_options,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  a_E_Field_Propagation = newValue;
-                                  _validateWaveVectors();
-                                });
-                              },
+                  // Display Equations
+                  Card(
+                    margin: const EdgeInsets.all(10.0),
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Time Domain Equations:',
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Math.tex(
-                            '\\text{H-Field propagation: }\\vec{a}_{H}=',
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: MathDropdown(
-                              initialValue: a_H_Field_Propagation,
-                              options: vect_options,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  a_H_Field_Propagation = newValue;
-                                  _validateWaveVectors();
-                                });
-                              },
+                            const SizedBox(height: 10),
+                            Math.tex(
+                              ETimeDomainEquation,
+                              textStyle: const TextStyle(fontSize: 20),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Math.tex(
-                            '\\text{Wave propagation: }\\vec{a}_{k}=',
-                            textStyle: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: MathDropdown(
-                              initialValue: a_k_Wave_Propagation,
-                              options: vect_options,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  a_k_Wave_Propagation = newValue;
-                                  _validateWaveVectors();
-                                });
-                              },
+                            Math.tex(
+                              HTimeDomainEquation,
+                              textStyle: const TextStyle(fontSize: 20),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      // Display Equations
-                      Container(
-                        padding: const EdgeInsets.all(0.0), // You can adjust the padding as needed
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('Time Domain Equations:'),
-                                Math.tex(_generateETimeDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                                Math.tex(_generateHTimeDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                                const SizedBox(height: 20),
-                                const Text('Phasor Domain Equations:'),
-                                Math.tex(_generateEPhasorDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                                Math.tex(_generateHPhasorDomainEquation(),
-                                    textStyle: const TextStyle(fontSize: 20)),
-                              ],
+                            const Divider(),
+                            const Text(
+                              'Phasor Domain Equations:',
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                             ),
-                          ),
+                            const SizedBox(height: 10),
+                            Math.tex(
+                              EPhasorDomainEquation,
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            Math.tex(
+                              HPhasorDomainEquation,
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
                       ),
-
-                    ],
-                  )
+                    ),
                   ),
-                  
                   const SizedBox(height: 20),
+                  Container(
+                    color: Colors.grey[300],
+                    child: Text(
+                      "Wave Polarization: ${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}",
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
                   Center(
                     child: Container(
                       width: 350,
@@ -338,19 +298,23 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                               angleY: angleY,
                               zoom: zoom,
                               labeloffset: labeloffset,
-                              eFieldMagnitude1: _E0Controller.isEmpty ? 0 : scaleNumber(getDouble(_E0Controller), 0, 100),
-                              hFieldMagnitude1: _H0Controller.isEmpty ? 0 : scaleNumber(getDouble(_H0Controller), 0, 100),
-                              eFieldMagnitude2: 0,
-                              hFieldMagnitude2: 0,
+                              eFieldMagnitude1: _E1Controller.isEmpty ? 0 : scaleNumber(getDouble(_E1Controller), 0, 100),
+                              hFieldMagnitude1: _H1Controller.isEmpty ? 0 : scaleNumber(getDouble(_H1Controller), 0, 100),
+
+                              eFieldMagnitude2: (numofcomponents == 2) ? (_E2Controller.isEmpty ? 0 : scaleNumber(getDouble(_E2Controller), 0, 100)) : 0,
+                              hFieldMagnitude2: (numofcomponents == 2) ? (_H2Controller.isEmpty ? 0 : scaleNumber(getDouble(_H2Controller), 0, 100)) : 0,
+
                               waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
-                              phasorAngle1: _phiController.isEmpty ? 0 : convertMathExpressionToDouble(_phiController),
-                              phasorAngle2: 0,
-                              eFieldDirection1: vectorFromLatex(a_E_Field_Propagation),
-                              hFieldDirection1: vectorFromLatex(a_H_Field_Propagation),
-                              eFieldDirection2: Point3D(0, 0, 0),
-                              hFieldDirection2: Point3D(0, 0, 0),
-                              wavePropagationDirection1: vectorFromLatex(a_k_Wave_Propagation),
-                              wavePropagationDirection2: vectorFromLatex(a_k_Wave_Propagation)
+                              phasorAngle1: _phi1Controller.isEmpty ? 0 : _convertdegreetoradian(_phi1Controller),
+                              phasorAngle2: (numofcomponents == 2) ? (_phi2Controller.isEmpty ? 0 :  _convertdegreetoradian(_phi2Controller)) : 0,
+
+                              eFieldDirection1: vectorFromLatex(a_E_Field_Propagation1),
+                              hFieldDirection1: vectorFromLatex(a_H_Field_Propagation1),
+
+                              eFieldDirection2: (numofcomponents == 2) ? vectorFromLatex(a_E_Field_Propagation2) : Point3D(0, 0, 0),
+                              hFieldDirection2: (numofcomponents == 2) ? vectorFromLatex(a_H_Field_Propagation2) : Point3D(0, 0, 0),
+                              wavePropagationDirection1: vectorFromLatex(a_k_Wave_Propagation1),
+                              wavePropagationDirection2: vectorFromLatex(a_k_Wave_Propagation2),
                             ),
                             size: Size.infinite,
                           )
@@ -358,13 +322,12 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                     ),
                   ),
                   const SizedBox(height: 100),
-                ]),
+                  ]
+                ),
               ),
             )
           ],
-          
         ),
-        
       ),
     );
   }

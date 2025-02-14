@@ -63,10 +63,27 @@ class _Lossy_PermittivityDisplayWidgetState extends State<Lossy_PermittivityDisp
                     if (!onchange) {
                       setState(() {
                         onchange = true;
-                        calc_losstangent();
-                        calc_lossy_permittivity();
-                        calc_complex_permittivity();
-                        calc_wave_number_roots();
+                        if (lossy_relativepermittivity.isEmpty) {
+                          lossy_permittivity.clear();
+                          snackbarController.hideErrorSnackBar();
+                        }
+                        else if (!inputHandler(lossy_relativepermittivity)) {
+                          if (convertMathExpressionToDouble(lossy_relativepermittivity) >= 0) {
+                            calc_losstangent();
+                            calc_lossy_permittivity();
+                            calc_complex_permittivity();
+                            calc_wave_number_roots();
+                            snackbarController.hideErrorSnackBar();
+                          }
+                          else {
+                            snackbarController.showPermanentErrorSnackBar(
+                                context, "Input Error: Permittivity (ε) must be positive!");
+                          }
+                        }
+                        else {
+                          snackbarController.showPermanentErrorSnackBar(
+                              context, "Input Error: Permittivity (ε)");
+                        }
                         onchange = false;
                       });
                     }

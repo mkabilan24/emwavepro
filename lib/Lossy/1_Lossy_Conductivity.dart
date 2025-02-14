@@ -1,4 +1,5 @@
 import 'package:emwavepro/Lossy/5_LossTangent.dart';
+import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -6,7 +7,7 @@ import 'package:math_keyboard/math_keyboard.dart';
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/Lossy/6_Lossy_Complex_Permittivity.dart';
 
-Widget Lossy_ConductivityDisplayWidget() {
+Widget Lossy_ConductivityDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -36,8 +37,25 @@ Widget Lossy_ConductivityDisplayWidget() {
                 ),
                 keyboardType: MathKeyboardType.expression,
                 onChanged: (value) {
-                  calc_complex_permittivity();
-                  calc_losstangent();
+                  if (lossy_conductivity.isEmpty) {
+                    snackbarController.hideErrorSnackBar();
+                  }
+                  if (!inputHandler(lossy_conductivity)) {
+                    if (convertMathExpressionToDouble(lossy_conductivity) >= 0) {
+                      calc_complex_permittivity();
+                      calc_losstangent();
+                      snackbarController.hideErrorSnackBar();
+                    }
+                    else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Conductivity (σ) must be positive!");
+                    }
+                  }
+                  else {
+                    snackbarController.showPermanentErrorSnackBar(
+                        context, "Input Error: Conductivity (σ)");
+                  }
+
                 },
               ),
             ),
