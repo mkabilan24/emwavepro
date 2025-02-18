@@ -22,7 +22,7 @@ void calc_lossless_intrinsicimpedance() {
   return;
 }
 
-Widget Lossless_IntrinsicImpedanceDisplayWidget() {
+Widget Lossless_IntrinsicImpedanceDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -57,8 +57,27 @@ Widget Lossless_IntrinsicImpedanceDisplayWidget() {
                   ),
                   keyboardType: MathKeyboardType.expression,
                   onChanged: (newvalue) {
-                    // Trigger a rebuild to update the UI
-                  }),
+                    onchange = true;
+                        if (lossless_intrinsicimpedance.isEmpty) {
+                          snackbarController.hideErrorSnackBar();
+                        }
+
+                        else if (!inputHandler(lossless_intrinsicimpedance)) {
+                          if (convertMathExpressionToDouble(lossless_intrinsicimpedance) >= 0) {
+                            snackbarController.hideErrorSnackBar();
+                          }
+                          else {
+                            snackbarController.showPermanentErrorSnackBar(
+                                context, "Input Error: Intrinsic Impedance (η) must be positive!");
+                          }
+                        }
+                        else {
+                          snackbarController.showPermanentErrorSnackBar(
+                              context, "Input Error: Intrinsic Impedance (η)");
+                        }
+                      onchange = false;
+                    }  // Trigger a rebuild to update the UI
+                  ),
             ),
           ),
         ),

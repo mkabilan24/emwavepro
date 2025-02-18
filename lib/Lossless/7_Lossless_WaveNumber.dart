@@ -8,7 +8,7 @@ import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 
-import 'package:emwavepro/Lossless/7_Lossless_PhaseConstant.dart';
+import 'package:emwavepro/Lossless/8_Lossless_PhaseConstant.dart';
 
 //Lossless
 void calc_lossless_wavenumber() {
@@ -27,17 +27,7 @@ void calc_lossless_wavenumber() {
   calc_lossless_phaseconstant();
 }
 
-// void _validateWavenumber(
-  //     BuildContext context, MathFieldEditingController controller) {
-  //   double? wavenumber = convertMathExpressionToDouble(controller);
-  //   if (wavenumber < 0) {
-  //     snackbarController.showTemporaryErrorSnackBar(
-  //         context, "Wavenumber (k) must be positive!");
-  //     controller.clear();
-  //   }
-  // }
-
-Widget Lossless_WaveNumberDisplayWidget() {
+Widget Lossless_WaveNumberDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -69,8 +59,24 @@ Widget Lossless_WaveNumberDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    if (!inputHandler(lossless_wavenumber)) {
+                    if (lossless_wavenumber.isEmpty) {
                       calc_lossless_phaseconstant();
+                      snackbarController.hideErrorSnackBar();
+                    }
+
+                    else if (!inputHandler(lossless_wavenumber)) {
+                      if (convertMathExpressionToDouble(lossless_wavenumber) >= 0) {
+                        calc_lossless_phaseconstant();
+                        snackbarController.hideErrorSnackBar();
+                      }
+                      else {
+                        snackbarController.showPermanentErrorSnackBar(
+                            context, "Input Error: Wavenumber (k) must be positive!");
+                      }
+                    }
+                    else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Wavenumber (k)");
                     }
                     onchange = false;
                   }

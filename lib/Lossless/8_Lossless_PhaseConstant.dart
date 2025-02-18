@@ -29,7 +29,7 @@ void sync_lossless_phaseconstant_wavenumber() {
   print("The calculated Wave Number is $phaseconstantValue.");
 }
 
-Widget Lossless_PhaseConstantDisplayWidget() {
+Widget Lossless_PhaseConstantDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -58,15 +58,30 @@ Widget Lossless_PhaseConstantDisplayWidget() {
                     border: InputBorder.none, // Remove the border
                   ),
                   keyboardType: MathKeyboardType.expression,
-                  onChanged: (newvalue) {
-                    if (!onchange) {
-                      onchange = true;
-                      if (!inputHandler(lossless_phaseconstant)) {
-                        sync_lossless_phaseconstant_wavenumber();
-                      }
-                      onchange = false;
+                  onChanged: (newvalue) {                      
+                    onchange = true;
+                    if (lossless_phaseconstant.isEmpty) {
+                      sync_lossless_phaseconstant_wavenumber();
+                      snackbarController.hideErrorSnackBar();
                     }
-                  }),
+
+                    else if (!inputHandler(lossless_phaseconstant)) {
+                      if (convertMathExpressionToDouble(lossless_phaseconstant) >= 0) {
+                        sync_lossless_phaseconstant_wavenumber();
+                        snackbarController.hideErrorSnackBar();
+                      }
+                      else {
+                        snackbarController.showPermanentErrorSnackBar(
+                            context, "Input Error: Phase Constant (β) must be positive!");
+                      }
+                    }
+                    else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Phase Constant (β)");
+                    }
+                    onchange = false;
+                    }
+                  ),
             ),
           ),
         ),

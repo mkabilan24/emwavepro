@@ -156,11 +156,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!inputHandler(electricabsoluteE1)) {
-                                  calc_lossless_H(
-                                      electricabsoluteE1, magneticabsoluteH1, 1);
+                                if (electricabsoluteE1.isEmpty) {
+                                  calc_lossless_H(electricabsoluteE1, magneticabsoluteH1, 1);
+                                  snackbarController.hideErrorSnackBar();
                                 }
-                                setState(() {});
+
+                                else if (!inputHandler(electricabsoluteE1)) {
+                                  calc_lossless_H(electricabsoluteE1, magneticabsoluteH1, 1);
+                                  snackbarController.hideErrorSnackBar();
+                                  if (convertMathExpressionToDouble(electricabsoluteE1) < 0) {
+                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field Amplitude will be taken!");
+                                  }
+                                }
+                                else {
+                                  snackbarController.showPermanentErrorSnackBar(
+                                      context, "Input Error: E-Field Amplitude");
+                                }
                                 onchange = false;
                               }
                             },
@@ -228,11 +239,21 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!inputHandler(magneticabsoluteH1)) {
-                                  calc_lossless_E(
-                                    electricabsoluteE1, magneticabsoluteH1, 1);
+                                if (magneticabsoluteH1.isEmpty) {
+                                  calc_lossless_E(electricabsoluteE1, magneticabsoluteH1, 1);
+                                  snackbarController.hideErrorSnackBar();
                                 }
-                                setState(() {});
+
+                                else if (!inputHandler(magneticabsoluteH1)) {
+                                  calc_lossless_E(electricabsoluteE1, magneticabsoluteH1, 1);
+                                  snackbarController.hideErrorSnackBar();
+                                  if (convertMathExpressionToDouble(magneticabsoluteH1) < 0) {
+                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field Amplitude will be taken!");
+                                  }
+                                }
+                                else {
+                                  snackbarController.showPermanentErrorSnackBar(context, "Input Error: H-Field Amplitude");
+                                }
                                 onchange = false;
                               }
                             },
@@ -276,8 +297,17 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              inputHandler(phaseangle1);
-                              setState(() {});
+                              onchange = true;
+                              if (phaseangle1.isEmpty) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else if (!inputHandler(phaseangle1)) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else {
+                                snackbarController.showPermanentErrorSnackBar(context, "Input Error: Phase Angle");
+                              }
+                              onchange = false;
                             },
                           ),
                         ),
@@ -394,11 +424,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!inputHandler(electricabsoluteE2)) {
-                                  calc_lossless_H(
-                                    electricabsoluteE2, magneticabsoluteH2, 1);
+                                if (electricabsoluteE2.isEmpty) {
+                                  calc_lossless_H(electricabsoluteE2, magneticabsoluteH2, 1);
+                                  snackbarController.hideErrorSnackBar();
                                 }
-                                setState(() {});
+
+                                else if (!inputHandler(electricabsoluteE2)) {
+                                  calc_lossless_H(electricabsoluteE2, magneticabsoluteH2, 1);
+                                  snackbarController.hideErrorSnackBar();
+                                  if (convertMathExpressionToDouble(electricabsoluteE2) < 0) {
+                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field amplitude will be taken!");
+                                  }
+                                }
+                                else {
+                                  snackbarController.showPermanentErrorSnackBar(
+                                      context, "Input Error: E-Field Amplitude");
+                                }
                                 onchange = false;
                               }
                             },
@@ -466,11 +507,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             onChanged: (value) {
                               if (!onchange) {
                                 onchange = true;
-                                if (!inputHandler(magneticabsoluteH2)) {
-                                  calc_lossless_E(
-                                    electricabsoluteE2, magneticabsoluteH2, 1);
+                                if (magneticabsoluteH2.isEmpty) {
+                                  calc_lossless_E(electricabsoluteE2, magneticabsoluteH2, 1);
+                                  snackbarController.hideErrorSnackBar();
                                 }
-                                setState(() {});
+
+                                else if (!inputHandler(magneticabsoluteH2)) {
+                                  calc_lossless_E(electricabsoluteE2, magneticabsoluteH2, 1);
+                                  snackbarController.hideErrorSnackBar();
+                                  if (convertMathExpressionToDouble(magneticabsoluteH2) < 0) {
+                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field amplitude will be taken!");
+                                  }
+                                }
+                                else {
+                                  snackbarController.showPermanentErrorSnackBar(
+                                      context, "Input Error: H-Field Amplitude");
+                                }
                                 onchange = false;
                               }
                             },
@@ -514,8 +566,17 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              inputHandler(phaseangle2);
-                              setState(() {});
+                              onchange = true;
+                              if (phaseangle2.isEmpty) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else if (!inputHandler(phaseangle2)) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else {
+                                snackbarController.showPermanentErrorSnackBar(context, "Input Error: Phase Angle");
+                              }
+                              onchange = false;
                             },
                           ),
                         ),

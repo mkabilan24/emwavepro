@@ -19,7 +19,7 @@ class LosslessMediumPropertiesWidget extends StatelessWidget {
             Lossless_ConductivityDisplayWidget(),
             Lossless_PermeabilityDisplayWidget(),
             Lossless_PermittivityDisplayWidget(),
-            Lossless_IntrinsicImpedanceDisplayWidget(),
+            Lossless_IntrinsicImpedanceDisplayWidget(context),
           ],
         ),
       ),

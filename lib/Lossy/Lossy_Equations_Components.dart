@@ -66,7 +66,7 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
                               if (!onchange) {
-                                //No Change
+                                inputHandler(electricabsoluteE1);
                               }
                             },
                           ),
@@ -180,9 +180,7 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
                               if (!onchange) {
-                                onchange = true;
-                                //No Change
-                                onchange = false;
+                                inputHandler(magneticabsoluteH1);
                               }
                             },
                           ),

@@ -6,7 +6,7 @@ import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 
-import 'package:emwavepro/Lossless/8_Lossless_WaveNumber.dart';
+import 'package:emwavepro/Lossless/7_Lossless_WaveNumber.dart';
 
 void calc_freq() {
   if (angularfreq.isEmpty) {

@@ -7,7 +7,7 @@ import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 
-import 'package:emwavepro/Lossless/8_Lossless_WaveNumber.dart';
+import 'package:emwavepro/Lossless/7_Lossless_WaveNumber.dart';
 import 'package:emwavepro/Lossless/4_Lossless_IntrinsicImpedance.dart';
 
 //Lossless
