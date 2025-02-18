@@ -83,8 +83,6 @@ Widget Lossless_IntrinsicImpedanceDisplayWidget(context) {
         ),
       ),
       const SizedBox(width: 10),
-      // Math.tex(displayexpression(intrinsicimpedance),
-      //     textStyle: const TextStyle(fontSize: 18)),
       Math.tex(
         '\\Omega',
         textStyle: const TextStyle(fontSize: 18),

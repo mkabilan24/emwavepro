@@ -6,24 +6,6 @@ import 'package:emwavepro/Shared/Complex_Math.dart';
 
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 
-// void calc_E0() {
-//   double intrinsicimpedanceValue = convertMathExpressionToDouble(lossy_intrinsicimpedance);
-//   double magneticabsoluteH0Value = convertMathExpressionToDouble(magneticabsoluteH0);
-//   double electricabsoluteE0Value =
-//       intrinsicimpedanceValue * magneticabsoluteH0Value;
-//   updateDouble(electricabsoluteE0, electricabsoluteE0Value);
-//   print("|E_0| = $electricabsoluteE0Value.");
-// }
-
-// void calc_H0() {
-//   double intrinsicimpedanceValue = convertMathExpressionToDouble(intrinsicimpedance);
-//   double electricabsoluteE0Value = convertMathExpressionToDouble(electricabsoluteE0);
-//   double magneticabsoluteH0Value =
-//       electricabsoluteE0Value / intrinsicimpedanceValue;
-//   updateDouble(electricabsoluteE0, electricabsoluteE0Value);
-//   print("|H_0| = $magneticabsoluteH0Value.");
-// }
-
 //Lossy
 String calc_complex_impedance() {
   if (lossy_permeability.isEmpty || complexpermittivity == Complex(0, 0)) {
