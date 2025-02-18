@@ -8,15 +8,15 @@ double getDouble(MathFieldEditingController controller) {
   if (checkifscientificnotation(controller)) {
     return getScientificNotationDoubleValue(controller);
   }
-  else if (checkifEXPexpression(controller)) {
-    return getEXPexpressionDoubleValue(controller);
+  else if (checkifEXPnotation(controller)) {
+    return getEXPnotationDoubleValue(controller);
   }
   double value = double.parse(controller.currentEditingValue());
   return value;
 }
 
 // Function to check if the input is in EXP expression
-bool checkifEXPexpression(MathFieldEditingController controller) {
+bool checkifEXPnotation(MathFieldEditingController controller) {
   String ExpressionString = controller.currentEditingValue();
   print('Expression String: $ExpressionString');
 
@@ -37,7 +37,7 @@ bool checkifEXPexpression(MathFieldEditingController controller) {
 }
 
 // Function to get the double value of the EXP expression
-double getEXPexpressionDoubleValue(MathFieldEditingController controller) {
+double getEXPnotationDoubleValue(MathFieldEditingController controller) {
   String ExpressionString = controller.currentEditingValue();
   print('Expression String: $ExpressionString');
 
