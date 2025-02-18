@@ -102,14 +102,14 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                         ),
                         child: IntrinsicWidth(
                           child: MathField(
-                            controller: phaseangle1,
+                            controller: phaseangleE1,
                             decoration: const InputDecoration(
                               hintText: "Input",
                               border: InputBorder.none, // Remove the border
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              inputHandler(phaseangle1);
+                              inputHandler(phaseangleE1);
                               setState(() {});
                             },
                           ),
@@ -218,14 +218,14 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                         ),
                         child: IntrinsicWidth(
                           child: MathField(
-                            controller: phaseangle1,
+                            controller: phaseangleH1,
                             decoration: const InputDecoration(
                               hintText: "Input",
                               border: InputBorder.none, // Remove the border
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              inputHandler(phaseangle1);
+                              inputHandler(phaseangleH1);
                               setState(() {});
                             },
                           ),
@@ -307,8 +307,8 @@ class _LossyEquationComponentsDropdownState extends State<LossyEquationComponent
                       givenfield = isSelected[0] ? "E" : "H"; 
                       magneticabsoluteH1.clear();
                       electricabsoluteE1.clear();
-                      phaseangle1.clear();
-                      
+                      phaseangleE1.clear();
+                      phaseangleH1.clear();
                     });
                   },
                   children: const <Widget>[

@@ -42,7 +42,8 @@ MathFieldEditingController lossy_permeability = MathFieldEditingController();
 //Equations
 MathFieldEditingController electricabsoluteE1 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH1 = MathFieldEditingController();
-MathFieldEditingController phaseangle1 = MathFieldEditingController();
+MathFieldEditingController phaseangleE1 = MathFieldEditingController();
+MathFieldEditingController phaseangleH1 = MathFieldEditingController();
 
 // Default directions of EM Wave
 String a_E_Field_Propagation1 = '+\\vec{a}_x';
@@ -51,7 +52,8 @@ String a_k_Wave_Propagation1 = '+\\vec{a}_z';
 
 MathFieldEditingController electricabsoluteE2 = MathFieldEditingController();
 MathFieldEditingController magneticabsoluteH2 = MathFieldEditingController();
-MathFieldEditingController phaseangle2 = MathFieldEditingController();
+MathFieldEditingController phaseangleE2 = MathFieldEditingController();
+MathFieldEditingController phaseangleH2 = MathFieldEditingController();
 
 // Default directions of EM Wave
 String a_E_Field_Propagation2 = '+\\vec{a}_y';
@@ -99,10 +101,12 @@ void clearAllFields() {
   lossy_permeability.clear();
   electricabsoluteE1.clear();
   magneticabsoluteH1.clear();
-  phaseangle1.clear();
+  phaseangleE1.clear();
+  phaseangleH1.clear();
   electricabsoluteE2.clear();
   magneticabsoluteH2.clear();
-  phaseangle2.clear();
+  phaseangleE2.clear();
+  phaseangleH2.clear();
   lossy_attenuationconstant.clear();
   lossy_phaseconstant.clear();
   lossy_phasevelocity.clear();

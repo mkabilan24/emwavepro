@@ -103,7 +103,7 @@ Widget FrequencyDisplayWidget(context) {
   );
 }
 
-Widget AngularFrequencyDisplayWidget() {
+Widget AngularFrequencyDisplayWidget(context) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
@@ -135,11 +135,28 @@ Widget AngularFrequencyDisplayWidget() {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
-                    calc_freq();
-                    calc_losstangent();
-                    calc_lossy_phasevelocity();
-                    calc_complex_permittivity();
-                    calc_wave_number_roots();
+                    if (angularfreq.isEmpty) {
+                      freq.clear();
+                      snackbarController.hideErrorSnackBar();
+                    }
+                    else if (!inputHandler(angularfreq)) {
+                      if (convertMathExpressionToDouble(angularfreq) >= 0) {
+                        calc_freq();
+                        calc_losstangent();
+                        calc_lossy_phasevelocity();
+                        calc_complex_permittivity();
+                        calc_wave_number_roots();
+                        snackbarController.hideErrorSnackBar();
+                      }
+                      else {
+                        snackbarController.showPermanentErrorSnackBar(
+                            context, "Input Error: Angular Frequency (ω) must be positive!");
+                      }
+                    }
+                    else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Angular Frequency (ω)");
+                    }
                     onchange = false;
                   }
                 },

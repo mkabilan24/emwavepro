@@ -19,7 +19,7 @@ class _LossyWaveEMFreqPropertiesWidgetState extends State<LossyWaveEMFreqPropert
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FrequencyDisplayWidget(context),
-            AngularFrequencyDisplayWidget(),
+            AngularFrequencyDisplayWidget(context),
           ],
         ),
       ),

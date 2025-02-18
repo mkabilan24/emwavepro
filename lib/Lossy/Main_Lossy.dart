@@ -53,11 +53,12 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
 
   final MathFieldEditingController _E1Controller = electricabsoluteE1;
   final MathFieldEditingController _H1Controller = magneticabsoluteH1;
-  final MathFieldEditingController _phi1Controller = phaseangle1;
+  final MathFieldEditingController _phiE1Controller = phaseangleE1;
+  final MathFieldEditingController _phiH1Controller = phaseangleH1;
 
   final MathFieldEditingController _E2Controller = electricabsoluteE2;
   final MathFieldEditingController _H2Controller = magneticabsoluteH2;
-  final MathFieldEditingController _phi2Controller = phaseangle2;
+  final MathFieldEditingController _phi2Controller = phaseangleE2;
 
   final MathFieldEditingController _angularfreq = angularfreq;
   final MathFieldEditingController _wavenumber = angularfreq;
@@ -92,7 +93,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     if (phiNumeric == null) {
       phiSign = '+ \\phi'; // Default to showing φ if parsing fails
     } else {
-      phiSign = phiNumeric >= 0 ? '+ $phiNumeric' : '- ${phiNumeric.abs()}';
+      phiSign = phiNumeric >= 0 ? '+ ${phiNumeric.toStringAsFixed(decimalPlaces)}' : '- ${phiNumeric.abs().toStringAsFixed(decimalPlaces)}';
     }
     return phiSign;
   }
@@ -108,8 +109,8 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
 
   void get_lossy_H_eqn(MathFieldEditingController electricabsoluteE, MathFieldEditingController magneticabsoluteH) {
 
-    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
-    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
+    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phiE1Controller)})';
+    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phiE1Controller)})}';
 
     //print(":::::::::Calculating H Equations");
     Complex complexmagneticabsoluteH = Complex.divide(Complex(getDouble(electricabsoluteE), 0), complexintrinsicimpedance);
@@ -118,18 +119,19 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     double magneticabsoluteHArgument = complexmagneticabsoluteH.argument();
     //print("Absolute of Magnetic H_y: ${magneticabsoluteH.currentEditingValue()}");
     //print("Argument of Magnetic H_y: $magneticabsoluteHArgument");
-    double phaseangleofH = getDouble(phaseangle1) + magneticabsoluteHArgument;
+    double phaseangleofH = getDouble(phaseangleE1) + magneticabsoluteHArgument;
+    updateDouble(phaseangleH1, phaseangleofH);
     //print("Phase angle of Magnetic H_y: $phaseangleofH");
-    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${displayexpression(magneticabsoluteH)} e^{-${displayexpression(lossy_attenuationconstant)} z} \\cos(${displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${(phaseangleofH >= 0 ? '+ ${phaseangleofH.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofH.abs().toStringAsFixed(decimalPlaces)}')})';
+    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${displayexpression(magneticabsoluteH)} e^{-${displayexpression(lossy_attenuationconstant)} z} \\cos(${displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phiH1Controller)})';
     //print("HTimeDomainEquation: $HTimeDomainEquation");
-    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${displayexpression(magneticabsoluteH)} e^{-${displayexpression(lossy_attenuationconstant)} z} e^{-j (${displayexpression(lossy_phaseconstant)} z ${(phaseangleofH >= 0 ? '+ ${phaseangleofH.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofH.abs().toStringAsFixed(decimalPlaces)}')})}';
+    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${displayexpression(magneticabsoluteH)} e^{-${displayexpression(lossy_attenuationconstant)} z} e^{-j (${displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phiH1Controller)})}';
     //print("HPhasorDomainEquation: $HPhasorDomainEquation");
   }
 
   void get_lossy_E_eqn(MathFieldEditingController electricabsoluteE, MathFieldEditingController magneticabsoluteH) {
 
-    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
-    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
+    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phiE1Controller)})';
+    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phiE1Controller)})}';
 
     //print(":::::::::Calculating E Equations");
     Complex complexelectricabsoluteE = Complex.multiply(Complex(getDouble(magneticabsoluteH), 0), complexintrinsicimpedance);
@@ -138,19 +140,20 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     double electricabsoluteEArgument = complexelectricabsoluteE.argument();
     //print("Absolute of Electric E_x: ${electricabsoluteE.currentEditingValue()}");
     //print("Argument of Electric E_x: $electricabsoluteEArgument");
-    double phaseangleofE = getDouble(phaseangle1) + electricabsoluteEArgument;
+    double phaseangleofE = getDouble(phaseangleH1) + electricabsoluteEArgument;
+    updateDouble(phaseangleE1, phaseangleofE);
     //print("Phase angle of Electric E_x: $phaseangleofE");
-    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${displayexpression(electricabsoluteE)} e^{-${displayexpression(lossy_attenuationconstant)} z} \\cos(${displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${(phaseangleofE >= 0 ? '+ ${phaseangleofE.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofE.abs().toStringAsFixed(decimalPlaces)}')})';
+    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${displayexpression(electricabsoluteE)} e^{-${displayexpression(lossy_attenuationconstant)} z} \\cos(${displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phiE1Controller)}';
     //print("ETimeDomainEquation: $ETimeDomainEquation");
-    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${displayexpression(electricabsoluteE)} e^{-${displayexpression(lossy_attenuationconstant)} z} e^{-j (${displayexpression(lossy_phaseconstant)} z ${(phaseangleofE >= 0 ? '+ ${phaseangleofE.toStringAsFixed(decimalPlaces)}' : '- ${phaseangleofE.abs().toStringAsFixed(decimalPlaces)}')})}';
+    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${displayexpression(electricabsoluteE)} e^{-${displayexpression(lossy_attenuationconstant)} z} e^{-j (${displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phiE1Controller)})}';
     //print("EPhasorDomainEquation: $EPhasorDomainEquation");
   }
 
   void reseteqns() {
-    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
-    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
-    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phi1Controller)})';
-    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phi1Controller)})}';
+    ETimeDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phiE1Controller)})';
+    EPhasorDomainEquation = '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phiE1Controller)})}';
+    HTimeDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} \\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} ${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringDomainForm(_phiH1Controller)})';
+    HPhasorDomainEquation = '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')} e^{-${(lossy_attenuationconstant.isEmpty) ? '\\alpha' : displayexpression(lossy_attenuationconstant)} z} e^{-j (${(lossy_phaseconstant.isEmpty) ? '\\beta' : displayexpression(lossy_phaseconstant)} z ${_getPhiStringDomainForm(_phiH1Controller)})}';
   }
 
   double scaleNumber(double number, double minScale, double maxScale) {
@@ -199,8 +202,8 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                           }
                           else {
                             setState(() {});
-                            if (phaseangle1.isEmpty) {
-                              updateDouble(phaseangle1, 0);
+                            if (phaseangleE1.isEmpty) {
+                              updateDouble(phaseangleE1, 0);
                             }
                             if (givenfield == "E") {
                               get_lossy_H_eqn(_E1Controller, _H1Controller);
@@ -276,7 +279,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                   Container(
                     color: Colors.grey[300],
                     child: Text(
-                      "Wave Polarization: ${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}",
+                      "Wave Polarization: ${determinepolarisation(_E1Controller, _E2Controller, _phiE1Controller, _phi2Controller)}",
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -305,7 +308,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                               hFieldMagnitude2: (numofcomponents == 2) ? (_H2Controller.isEmpty ? 0 : scaleNumber(getDouble(_H2Controller), 0, 100)) : 0,
 
                               waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
-                              phasorAngle1: _phi1Controller.isEmpty ? 0 : _convertdegreetoradian(_phi1Controller),
+                              phasorAngle1: _phiE1Controller.isEmpty ? 0 : _convertdegreetoradian(_phiE1Controller),
                               phasorAngle2: (numofcomponents == 2) ? (_phi2Controller.isEmpty ? 0 :  _convertdegreetoradian(_phi2Controller)) : 0,
 
                               eFieldDirection1: vectorFromLatex(a_E_Field_Propagation1),
