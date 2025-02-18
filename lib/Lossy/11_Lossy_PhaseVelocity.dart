@@ -8,8 +8,8 @@ void calc_lossy_phasevelocity() {
   if (angularfreq.isEmpty || lossy_phaseconstant.isEmpty) {
     return;
   }
-  double phaseconstantValue = convertMathExpressionToDouble(lossy_phaseconstant);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
+  double phaseconstantValue = getDouble(lossy_phaseconstant);
+  double angularfreqValue = getDouble(angularfreq);
   double phasevelocityValue = angularfreqValue / phaseconstantValue;
   updateDouble(lossy_phasevelocity, phasevelocityValue);
   print("The Phase Velocity is $phasevelocityValue.");

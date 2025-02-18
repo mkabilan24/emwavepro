@@ -75,7 +75,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
   }
 
   double _convertdegreetoradian(MathFieldEditingController controller) {
-    double degree = convertMathExpressionToDouble(controller);
+    double degree = getDouble(controller);
     return degree * (pi / 180);
   }
 
@@ -307,7 +307,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                               eFieldMagnitude2: (numofcomponents == 2) ? (_E2Controller.isEmpty ? 0 : scaleNumber(getDouble(_E2Controller), 0, 100)) : 0,
                               hFieldMagnitude2: (numofcomponents == 2) ? (_H2Controller.isEmpty ? 0 : scaleNumber(getDouble(_H2Controller), 0, 100)) : 0,
 
-                              waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(convertMathExpressionToDouble(_wavenumber), 0, 5),
+                              waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(getDouble(_wavenumber), 0, 5),
                               phasorAngle1: _phiE1Controller.isEmpty ? 0 : _convertdegreetoradian(_phiE1Controller),
                               phasorAngle2: (numofcomponents == 2) ? (_phi2Controller.isEmpty ? 0 :  _convertdegreetoradian(_phi2Controller)) : 0,
 

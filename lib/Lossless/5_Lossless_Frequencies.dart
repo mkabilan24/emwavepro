@@ -69,7 +69,7 @@ Widget FrequencyDisplayWidget(context) {
                       snackbarController.hideErrorSnackBar();
                     }
                     else if (!inputHandler(freq)) {
-                      if (convertMathExpressionToDouble(freq) >= 0) {
+                      if (getDouble(freq) >= 0) {
                         calc_angular_freq();
                         calc_lossless_wavenumber();
                         snackbarController.hideErrorSnackBar();
@@ -139,7 +139,7 @@ Widget AngularFrequencyDisplayWidget(context) {
                       snackbarController.hideErrorSnackBar();
                     }
                     else if (!inputHandler(angularfreq)) {
-                      if (convertMathExpressionToDouble(angularfreq) >= 0) {
+                      if (getDouble(angularfreq) >= 0) {
                         calc_freq();
                         calc_lossless_wavenumber();
                         snackbarController.hideErrorSnackBar();

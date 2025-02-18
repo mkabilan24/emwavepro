@@ -3,28 +3,44 @@ import 'dart:math';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
+// Function to get the double value of the MathFieldEditingController
 double getDouble(MathFieldEditingController controller) {
   if (checkifscientificnotation(controller)) {
     return getScientificNotationDoubleValue(controller);
+  }
+  else if (checkifEXPexpression(controller)) {
+    return getEXPexpressionDoubleValue(controller);
   }
   double value = double.parse(controller.currentEditingValue());
   return value;
 }
 
-void updateDouble(MathFieldEditingController controller, double value) {
-  // ignore: deprecated_member_use
-  final expression = Parser().parse(value.toString());
-  controller.updateValue(expression);
+// Function to check if the input is in EXP expression
+bool checkifEXPexpression(MathFieldEditingController controller) {
+  String ExpressionString = controller.currentEditingValue();
+  print('Expression String: $ExpressionString');
+
+  if (ExpressionString.contains('e')) {
+    // Use a regular expression to extract the coefficient and exponent
+    RegExp exp = RegExp(r'\^\{([0-9.]+)\}([+-]?[0-9]+)');
+    RegExpMatch? match = exp.firstMatch(ExpressionString);
+    if (match != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  else {
+    return false;
+  }
 }
 
-// Function to evaluate mathematical expressions
-double convertMathExpressionToDouble(MathFieldEditingController controller) {
-
+// Function to get the double value of the EXP expression
+double getEXPexpressionDoubleValue(MathFieldEditingController controller) {
   String ExpressionString = controller.currentEditingValue();
-  // Debugging: Print the input string
-  // print('Expression String: $ExpressionString');
+  print('Expression String: $ExpressionString');
 
-  // Check if the string contains 'e'
   if (ExpressionString.contains('e')) {
     // Use a regular expression to extract the coefficient and exponent
     RegExp exp = RegExp(r'\^\{([0-9.]+)\}([+-]?[0-9]+)');
@@ -39,30 +55,7 @@ double convertMathExpressionToDouble(MathFieldEditingController controller) {
       return value;
     }
   }
-  // If the string does not contain 'e' or is not a very big or small number, return the original string
-  return getDouble(controller);
-}
-
-// Function for errorneous inputs
-// Purpose: To strictly accept only digits, a single decimal place, large and small numbers in scientific notation and empty controller so the app will not crash
-bool inputHandler(MathFieldEditingController controller) {
-  String expressionString = controller.currentEditingValue();
-  print('Expression String: $expressionString');
-
-  // Regular expression to match only digits and a single decimal place (Including + or - sign in front)
-  RegExp validChars = RegExp(r'^[+-]?\d+(\.\d+)?$');
-
-  if (controller.isEmpty) {
-    return false;
-  }
-  else if (!validChars.hasMatch(expressionString)) {
-    if (checkifscientificnotation(controller)) {
-      return false;
-    }
-    print('Input Error Detected!');
-    return true;
-  }
-  return false;
+  return 0;
 }
 
 // Function to check if the input is in scientific notation
@@ -84,6 +77,7 @@ bool checkifscientificnotation(MathFieldEditingController controller) {
   return false;
 }
 
+// Function to get the double value of the scientific notation
 double getScientificNotationDoubleValue(MathFieldEditingController controller) {
   String expressionString = controller.currentEditingValue();
   print('Expression String: $expressionString');
@@ -103,4 +97,32 @@ double getScientificNotationDoubleValue(MathFieldEditingController controller) {
     }
   }
   return 0;
+}
+
+void updateDouble(MathFieldEditingController controller, double value) {
+  // ignore: deprecated_member_use
+  final expression = Parser().parse(value.toString());
+  controller.updateValue(expression);
+}
+
+// Function for handling errorneous inputs
+// Purpose: To strictly accept only digits, a single decimal place, large and small numbers in scientific notation and empty controller so the app will not crash
+bool inputHandler(MathFieldEditingController controller) {
+  String expressionString = controller.currentEditingValue();
+  print('Expression String: $expressionString');
+
+  // Regular expression to match only digits and a single decimal place (Including + or - sign in front)
+  RegExp validChars = RegExp(r'^[+-]?\d+(\.\d+)?$');
+
+  if (controller.isEmpty) {
+    return false;
+  }
+  else if (!validChars.hasMatch(expressionString)) {
+    if (checkifscientificnotation(controller)) {
+      return false;
+    }
+    print('Input Error Detected!');
+    return true;
+  }
+  return false;
 }

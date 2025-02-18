@@ -13,7 +13,7 @@ void calc_lossless_phaseconstant() {
     lossless_phaseconstant.clear();
     return;
   }
-  double wavenumberValue = convertMathExpressionToDouble(lossless_wavenumber);
+  double wavenumberValue = getDouble(lossless_wavenumber);
   double phaseconstantValue = wavenumberValue;
   updateDouble(lossless_phaseconstant, phaseconstantValue);
   print("The calculated Phase Constant is $phaseconstantValue.");
@@ -24,7 +24,7 @@ void sync_lossless_phaseconstant_wavenumber() {
     lossless_wavenumber.clear();
     return;
   }
-  double phaseconstantValue = convertMathExpressionToDouble(lossless_phaseconstant);
+  double phaseconstantValue = getDouble(lossless_phaseconstant);
   updateDouble(lossless_wavenumber, phaseconstantValue);
   print("The calculated Wave Number is $phaseconstantValue.");
 }
@@ -66,7 +66,7 @@ Widget Lossless_PhaseConstantDisplayWidget(context) {
                     }
 
                     else if (!inputHandler(lossless_phaseconstant)) {
-                      if (convertMathExpressionToDouble(lossless_phaseconstant) >= 0) {
+                      if (getDouble(lossless_phaseconstant) >= 0) {
                         sync_lossless_phaseconstant_wavenumber();
                         snackbarController.hideErrorSnackBar();
                       }

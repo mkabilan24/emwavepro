@@ -17,7 +17,7 @@ void calc_lossless_permittivity() {
     lossless_permittivity.clear();
     return;
   }
-  double relativePermittivityValue = convertMathExpressionToDouble(lossless_relativepermittivity);
+  double relativePermittivityValue = getDouble(lossless_relativepermittivity);
   double permittivityValue = relativePermittivityValue * permittivityOfFreeSpace;
   updateDouble(lossless_permittivity, permittivityValue);
   print("The Calculated Permittivity is $permittivityValue.");
@@ -72,7 +72,7 @@ class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_Permittivi
                         }
 
                         else if (!inputHandler(lossless_relativepermittivity)) {
-                          if (convertMathExpressionToDouble(lossless_relativepermittivity) >= 0) {
+                          if (getDouble(lossless_relativepermittivity) >= 0) {
                             calc_lossless_permittivity();
                             calc_lossless_intrinsicimpedance();
                             calc_lossless_wavenumber();

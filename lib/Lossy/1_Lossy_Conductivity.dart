@@ -41,7 +41,7 @@ Widget Lossy_ConductivityDisplayWidget(context) {
                     snackbarController.hideErrorSnackBar();
                   }
                   if (!inputHandler(lossy_conductivity)) {
-                    if (convertMathExpressionToDouble(lossy_conductivity) >= 0) {
+                    if (getDouble(lossy_conductivity) >= 0) {
                       calc_complex_permittivity();
                       calc_losstangent();
                       snackbarController.hideErrorSnackBar();

@@ -17,7 +17,7 @@ void calc_lossless_permeability() {
     lossless_permeability.clear();
     return;
   }
-  double relativePermeabilityValue = convertMathExpressionToDouble(lossless_relativepermeability);
+  double relativePermeabilityValue = getDouble(lossless_relativepermeability);
   double permeabilityValue = relativePermeabilityValue * permeabilityOfFreeSpace;
   updateDouble(lossless_permeability, permeabilityValue);
   print("The Calculated Permeability is $permeabilityValue.");
@@ -64,7 +64,7 @@ class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_Permeabili
                       setState(() {
                         onchange = true;
                         if (!inputHandler(lossless_relativepermeability)) {
-                          if (lossless_relativepermeability.isEmpty || convertMathExpressionToDouble(lossless_relativepermeability) >= 0) {
+                          if (lossless_relativepermeability.isEmpty || getDouble(lossless_relativepermeability) >= 0) {
                             calc_lossless_permeability();
                             calc_lossless_intrinsicimpedance();
                             calc_lossless_wavenumber();

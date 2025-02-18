@@ -17,7 +17,7 @@ void calc_lossy_permittivity() {
     lossy_permittivity.clear();
     return;
   }
-  double relativePermittivityValue = convertMathExpressionToDouble(lossy_relativepermittivity);
+  double relativePermittivityValue = getDouble(lossy_relativepermittivity);
   double permittivityValue = relativePermittivityValue * permittivityOfFreeSpace;
   updateDouble(lossy_permittivity, permittivityValue);
   print("The Calculated Permittivity is $permittivityValue.");
@@ -68,7 +68,7 @@ class _Lossy_PermittivityDisplayWidgetState extends State<Lossy_PermittivityDisp
                           snackbarController.hideErrorSnackBar();
                         }
                         else if (!inputHandler(lossy_relativepermittivity)) {
-                          if (convertMathExpressionToDouble(lossy_relativepermittivity) >= 0) {
+                          if (getDouble(lossy_relativepermittivity) >= 0) {
                             calc_losstangent();
                             calc_lossy_permittivity();
                             calc_complex_permittivity();

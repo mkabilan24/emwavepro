@@ -73,7 +73,7 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
 
                                 else if (!inputHandler(electricabsoluteE1)) {
                                   snackbarController.hideErrorSnackBar();
-                                  if (convertMathExpressionToDouble(electricabsoluteE1) < 0) {
+                                  if (getDouble(electricabsoluteE1) < 0) {
                                     snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field Amplitude will be taken!");
                                   }
                                 }
@@ -210,7 +210,7 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                                 }
                                 else if (!inputHandler(magneticabsoluteH1)) {
                                   snackbarController.hideErrorSnackBar();
-                                  if (convertMathExpressionToDouble(magneticabsoluteH1) < 0) {
+                                  if (getDouble(magneticabsoluteH1) < 0) {
                                     snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field Amplitude will be taken!");
                                   }
                                 }

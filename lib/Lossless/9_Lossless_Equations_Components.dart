@@ -14,8 +14,8 @@ void calc_lossless_H(MathFieldEditingController electricabsoluteE, MathFieldEdit
     magneticabsoluteH.clear();
     return;
   }
-  double intrinsicimpedanceValue = convertMathExpressionToDouble(lossless_intrinsicimpedance);
-  double electricabsoluteEValue = convertMathExpressionToDouble(electricabsoluteE);
+  double intrinsicimpedanceValue = getDouble(lossless_intrinsicimpedance);
+  double electricabsoluteEValue = getDouble(electricabsoluteE);
   double magneticabsoluteHValue = electricabsoluteEValue / intrinsicimpedanceValue;
   updateDouble(magneticabsoluteH, magneticabsoluteHValue);
   print("|H_$num| = $magneticabsoluteHValue.");
@@ -26,8 +26,8 @@ void calc_lossless_E(MathFieldEditingController electricabsoluteE, MathFieldEdit
     electricabsoluteE.clear();
     return;
   }
-  double intrinsicimpedanceValue = convertMathExpressionToDouble(lossless_intrinsicimpedance);
-  double magneticabsoluteHValue = convertMathExpressionToDouble(magneticabsoluteH);
+  double intrinsicimpedanceValue = getDouble(lossless_intrinsicimpedance);
+  double magneticabsoluteHValue = getDouble(magneticabsoluteH);
   double electricabsoluteEValue = intrinsicimpedanceValue * magneticabsoluteHValue;
   updateDouble(electricabsoluteE, electricabsoluteEValue);
   print("|E_$num| = $electricabsoluteEValue.");
@@ -164,7 +164,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                                 else if (!inputHandler(electricabsoluteE1)) {
                                   calc_lossless_H(electricabsoluteE1, magneticabsoluteH1, 1);
                                   snackbarController.hideErrorSnackBar();
-                                  if (convertMathExpressionToDouble(electricabsoluteE1) < 0) {
+                                  if (getDouble(electricabsoluteE1) < 0) {
                                     snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field Amplitude will be taken!");
                                   }
                                 }
@@ -247,7 +247,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                                 else if (!inputHandler(magneticabsoluteH1)) {
                                   calc_lossless_E(electricabsoluteE1, magneticabsoluteH1, 1);
                                   snackbarController.hideErrorSnackBar();
-                                  if (convertMathExpressionToDouble(magneticabsoluteH1) < 0) {
+                                  if (getDouble(magneticabsoluteH1) < 0) {
                                     snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field Amplitude will be taken!");
                                   }
                                 }
@@ -432,7 +432,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                                 else if (!inputHandler(electricabsoluteE2)) {
                                   calc_lossless_H(electricabsoluteE2, magneticabsoluteH2, 1);
                                   snackbarController.hideErrorSnackBar();
-                                  if (convertMathExpressionToDouble(electricabsoluteE2) < 0) {
+                                  if (getDouble(electricabsoluteE2) < 0) {
                                     snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field amplitude will be taken!");
                                   }
                                 }
@@ -515,7 +515,7 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                                 else if (!inputHandler(magneticabsoluteH2)) {
                                   calc_lossless_E(electricabsoluteE2, magneticabsoluteH2, 1);
                                   snackbarController.hideErrorSnackBar();
-                                  if (convertMathExpressionToDouble(magneticabsoluteH2) < 0) {
+                                  if (getDouble(magneticabsoluteH2) < 0) {
                                     snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field amplitude will be taken!");
                                   }
                                 }

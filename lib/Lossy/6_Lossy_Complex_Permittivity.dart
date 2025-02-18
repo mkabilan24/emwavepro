@@ -14,9 +14,9 @@ void calc_complex_permittivity() {
     complexpermittivity = Complex(0, 0);
     return;
   }
-  double permittivityValue = convertMathExpressionToDouble(lossy_permittivity);
-  double conductivityValue = convertMathExpressionToDouble(lossy_conductivity);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
+  double permittivityValue = getDouble(lossy_permittivity);
+  double conductivityValue = getDouble(lossy_conductivity);
+  double angularfreqValue = getDouble(angularfreq);
   complexpermittivity = Complex(permittivityValue, - (conductivityValue / angularfreqValue));
   print("The Complex Permittivity is ${complexpermittivity.toString()}.");
   calc_complex_impedance();

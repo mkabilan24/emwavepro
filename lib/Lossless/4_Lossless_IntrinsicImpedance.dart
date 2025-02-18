@@ -14,8 +14,8 @@ void calc_lossless_intrinsicimpedance() {
     lossless_intrinsicimpedance.clear();
     return;
   }
-  double permittivityValue = convertMathExpressionToDouble(lossless_permittivity);
-  double permeabilityValue = convertMathExpressionToDouble(lossless_permeability);
+  double permittivityValue = getDouble(lossless_permittivity);
+  double permeabilityValue = getDouble(lossless_permeability);
   double intrinsicimpedanceValue = sqrt(permeabilityValue / permittivityValue);
   updateDouble(lossless_intrinsicimpedance, intrinsicimpedanceValue);
   print("The Calculated Intrinsic Impedance is $intrinsicimpedanceValue.");
@@ -63,7 +63,7 @@ Widget Lossless_IntrinsicImpedanceDisplayWidget(context) {
                         }
 
                         else if (!inputHandler(lossless_intrinsicimpedance)) {
-                          if (convertMathExpressionToDouble(lossless_intrinsicimpedance) >= 0) {
+                          if (getDouble(lossless_intrinsicimpedance) >= 0) {
                             snackbarController.hideErrorSnackBar();
                           }
                           else {

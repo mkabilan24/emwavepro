@@ -17,9 +17,9 @@ void calc_lossless_wavenumber() {
     lossless_phaseconstant.clear();
     return;
   }
-  double permittivityValue = convertMathExpressionToDouble(lossless_permittivity);
-  double permeabilityValue = convertMathExpressionToDouble(lossless_permeability);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
+  double permittivityValue = getDouble(lossless_permittivity);
+  double permeabilityValue = getDouble(lossless_permeability);
+  double angularfreqValue = getDouble(angularfreq);
   double wavenumberValue = sqrt(pow(angularfreqValue, 2) * permittivityValue * permeabilityValue);
   updateDouble(lossless_wavenumber, wavenumberValue);
   print("The calculated Wave Number is $wavenumberValue.");
@@ -65,7 +65,7 @@ Widget Lossless_WaveNumberDisplayWidget(context) {
                     }
 
                     else if (!inputHandler(lossless_wavenumber)) {
-                      if (convertMathExpressionToDouble(lossless_wavenumber) >= 0) {
+                      if (getDouble(lossless_wavenumber) >= 0) {
                         calc_lossless_phaseconstant();
                         snackbarController.hideErrorSnackBar();
                       }

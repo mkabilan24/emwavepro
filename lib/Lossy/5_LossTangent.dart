@@ -11,9 +11,9 @@ void calc_losstangent() {
     losstangent.clear();
     return;
   }
-  double conductivityValue = convertMathExpressionToDouble(lossy_conductivity);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
-  double permittivityValue = convertMathExpressionToDouble(lossy_permittivity);
+  double conductivityValue = getDouble(lossy_conductivity);
+  double angularfreqValue = getDouble(angularfreq);
+  double permittivityValue = getDouble(lossy_permittivity);
 
   double losstangentValue = conductivityValue/(angularfreqValue * permittivityValue);
   updateDouble(losstangent, losstangentValue);
@@ -22,7 +22,7 @@ void calc_losstangent() {
 }
 
 bool determineifGoodConductor() {
-  double losstangentValue = convertMathExpressionToDouble(losstangent);
+  double losstangentValue = getDouble(losstangent);
   if (losstangentValue > conductivitymargin) {
     return true;
   }

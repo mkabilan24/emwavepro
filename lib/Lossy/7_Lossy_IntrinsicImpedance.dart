@@ -11,7 +11,7 @@ String calc_complex_impedance() {
   if (lossy_permeability.isEmpty || complexpermittivity == Complex(0, 0)) {
     return '0\\:\\Omega';
   }
-  double permeabilityValue = convertMathExpressionToDouble(lossy_permeability);
+  double permeabilityValue = getDouble(lossy_permeability);
   intrinsicimpedanceroots = (Complex.divide(Complex(permeabilityValue, 0), complexpermittivity)).nthRoots(2);
   print ("The Complex Intrinsic Impedance Roots are: ${intrinsicimpedanceroots[0].toString()}, ${intrinsicimpedanceroots[1].toString()}.");
   //Set the first root as the intrinsic impedance

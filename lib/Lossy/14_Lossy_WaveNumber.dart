@@ -13,10 +13,10 @@ String calc_wave_number_roots() {
     waveNumberRoots = [];
     return "0";
   }
-  double permittivityValue = convertMathExpressionToDouble(lossy_permittivity);
-  double permeabilityValue = convertMathExpressionToDouble(lossy_permeability);
-  double conductivityValue = convertMathExpressionToDouble(lossy_conductivity);
-  double angularfreqValue = convertMathExpressionToDouble(angularfreq);
+  double permittivityValue = getDouble(lossy_permittivity);
+  double permeabilityValue = getDouble(lossy_permeability);
+  double conductivityValue = getDouble(lossy_conductivity);
+  double angularfreqValue = getDouble(angularfreq);
 
   double realvalue = pow(angularfreqValue, 2) * permeabilityValue * permittivityValue;
   double imaginaryvalue = pow(angularfreqValue, 2) * permeabilityValue * conductivityValue / angularfreqValue;

@@ -16,7 +16,7 @@ void calc_lossy_permeability() {
     lossy_permeability.clear();
     return;
   }
-  double relativePermeabilityValue = convertMathExpressionToDouble(lossy_relativepermeability);
+  double relativePermeabilityValue = getDouble(lossy_relativepermeability);
   double permeabilityValue = relativePermeabilityValue * permeabilityOfFreeSpace;
   updateDouble(lossy_permeability, permeabilityValue);
   print("The Calculated Permeability is $permeabilityValue.");
@@ -63,7 +63,7 @@ class _Lossy_PermeabilityDisplayWidgetState extends State<Lossy_PermeabilityDisp
                       setState(() {
                         onchange = true;
                         if (!inputHandler(lossy_relativepermeability)) {
-                          if (lossy_relativepermeability.isEmpty || convertMathExpressionToDouble(lossy_relativepermeability) >= 0) {
+                          if (lossy_relativepermeability.isEmpty || getDouble(lossy_relativepermeability) >= 0) {
                             calc_lossy_permeability();
                             calc_wave_number_roots();
                             calc_propagation_constant();
