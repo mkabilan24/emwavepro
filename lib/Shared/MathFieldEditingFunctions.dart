@@ -18,7 +18,7 @@ double getDouble(MathFieldEditingController controller) {
 // Function to check if the input is in EXP expression
 bool checkifEXPnotation(MathFieldEditingController controller) {
   String ExpressionString = controller.currentEditingValue();
-  print('Expression String: $ExpressionString');
+  //print('Expression String: $ExpressionString');
 
   if (ExpressionString.contains('e')) {
     // Use a regular expression to extract the coefficient and exponent
@@ -39,7 +39,7 @@ bool checkifEXPnotation(MathFieldEditingController controller) {
 // Function to get the double value of the EXP expression
 double getEXPnotationDoubleValue(MathFieldEditingController controller) {
   String ExpressionString = controller.currentEditingValue();
-  print('Expression String: $ExpressionString');
+  //print('Expression String: $ExpressionString');
 
   if (ExpressionString.contains('e')) {
     // Use a regular expression to extract the coefficient and exponent
@@ -61,7 +61,7 @@ double getEXPnotationDoubleValue(MathFieldEditingController controller) {
 // Function to check if the input is in scientific notation
 bool checkifscientificnotation(MathFieldEditingController controller) {
   String expressionString = controller.currentEditingValue();
-  print('Expression String: $expressionString');
+  //print('Expression String: $expressionString');
 
   RegExp regex = RegExp(r'[+-]?\d+(\.\d+)?|\d+(\^{\d+})?');
   RegExpMatch? match = regex.firstMatch(expressionString);
@@ -80,7 +80,7 @@ bool checkifscientificnotation(MathFieldEditingController controller) {
 // Function to get the double value of the scientific notation
 double getScientificNotationDoubleValue(MathFieldEditingController controller) {
   String expressionString = controller.currentEditingValue();
-  print('Expression String: $expressionString');
+  //print('Expression String: $expressionString');
 
   RegExp regex = RegExp(r'[+-]?\d+(\.\d+)?|\d+(\^{\d+})?');
   RegExpMatch? match = regex.firstMatch(expressionString);
@@ -109,7 +109,7 @@ void updateDouble(MathFieldEditingController controller, double value) {
 // Purpose: To strictly accept only digits, a single decimal place, large and small numbers in scientific notation and empty controller so the app will not crash
 bool inputHandler(MathFieldEditingController controller) {
   String expressionString = controller.currentEditingValue();
-  print('Expression String: $expressionString');
+  //print('Expression String: $expressionString');
 
   // Regular expression to match only digits and a single decimal place (Including + or - sign in front)
   RegExp validChars = RegExp(r'^[+-]?\d+(\.\d+)?$');
