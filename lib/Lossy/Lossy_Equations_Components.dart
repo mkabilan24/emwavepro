@@ -66,7 +66,22 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
                               if (!onchange) {
-                                inputHandler(electricabsoluteE1);
+                                onchange = true;
+                                if (electricabsoluteE1.isEmpty) {
+                                  snackbarController.hideErrorSnackBar();
+                                }
+
+                                else if (!inputHandler(electricabsoluteE1)) {
+                                  snackbarController.hideErrorSnackBar();
+                                  if (convertMathExpressionToDouble(electricabsoluteE1) < 0) {
+                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field Amplitude will be taken!");
+                                  }
+                                }
+                                else {
+                                  snackbarController.showPermanentErrorSnackBar(
+                                      context, "Input Error: E-Field Amplitude");
+                                }
+                                onchange = false;
                               }
                             },
                           ),
@@ -109,8 +124,17 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              inputHandler(phaseangleE1);
-                              setState(() {});
+                              onchange = true;
+                              if (phaseangleE1.isEmpty) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else if (!inputHandler(phaseangleE1)) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else {
+                                snackbarController.showPermanentErrorSnackBar(context, "Input Error: Phase Angle");
+                              }
+                              onchange = false;
                             },
                           ),
                         ),
@@ -180,7 +204,21 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
                               if (!onchange) {
-                                inputHandler(magneticabsoluteH1);
+                                onchange = true;
+                                if (magneticabsoluteH1.isEmpty) {
+                                  snackbarController.hideErrorSnackBar();
+                                }
+                                else if (!inputHandler(magneticabsoluteH1)) {
+                                  snackbarController.hideErrorSnackBar();
+                                  if (convertMathExpressionToDouble(magneticabsoluteH1) < 0) {
+                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field Amplitude will be taken!");
+                                  }
+                                }
+                                else {
+                                  snackbarController.showPermanentErrorSnackBar(
+                                      context, "Input Error: H-Field Amplitude");
+                                }
+                                onchange = false;
                               }
                             },
                           ),
@@ -223,8 +261,17 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                             ),
                             keyboardType: MathKeyboardType.expression,
                             onChanged: (value) {
-                              inputHandler(phaseangleH1);
-                              setState(() {});
+                              onchange = true;
+                              if (phaseangleH1.isEmpty) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else if (!inputHandler(phaseangleH1)) {
+                                snackbarController.hideErrorSnackBar();
+                              }
+                              else {
+                                snackbarController.showPermanentErrorSnackBar(context, "Input Error: Phase Angle");
+                              }
+                              onchange = false;
                             },
                           ),
                         ),
