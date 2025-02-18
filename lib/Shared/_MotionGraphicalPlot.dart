@@ -1,7 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
-import 'dart:ui' as ui;
 
 class Graph3DPainter extends CustomPainter {
   final double angleX;

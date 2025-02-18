@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/Shared/DirectionVectors.dart';
 
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 

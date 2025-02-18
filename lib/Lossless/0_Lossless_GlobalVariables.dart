@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/Shared/ErrorSnackBar.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
