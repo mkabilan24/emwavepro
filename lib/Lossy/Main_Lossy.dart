@@ -198,6 +198,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                           if (electricabsoluteE1.isEmpty && magneticabsoluteH1.isEmpty) {
                             print('Fields are empty');
                             snackbarController.showTemporaryErrorSnackBar(context, 'Please fill in all fields');
+                            setState(() {});
                             return;
                           }
                           else {

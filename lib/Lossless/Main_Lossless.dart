@@ -173,6 +173,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                           if (isfieldsempty()) {
                             print('Fields are empty');
                             snackbarController.showTemporaryErrorSnackBar(context, 'Please fill in all fields');
+                            setState(() {});
                             return;
                           }
                           else {
