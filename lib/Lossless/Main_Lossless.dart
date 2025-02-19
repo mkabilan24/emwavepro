@@ -1,6 +1,5 @@
 import 'dart:math';
-import 'package:emwavepro/Lossless/9_Lossless_Equations_Components.dart';
-import 'package:emwavepro/Shared/WavePolarisation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -8,10 +7,14 @@ import 'package:math_keyboard/math_keyboard.dart';
 import 'package:emwavepro/Lossless/Lossless_WaveEM_Properties.dart';
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 import 'package:emwavepro/Lossless/Lossless_Medium_Properties.dart';
+import 'package:emwavepro/Lossless/9_Lossless_Equations_Components.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/Shared/GraphicalPlot.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
+import 'package:emwavepro/Shared/DegreesandRadians.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
+import 'package:emwavepro/Shared/WavePolarisation.dart';
 
 class EMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -57,11 +60,6 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
 
   final MathFieldEditingController _angularfreq = angularfreq;
   final MathFieldEditingController _wavenumber = lossless_wavenumber;
-
-  double _convertdegreetoradian(MathFieldEditingController controller) {
-    double degree = getDouble(controller);
-    return degree * (pi / 180);
-  }
 
   String _getSign(String direction) {
     return direction.startsWith('+') ? '-' : '+';
@@ -281,8 +279,8 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                               hFieldMagnitude2: (numofcomponents == 2) ? (_H2Controller.isEmpty ? 0 : scaleNumber(getDouble(_H2Controller), 0, 100)) : 0,
 
                               waveNumber: _wavenumber.isEmpty ? 0 : scaleNumber(getDouble(_wavenumber), 0, 5),
-                              phasorAngle1: _phi1Controller.isEmpty ? 0 : _convertdegreetoradian(_phi1Controller),
-                              phasorAngle2: (numofcomponents == 2) ? (_phi2Controller.isEmpty ? 0 :  _convertdegreetoradian(_phi2Controller)) : 0,
+                              phasorAngle1: _phi1Controller.isEmpty ? 0 : isDegree ? convertdegreetoradian(_phi1Controller) : getDouble(_phi1Controller),
+                              phasorAngle2: (numofcomponents == 2) ? (_phi2Controller.isEmpty ? 0 :  isDegree ? convertdegreetoradian(_phi2Controller) : getDouble(_phi2Controller)) : 0,
 
                               eFieldDirection1: vectorFromLatex(a_E_Field_Propagation1),
                               hFieldDirection1: vectorFromLatex(a_H_Field_Propagation1),

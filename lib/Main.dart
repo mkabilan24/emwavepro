@@ -16,7 +16,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void _navigateToSettings() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UserSettings()),
+    );
+    // Update state after returning from settings
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,10 +64,7 @@ class HomeScreen extends StatelessWidget {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserSettings()),
-                );
+                _navigateToSettings();
               },
               tooltip: 'Settings',
             ),

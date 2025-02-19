@@ -4,6 +4,7 @@ import 'package:math_keyboard/math_keyboard.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/Shared/DirectionVectors.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 
@@ -312,8 +313,12 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                       ),
                     ),
                   ),
-                  Math.tex(
+                  if (isDegree) Math.tex(
                     '\\text{ degrees}',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  if (!isDegree) Math.tex(
+                    '\\text{ radians}',
                     textStyle: const TextStyle(fontSize: 18),
                   )
                 ]
@@ -581,8 +586,12 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                       ),
                     ),
                   ),
-                  Math.tex(
+                  if (isDegree) Math.tex(
                     '\\text{ degrees}',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  if (!isDegree) Math.tex(
+                    '\\text{ radians}',
                     textStyle: const TextStyle(fontSize: 18),
                   )
                 ]

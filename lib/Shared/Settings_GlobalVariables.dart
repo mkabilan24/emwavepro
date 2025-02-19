@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 int decimalPlaces = 3;
 double conductivitymargin = 20;
+bool isDegree = true;
 
 class UserSettings extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _UserSettingsState extends State<UserSettings> {
     setState(() {
       decimalPlaces = 3;
       conductivitymargin = 20;
+      isDegree = true;
     });
   }
 
@@ -54,9 +56,38 @@ class _UserSettingsState extends State<UserSettings> {
             ),
             const SizedBox(height: 20),
             Row(
+              children: [
+                ToggleButtons(
+                  borderRadius: BorderRadius.circular(10),
+                  selectedColor: Colors.white,
+                  color: Colors.black,
+                  fillColor: Colors.blue,
+                  isSelected: [isDegree, !isDegree],
+                  onPressed: (index) {
+                    setState(() {
+                      isDegree = index == 0;
+                    });
+                  },
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text('Degrees', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text('Radians', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text('Decimal Places:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text('Decimal Places:',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(width: 10),
                 DropdownButton<int>(
                   value: decimalPlaces,
@@ -69,7 +100,9 @@ class _UserSettingsState extends State<UserSettings> {
                       .map<DropdownMenuItem<int>>((int value) {
                     return DropdownMenuItem<int>(
                       value: value,
-                      child: Text(value.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: Text(value.toString(),
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                     );
                   }).toList(),
                 ),
@@ -79,32 +112,37 @@ class _UserSettingsState extends State<UserSettings> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text('Conductivity Margin:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text('Conductivity Margin:',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(width: 10),
-                Text(conductivitymargin.round().toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(conductivitymargin.round().toString(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold)),
               ],
             ),
             Slider(
-                  value: conductivitymargin,
-                  min: 5,
-                  max: 100,
-                  divisions: 100,
-                  label: conductivitymargin.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      conductivitymargin = value;
-                    });
-                  },
-                ),
+              value: conductivitymargin,
+              min: 5,
+              max: 100,
+              divisions: 100,
+              label: conductivitymargin.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  conductivitymargin = value;
+                });
+              },
+            ),
             SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: _resetToDefaults,
                 child: Text('Reset to Default'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.red,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

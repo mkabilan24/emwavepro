@@ -3,6 +3,7 @@ import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 
@@ -138,7 +139,11 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                       ),
                     ),
                   ),
-                  Math.tex(
+                  if (isDegree) Math.tex(
+                    '\\text{ degrees}',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  if (!isDegree) Math.tex(
                     '\\text{ radians}',
                     textStyle: const TextStyle(fontSize: 18),
                   )
@@ -275,7 +280,11 @@ class _LossyEquationComponentsDisplayWidgetState extends State<LossyEquationComp
                       ),
                     ),
                   ),
-                  Math.tex(
+                  if (isDegree) Math.tex(
+                    '\\text{ degrees}',
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  if (!isDegree) Math.tex(
                     '\\text{ radians}',
                     textStyle: const TextStyle(fontSize: 18),
                   )
