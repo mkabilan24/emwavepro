@@ -1,6 +1,9 @@
 import 'package:emwavepro/Lossless/Main_Lossless.dart';
 import 'package:emwavepro/Lossy/Main_Lossy.dart';
+
+import 'package:emwavepro/Shared/Logging.dart';
 import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,6 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
+  void _navigateToLogs() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Logging()),
+    );
+    // Update state after returning from logs
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +67,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
+          Padding(padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.article,
+                size: 30.0,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                _navigateToLogs();
+              },
+              tooltip: 'Logs',
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(

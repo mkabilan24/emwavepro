@@ -1,9 +1,5 @@
 import 'dart:math';
-import 'package:emwavepro/Lossy/Lossy_Equations_Components.dart';
-import 'package:emwavepro/Lossy/Lossy_WaveEM_Frequency_Properties.dart';
-import 'package:emwavepro/Shared/Complex_Math.dart';
-import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
-import 'package:emwavepro/Shared/WavePolarisation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -11,10 +7,16 @@ import 'package:math_keyboard/math_keyboard.dart';
 import 'package:emwavepro/Lossy/Lossy_WaveEM_Properties.dart';
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/Lossy/Lossy_Medium_Properties.dart';
+import 'package:emwavepro/Lossy/Lossy_Equations_Components.dart';
+import 'package:emwavepro/Lossy/Lossy_WaveEM_Frequency_Properties.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/Shared/GraphicalPlot.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
+import 'package:emwavepro/Shared/Complex_Math.dart';
+import 'package:emwavepro/Shared/Logging.dart';
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
+import 'package:emwavepro/Shared/WavePolarisation.dart';
 
 class LossyEMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -212,6 +214,7 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
                             if (givenfield == "H") {
                               get_lossy_E_eqn(_E1Controller, _H1Controller);
                             }
+                            log_lossy();
                           }
                         },
                         child: const Text('Generare EM Wave'),

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:emwavepro/Shared/Logging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
@@ -184,6 +185,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                             if (numofcomponents == 2 && phaseangle2.isEmpty) {
                               updateDouble(phaseangle2, 0);
                             }
+                            log_lossless();
                           }
                         },
                         child: const Text('Generare EM Wave'),
