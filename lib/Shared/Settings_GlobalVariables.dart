@@ -96,7 +96,7 @@ class _UserSettingsState extends State<UserSettings> {
                       decimalPlaces = newValue!;
                     });
                   },
-                  items: <int>[1, 2, 3, 4, 5]
+                  items: <int>[0, 1, 2, 3, 4, 5, 6]
                       .map<DropdownMenuItem<int>>((int value) {
                     return DropdownMenuItem<int>(
                       value: value,

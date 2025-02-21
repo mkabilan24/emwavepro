@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
+
 // Class to represent a complex number
 class Complex {
   final double real;
@@ -73,8 +75,8 @@ class Complex {
   @override
   String toString() {
     // Format the real and imaginary parts
-    String realPart = real.toString();
-    String imaginaryPart = imaginary.abs().toString(); // Absolute value for imaginary part
+    String realPart = real.toStringAsFixed(decimalPlaces);
+    String imaginaryPart = imaginary.abs().toStringAsFixed(decimalPlaces); // Absolute value for imaginary part
 
     // Determine the sign to display
     String sign = imaginary >= 0 ? '+' : '-';
@@ -86,8 +88,7 @@ class Complex {
   String displayComplexExpression() {
     // Helper function to format numbers in scientific notation with 10^
     String formatNumber(num value) {
-      String expString = value.toStringAsExponential();
-
+      String expString = value.toStringAsExponential(decimalPlaces);
       // Extract the exponent value
       RegExp expRegExp = RegExp(r'e([+-]?\d+)');
       Match? match = expRegExp.firstMatch(expString);
@@ -102,17 +103,19 @@ class Complex {
       }
 
       // Return the original value if the condition is not met
-      return value.toString();
+      return value.toStringAsFixed(decimalPlaces);
     }
 
     // Format the real and imaginary parts
     String realPart = formatNumber(real);
     String imaginaryPart = formatNumber(imaginary.abs()); // Absolute value for imaginary part
+    print("Real Part: $realPart");
+    print("Imaginary Part: $imaginaryPart");
 
     // Determine the sign to display
     String sign = imaginary >= 0 ? '+' : '-';
 
     // Construct the formatted string
     return '$realPart $sign ${imaginaryPart}j';
-}
+  }
 }
