@@ -2,19 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 
 List<String> steps = [];
-
-
-
-void log_lossy() {
-  steps.clear();
-  steps = [
-    'Step 1: Calculate the conductivity of the lossy medium.',
-    'Step 2: Calculate the permeability of the lossy medium.',
-    'Step 3: Calculate the permittivity of the lossy medium.',
-    'Step 4: Calculate the intrinsic impedance of the lossy medium.',
-  ];
-}
-
 class Logging extends StatefulWidget {
   @override
   _LoggingState createState() => _LoggingState();

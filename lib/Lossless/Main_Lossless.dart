@@ -156,15 +156,16 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
   void log_lossless() {
     steps.clear();
     steps = [
-      '\\text{You have selected lossless medium.}',
+      '\\text{You have selected Lossless medium.}',
       '\\text{Lossless media have no conductivity, so the conductivity is zero} (\\sigma =\\ 0\\ S/m).',
       '\\textbf{Step 1: Calculate the intrinsic impedance (} \\boldsymbol{\\eta} \\textbf{) of the lossless medium.}',
       '\\text{Given that relative permeability }(\\mu_{r} = ${getDouble(lossless_relativepermeability)}) \\text{ and relative permittivity }(\\varepsilon_{r} = ${getDouble(lossless_relativepermittivity)})\\text{ are known,}',
-      '\\text{the intrinsic impedance }(\\eta) \\text{ of the lossless medium is given by the formula:}',
+      '\\mu = ${displayexpression(lossless_permeability)}\\ \\text{H/m, } \\varepsilon = ${displayexpression(lossless_permittivity)}\\ \\text{F/m}.',
+      '\\text{The intrinsic impedance }(\\eta) \\text{ of the lossless medium is given by the formula:}',
       '\\eta = \\sqrt{\\frac{\\mu_{r}}{\\varepsilon_{r}}} \\times 120\\pi = \\sqrt{\\frac{${displayexpression(lossless_relativepermeability)}}{${displayexpression(lossless_relativepermittivity)}}} \\times 120\\pi = ${displayexpression(lossless_intrinsicimpedance)}\\ \\Omega.',
       '\\textbf{Step 2: Calculate the wave number (} \\boldsymbol{k} \\textbf{) of the lossless medium.}',
       '\\text{Given that the frequency }(f = ${displayexpression(freq)}\\ \\text{Hz})\\text{ is known,}',
-      '\\text{Angular frequency }(\\omega) = 2\\pi f = 2\\pi \\times ${displayexpression(freq)} = ${displayexpression(angularfreq)}\\ \\text{rad/s}.',
+      '\\text{Angular frequency, }\\omega = 2\\pi f = 2\\pi \\times ${displayexpression(freq)} = ${displayexpression(angularfreq)}\\ \\text{rad/s}.',
       '\\text{The wave number }(k) \\text{ of the lossless medium is given by the formula:}',
       'k = \\sqrt{\\omega^{2} \\mu \\varepsilon} = \\sqrt{(${displayexpression(angularfreq)})^{2} (${displayexpression(lossless_permeability)}) (${displayexpression(lossless_permittivity)}) } = ${displayexpression(lossless_wavenumber)}.',
       '\\textbf{Step 3: Calculate the attenuation constant (} \\boldsymbol{\\alpha} \\textbf{) and the phase constant (} \\boldsymbol{\\beta} \\textbf{) of the lossless medium.}',
@@ -176,24 +177,26 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     ];
     if (numofcomponents == 1) {
       steps.addAll([
+        '\\textbf{Step 5: Generate EM Wave Equations.}',
         '\\textbf{Time Domain Equations:}',
-        '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringTimeDomainForm(_phi1Controller)})',
-        '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringTimeDomainForm(_phi1Controller)})',
+        _generateETimeDomainEquation(),
+        _generateHTimeDomainEquation(),
         '\\textbf{Phasor Domain Equations:}',
-        '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\angle${_getPhiStringPhasorDomainForm(_phi1Controller)} e^{${_getSign(a_k_Wave_Propagation1)} j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)}}',
-        '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\angle${_getPhiStringPhasorDomainForm(_phi1Controller)} e^{${_getSign(a_k_Wave_Propagation1)} j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)}}',
+        _generateEPhasorDomainEquation(),
+        _generateHPhasorDomainEquation(),
         '\\textbf{Polarization: }${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}.',
         reasonforpolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller),
       ]);
     }
     if (numofcomponents == 2) {
       steps.addAll([
+        '\\textbf{Step 5: Generate EM Wave Equations.}',
         '\\textbf{Time Domain Equations:}',
-        '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringTimeDomainForm(_phi1Controller)}) $a_E_Field_Propagation2 ${_getabsoluteValue(_E2Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation2)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation2)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation2)} ${_getPhiStringTimeDomainForm(_phi2Controller)})',
-        '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation1)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)} ${_getPhiStringTimeDomainForm(_phi1Controller)}) $a_H_Field_Propagation2 ${_getabsoluteValue(_H2Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation2)}}|')}\\cos(${(_angularfreq.isEmpty) ? '\\omega' : displayexpression(_angularfreq)} t ${_getSign(a_k_Wave_Propagation2)} ${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation2)} ${_getPhiStringTimeDomainForm(_phi2Controller)})',
+        _generateETimeDomainEquation(),
+        _generateHTimeDomainEquation(),
         '\\textbf{Phasor Domain Equations:}',
-        '\\vec{E} = $a_E_Field_Propagation1 ${_getabsoluteValue(_E1Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|')}\\angle${_getPhiStringPhasorDomainForm(_phi1Controller)} e^{${_getSign(a_k_Wave_Propagation1)} j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)}} $a_E_Field_Propagation2 ${_getabsoluteValue(_E2Controller, '|E_{${_getWavePropagationAxis(a_E_Field_Propagation2)}}|')}\\angle${_getPhiStringPhasorDomainForm(_phi2Controller)} e^{${_getSign(a_k_Wave_Propagation2)} j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation2)}}',
-        '\\vec{H} = $a_H_Field_Propagation1 ${_getabsoluteValue(_H1Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|')}\\angle${_getPhiStringPhasorDomainForm(_phi1Controller)} e^{${_getSign(a_k_Wave_Propagation1)} j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation1)}} $a_H_Field_Propagation2 ${_getabsoluteValue(_H2Controller, '|H_{${_getWavePropagationAxis(a_H_Field_Propagation2)}}|')}\\angle${_getPhiStringPhasorDomainForm(_phi2Controller)} e^{${_getSign(a_k_Wave_Propagation2)} j${(_wavenumber.isEmpty) ? 'k' : displayexpression(_wavenumber)}${_getWavePropagationAxis(a_k_Wave_Propagation2)}}',
+        _generateEPhasorDomainEquation(),
+        _generateHPhasorDomainEquation(),
         '\\textbf{Polarization: }${determinepolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller)}.',
         reasonforpolarisation(_E1Controller, _E2Controller, _phi1Controller, _phi2Controller),
       ]);

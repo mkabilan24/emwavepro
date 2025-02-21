@@ -178,6 +178,56 @@ class _LossyEMFieldEquationsWidgetState extends State<LossyEMFieldEquationsWidge
     return scaledNumber.clamp(minScale, maxScale);
   }
 
+  void log_lossy() {
+    steps.clear();
+    steps = [
+      '\\text{You have selected Lossy medium.}',
+      '\\text{Conductivity of Lossy Medium } (\\sigma =\\ ${displayexpression(lossy_conductivity)}\\ S/m).',
+      '\\text{The relative permeability }(\\mu_{r} = ${getDouble(lossy_relativepermeability)}) \\text{ and relative permittivity }(\\varepsilon_{r} = ${getDouble(lossy_relativepermittivity)})\\text{ are known.}',
+      '\\mu = ${displayexpression(lossy_permeability)}\\ \\text{H/m, } \\varepsilon = ${displayexpression(lossy_permittivity)}\\ \\text{F/m}.',
+      '\\text{Given that the frequency }(f = ${displayexpression(freq)}\\ \\text{Hz})\\text{ is known,}',
+      '\\text{Angular frequency, }\\omega = 2\\pi f = 2\\pi \\times ${displayexpression(freq)} = ${displayexpression(angularfreq)}\\ \\text{rad/s}.',
+      
+      '\\textbf{Step 1: Calculate the Loss Tangent (}\\boldsymbol{\\tan \\delta} \\textbf{).}',
+      '\\tan \\delta = \\frac{\\sigma}{\\omega \\varepsilon} = \\frac{${displayexpression(lossy_conductivity)}}{${displayexpression(angularfreq)} \\times ${displayexpression(lossy_permittivity)}} = ${displayexpression(losstangent)}.',
+      
+      '\\textbf{Step 2: Calculate the Complex Permitivity (}\\boldsymbol{\\varepsilon_{c}} \\textbf{).}',
+      '\\varepsilon_{c} = \\varepsilon - j \\frac{\\sigma}{\\omega} = ${displayexpression(lossy_permittivity)} - j \\frac{${displayexpression(lossy_conductivity)}}{${displayexpression(angularfreq)}} = ${complexpermittivity.displayComplexExpression()}.',
+      
+      '\\textbf{Step 3: Calculate the Complex Intrinsic Impedance (}\\boldsymbol{\\eta_{c}}\\textbf{).}',
+      '\\eta_{c} = \\sqrt{\\frac{\\mu}{\\varepsilon_{c}}} = \\sqrt{\\frac{${displayexpression(lossy_permeability)}}{${complexpermittivity.displayComplexExpression()}}} = ${complexintrinsicimpedance.displayComplexExpression()}.',
+      
+      '\\textbf{Step 4: Calculate the Complex Wave Number (} \\boldsymbol{k_{c}} \\textbf{).}',
+      'k_{c} = \\sqrt{\\omega^{2} \\mu \\varepsilon_{c}} = \\sqrt{(${displayexpression(angularfreq)})^{2} (${displayexpression(lossy_permeability)}) (${complexpermittivity.displayComplexExpression()})} = ${intrinsicimpedanceroots[0]}, ${intrinsicimpedanceroots[1]}.',
+      
+      '\\textbf{Step 5: Calculate the Propagation Constant (}\\boldsymbol{\\gamma} \\textbf{).}',
+      '\\gamma = \\alpha + j\\beta = j \\omega \\sqrt{\\mu\\varepsilon_{c}} = j${displayexpression(angularfreq)}\\sqrt{(${displayexpression(lossy_permeability)})(${complexpermittivity.displayComplexExpression()})} = ${propagation_constant.displayComplexExpression()}',
+      
+      '\\textbf{Step 6: Determine the attenuation constant (}\\boldsymbol{\\alpha} \\textbf{) and phase constant (}\\boldsymbol{\\beta} \\textbf{).}',
+      '\\alpha = ${displayexpression(lossy_attenuationconstant)}\\text{ Np/m, } \\beta = ${displayexpression(lossy_phaseconstant)}\\text{ rad/m}.',
+
+      '\\textbf{Step 7: Determine the Phase Velocity (}\\boldsymbol{\\upsilon_{p}} \\textbf{), Wavelength (}\\boldsymbol{\\lambda} \\textbf{) and Skin Depth (}\\boldsymbol{\\delta} \\textbf{).}',
+      '\\text{Phase Velocity, } \\upsilon_{p} = \\frac{\\omega}{\\beta} = \\frac{${displayexpression(angularfreq)}}{${displayexpression(lossy_phaseconstant)}} = ${displayexpression(lossy_phasevelocity)}\\text{ m/s}.',
+      '\\text{Wavelength, } \\lambda = \\frac{2\\pi}{\\beta} = \\frac{2\\pi}{${displayexpression(lossy_phaseconstant)}} = ${displayexpression(lossy_wavelength)}\\text{ m}.',
+      '\\text{Skin Depth, } \\delta = \\frac{1}{\\alpha} = \\frac{1}{${displayexpression(lossy_attenuationconstant)}} = ${displayexpression(lossy_skindepth)}\\text{ m}.',
+
+      '\\textbf{Step 8: Calculate the absolute values of the electric field (} \\boldsymbol{E} \\textbf{) and magnetic field (} \\boldsymbol{H} \\textbf{) of the EM wave.}',
+      '\\text{Using the equation: }',
+      '\\eta_{c} = \\frac{|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|}{|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|} = ${complexintrinsicimpedance.displayComplexExpression()}\\ \\Omega.',
+    ];
+    steps.addAll([
+      '\\textbf{Step 9: Generate the EM Wave Equations.}',
+      '\\textbf{Time Domain Equations:}',
+      ETimeDomainEquation,
+      EPhasorDomainEquation,
+      '\\textbf{Phasor Domain Equations:}',
+      HTimeDomainEquation,
+      HPhasorDomainEquation,
+      '\\textbf{Polarization: }Linear.',
+      '\\textbf{Reason: }\\text{The single component EM Wave equation is linearly polarized.}'
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
