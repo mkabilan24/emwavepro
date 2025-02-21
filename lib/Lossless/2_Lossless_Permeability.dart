@@ -18,17 +18,20 @@ void calc_lossless_permeability() {
     return;
   }
   double relativePermeabilityValue = getDouble(lossless_relativepermeability);
-  double permeabilityValue = relativePermeabilityValue * permeabilityOfFreeSpace;
+  double permeabilityValue =
+      relativePermeabilityValue * permeabilityOfFreeSpace;
   updateDouble(lossless_permeability, permeabilityValue);
   print("The Calculated Permeability is $permeabilityValue.");
 }
+
 class Lossless_PermeabilityDisplayWidget extends StatefulWidget {
   @override
-  _Lossless_PermeabilityDisplayWidgetState createState() => _Lossless_PermeabilityDisplayWidgetState();
+  _Lossless_PermeabilityDisplayWidgetState createState() =>
+      _Lossless_PermeabilityDisplayWidgetState();
 }
 
-class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_PermeabilityDisplayWidget> {
-
+class _Lossless_PermeabilityDisplayWidgetState
+    extends State<Lossless_PermeabilityDisplayWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,18 +67,18 @@ class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_Permeabili
                       setState(() {
                         onchange = true;
                         if (!inputHandler(lossless_relativepermeability)) {
-                          if (lossless_relativepermeability.isEmpty || getDouble(lossless_relativepermeability) >= 0) {
+                          if (lossless_relativepermeability.isEmpty ||
+                              getDouble(lossless_relativepermeability) >= 0) {
                             calc_lossless_permeability();
                             calc_lossless_intrinsicimpedance();
                             calc_lossless_wavenumber();
                             snackbarController.hideErrorSnackBar();
-                          }
-                          else {
+                          } else {
                             snackbarController.showPermanentErrorSnackBar(
-                                context, "Input Error: Permeability (μ) must be positive!");
+                                context,
+                                "Input Error: Permeability (μ) must be positive!");
                           }
-                        }
-                        else {
+                        } else {
                           snackbarController.showPermanentErrorSnackBar(
                               context, "Input Error: Permeability (μ)");
                         }
@@ -103,4 +106,3 @@ class _Lossless_PermeabilityDisplayWidgetState extends State<Lossless_Permeabili
     );
   }
 }
-

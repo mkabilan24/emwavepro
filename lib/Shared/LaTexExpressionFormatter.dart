@@ -14,7 +14,8 @@ String displayexpression(MathFieldEditingController controller) {
     RegExp exp = RegExp(r'\^\{([+-]?[0-9.]+)\}([+-]?[0-9]+)');
     RegExpMatch? match = exp.firstMatch(expressionString);
     if (match != null) {
-      String coefficient = double.parse(match.group(1)!).toStringAsFixed(decimalPlaces);
+      String coefficient =
+          double.parse(match.group(1)!).toStringAsFixed(decimalPlaces);
       String exponent = match.group(2)!;
       String latexString = '$coefficient \\times 10^{$exponent}';
       return latexString;
@@ -30,10 +31,11 @@ String displayexpression(MathFieldEditingController controller) {
     RegExp exp = RegExp(r'([+-]?[0-9.]+)e([+-]?[0-9]+)');
     RegExpMatch? match = exp.firstMatch(scientificString);
     if (match != null) {
-      String coefficient = double.parse(match.group(1)!).toStringAsFixed(decimalPlaces);
+      String coefficient =
+          double.parse(match.group(1)!).toStringAsFixed(decimalPlaces);
       String exponent = match.group(2)!;
       //print("The coefficient is $coefficient and the exponent is $exponent.");
-      
+
       int exponentValue = int.parse(exponent);
       if (exponentValue >= 3) {
         String latexString = '$coefficient \\times 10^{$exponentValue}';
@@ -46,12 +48,12 @@ String displayexpression(MathFieldEditingController controller) {
       }
     }
   }
-  
+
   // If the string does not contain 'e' or is not a very big or small number, return the original string formatted to decimal places
   double? originalValue = double.tryParse(expressionString);
   if (originalValue != null) {
     return originalValue.toStringAsFixed(decimalPlaces);
   }
-  
+
   return expressionString;
 }

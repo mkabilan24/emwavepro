@@ -12,8 +12,11 @@ String calc_complex_impedance() {
     return '0\\:\\Omega';
   }
   double permeabilityValue = getDouble(lossy_permeability);
-  intrinsicimpedanceroots = (Complex.divide(Complex(permeabilityValue, 0), complexpermittivity)).nthRoots(2);
-  print ("The Complex Intrinsic Impedance Roots are: ${intrinsicimpedanceroots[0].toString()}, ${intrinsicimpedanceroots[1].toString()}.");
+  intrinsicimpedanceroots =
+      (Complex.divide(Complex(permeabilityValue, 0), complexpermittivity))
+          .nthRoots(2);
+  print(
+      "The Complex Intrinsic Impedance Roots are: ${intrinsicimpedanceroots[0].toString()}, ${intrinsicimpedanceroots[1].toString()}.");
   //Set the first root as the intrinsic impedance
   complexintrinsicimpedance = intrinsicimpedanceroots[0];
   return '${intrinsicimpedanceroots[0].toString()} \\: \\Omega, ${intrinsicimpedanceroots[1].toString()} \\: \\Omega';
@@ -21,20 +24,21 @@ String calc_complex_impedance() {
 
 class Lossy_Complex_IntrinsicImpedanceDisplayWidget extends StatefulWidget {
   @override
-  _Lossy_Complex_IntrinsicImpedanceDisplayWidgetState createState() => _Lossy_Complex_IntrinsicImpedanceDisplayWidgetState();
+  _Lossy_Complex_IntrinsicImpedanceDisplayWidgetState createState() =>
+      _Lossy_Complex_IntrinsicImpedanceDisplayWidgetState();
 }
 
-class _Lossy_Complex_IntrinsicImpedanceDisplayWidgetState extends State<Lossy_Complex_IntrinsicImpedanceDisplayWidget> {
+class _Lossy_Complex_IntrinsicImpedanceDisplayWidgetState
+    extends State<Lossy_Complex_IntrinsicImpedanceDisplayWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: 
-        Row(children: [
-          Math.tex(
-            '\\text{Complex Intrinsic impedance, } \\eta_{c} = \\sqrt{\\frac{\\mu}{\\varepsilon_{c}}} = ${calc_complex_impedance()}',
-            textStyle: const TextStyle(fontSize: 18),
-          ),
-        ]),
+      child: Row(children: [
+        Math.tex(
+          '\\text{Complex Intrinsic impedance, } \\eta_{c} = \\sqrt{\\frac{\\mu}{\\varepsilon_{c}}} = ${calc_complex_impedance()}',
+          textStyle: const TextStyle(fontSize: 18),
+        ),
+      ]),
     );
   }
 }

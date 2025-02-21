@@ -7,9 +7,11 @@ import 'package:emwavepro/Shared/Complex_Math.dart';
 import 'package:emwavepro/Lossy/8_Lossy_PropagationConstant.dart';
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 
-
 String calc_wave_number_roots() {
-  if (angularfreq.isEmpty || lossy_permeability.isEmpty || lossy_permittivity.isEmpty || lossy_conductivity.isEmpty) {
+  if (angularfreq.isEmpty ||
+      lossy_permeability.isEmpty ||
+      lossy_permittivity.isEmpty ||
+      lossy_conductivity.isEmpty) {
     waveNumberRoots = [];
     return "0";
   }
@@ -18,8 +20,12 @@ String calc_wave_number_roots() {
   double conductivityValue = getDouble(lossy_conductivity);
   double angularfreqValue = getDouble(angularfreq);
 
-  double realvalue = pow(angularfreqValue, 2) * permeabilityValue * permittivityValue;
-  double imaginaryvalue = pow(angularfreqValue, 2) * permeabilityValue * conductivityValue / angularfreqValue;
+  double realvalue =
+      pow(angularfreqValue, 2) * permeabilityValue * permittivityValue;
+  double imaginaryvalue = pow(angularfreqValue, 2) *
+      permeabilityValue *
+      conductivityValue /
+      angularfreqValue;
 
   Complex z = Complex(realvalue, -imaginaryvalue);
 
@@ -32,20 +38,21 @@ String calc_wave_number_roots() {
 
 class Lossy_WaveNumberDisplayWidget extends StatefulWidget {
   @override
-  _Lossy_WaveNumberDisplayWidgetState createState() => _Lossy_WaveNumberDisplayWidgetState();
+  _Lossy_WaveNumberDisplayWidgetState createState() =>
+      _Lossy_WaveNumberDisplayWidgetState();
 }
 
-class _Lossy_WaveNumberDisplayWidgetState extends State<Lossy_WaveNumberDisplayWidget> {
+class _Lossy_WaveNumberDisplayWidgetState
+    extends State<Lossy_WaveNumberDisplayWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: 
-          Row(children: [
-          Math.tex(
-            '\\text{Wave Number, } k_{c} = \\sqrt{\\omega^{2}\\mu\\varepsilon_{c}} = ${calc_wave_number_roots()}',
-            textStyle: const TextStyle(fontSize: 18),
-          ),
-        ]),
-      );
+      child: Row(children: [
+        Math.tex(
+          '\\text{Wave Number, } k_{c} = \\sqrt{\\omega^{2}\\mu\\varepsilon_{c}} = ${calc_wave_number_roots()}',
+          textStyle: const TextStyle(fontSize: 18),
+        ),
+      ]),
+    );
   }
 }

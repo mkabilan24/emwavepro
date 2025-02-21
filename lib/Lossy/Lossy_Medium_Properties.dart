@@ -7,10 +7,12 @@ import 'package:emwavepro/Lossy/3_Lossy_Permittivity.dart';
 /// A widget that displays properties of a lossless medium.
 class LossyMediumPropertiesWidget extends StatefulWidget {
   @override
-  _LossyMediumPropertiesWidgetState createState() => _LossyMediumPropertiesWidgetState();
+  _LossyMediumPropertiesWidgetState createState() =>
+      _LossyMediumPropertiesWidgetState();
 }
 
-class _LossyMediumPropertiesWidgetState extends State<LossyMediumPropertiesWidget> {
+class _LossyMediumPropertiesWidgetState
+    extends State<LossyMediumPropertiesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,7 +44,7 @@ class _LossyMediumDropdownState extends State<LossyMediumDropdown> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:[
+      children: [
         GestureDetector(
           onTap: () {
             setState(() {
@@ -55,7 +57,10 @@ class _LossyMediumDropdownState extends State<LossyMediumDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Lossy Medium Properties", style: TextStyle(fontSize: 16,)),
+                const Text("Lossy Medium Properties",
+                    style: TextStyle(
+                      fontSize: 16,
+                    )),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),
@@ -67,10 +72,3 @@ class _LossyMediumDropdownState extends State<LossyMediumDropdown> {
     );
   }
 }
-
-// void main() {
-//   runApp(MaterialApp(
-//     home: Scaffold(
-//       appBar: AppBar(title: const Text('Lossy Medium Properties')),
-//       body: LossyMediumDropdown())));
-// }

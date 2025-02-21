@@ -18,17 +18,20 @@ void calc_lossless_permittivity() {
     return;
   }
   double relativePermittivityValue = getDouble(lossless_relativepermittivity);
-  double permittivityValue = relativePermittivityValue * permittivityOfFreeSpace;
+  double permittivityValue =
+      relativePermittivityValue * permittivityOfFreeSpace;
   updateDouble(lossless_permittivity, permittivityValue);
   print("The Calculated Permittivity is $permittivityValue.");
 }
 
 class Lossless_PermittivityDisplayWidget extends StatefulWidget {
   @override
-  _Lossless_PermittivityDisplayWidgetState createState() => _Lossless_PermittivityDisplayWidgetState();
+  _Lossless_PermittivityDisplayWidgetState createState() =>
+      _Lossless_PermittivityDisplayWidgetState();
 }
 
-class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_PermittivityDisplayWidget> {
+class _Lossless_PermittivityDisplayWidgetState
+    extends State<Lossless_PermittivityDisplayWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,21 +72,19 @@ class _Lossless_PermittivityDisplayWidgetState extends State<Lossless_Permittivi
                           lossless_wavenumber.clear();
                           lossless_phaseconstant.clear();
                           snackbarController.hideErrorSnackBar();
-                        }
-
-                        else if (!inputHandler(lossless_relativepermittivity)) {
+                        } else if (!inputHandler(
+                            lossless_relativepermittivity)) {
                           if (getDouble(lossless_relativepermittivity) >= 0) {
                             calc_lossless_permittivity();
                             calc_lossless_intrinsicimpedance();
                             calc_lossless_wavenumber();
                             snackbarController.hideErrorSnackBar();
-                          }
-                          else {
+                          } else {
                             snackbarController.showPermanentErrorSnackBar(
-                                context, "Input Error: Permittivity (ε) must be positive!");
+                                context,
+                                "Input Error: Permittivity (ε) must be positive!");
                           }
-                        }
-                        else {
+                        } else {
                           snackbarController.showPermanentErrorSnackBar(
                               context, "Input Error: Permittivity (ε)");
                         }

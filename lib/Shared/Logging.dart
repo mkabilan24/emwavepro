@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 
 List<String> steps = [];
+
 class Logging extends StatefulWidget {
   @override
   _LoggingState createState() => _LoggingState();

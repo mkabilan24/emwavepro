@@ -6,9 +6,11 @@ import 'package:emwavepro/Shared/DegreesandRadians.dart';
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 
-
-String determinepolarisation(MathFieldEditingController EH1Controller, MathFieldEditingController EH2Controller, MathFieldEditingController phi1Controller, MathFieldEditingController phi2Controller) {
-
+String determinepolarisation(
+    MathFieldEditingController EH1Controller,
+    MathFieldEditingController EH2Controller,
+    MathFieldEditingController phi1Controller,
+    MathFieldEditingController phi2Controller) {
   if (numofcomponents == 1) {
     return "Linear";
   }
@@ -27,16 +29,14 @@ String determinepolarisation(MathFieldEditingController EH1Controller, MathField
   if (!phi1Controller.isEmpty) {
     if (isDegree) {
       phi1 = getDouble(phi1Controller);
-    }
-    else {
+    } else {
       phi1 = convertradiantodegree(phi1Controller);
     }
   }
   if (!phi2Controller.isEmpty) {
     if (isDegree) {
       phi2 = getDouble(phi2Controller);
-    }
-    else {
+    } else {
       phi2 = convertradiantodegree(phi2Controller);
     }
   }
@@ -45,15 +45,22 @@ String determinepolarisation(MathFieldEditingController EH1Controller, MathField
     return "Linear";
   }
 
-  if ((absolutePhaseDiff == 90) && (getDouble(EH1Controller) == getDouble(EH2Controller))) {
+  if ((absolutePhaseDiff == 90) &&
+      (getDouble(EH1Controller) == getDouble(EH2Controller))) {
     return "Circular";
   }
-  
+
   return "Elliptical";
 }
 
-String reasonforpolarisation(MathFieldEditingController EH1Controller, MathFieldEditingController EH2Controller, MathFieldEditingController phi1Controller, MathFieldEditingController phi2Controller) {
-  if (numofcomponents == 1 || (getDouble(EH1Controller) == 0) || (getDouble(EH2Controller) == 0)) {
+String reasonforpolarisation(
+    MathFieldEditingController EH1Controller,
+    MathFieldEditingController EH2Controller,
+    MathFieldEditingController phi1Controller,
+    MathFieldEditingController phi2Controller) {
+  if (numofcomponents == 1 ||
+      (getDouble(EH1Controller) == 0) ||
+      (getDouble(EH2Controller) == 0)) {
     return '\\textbf{Reason: }\\text{The single component EM Wave equation is linearly polarized.}';
   }
 
@@ -63,16 +70,14 @@ String reasonforpolarisation(MathFieldEditingController EH1Controller, MathField
   if (!phi1Controller.isEmpty) {
     if (isDegree) {
       phi1 = getDouble(phi1Controller);
-    }
-    else {
+    } else {
       phi1 = convertradiantodegree(phi1Controller);
     }
   }
   if (!phi2Controller.isEmpty) {
     if (isDegree) {
       phi2 = getDouble(phi2Controller);
-    }
-    else {
+    } else {
       phi2 = convertradiantodegree(phi2Controller);
     }
   }
@@ -82,8 +87,7 @@ String reasonforpolarisation(MathFieldEditingController EH1Controller, MathField
     //Linear
     if (isDegree) {
       return '\\textbf{Reason: }\\text{The phase difference between the two components is $absolutePhaseDiff degrees.}';
-    }
-    else {
+    } else {
       return '\\textbf{Reason: }\\text{The phase difference between the two components is $absolutePhaseDiff radians.}';
     }
   }
@@ -92,18 +96,17 @@ String reasonforpolarisation(MathFieldEditingController EH1Controller, MathField
     //Linear
     if (isDegree) {
       return '\\textbf{Reason: }\\text{The phase difference between the two components is $absolutePhaseDiff degrees.}';
-    }
-    else {
+    } else {
       return '\\textbf{Reason: }\\text{The phase difference between the two components is } \\pi \\text{ radians.}';
     }
   }
 
-  if ((absolutePhaseDiff == 90) && (getDouble(EH1Controller) == getDouble(EH2Controller))) {
+  if ((absolutePhaseDiff == 90) &&
+      (getDouble(EH1Controller) == getDouble(EH2Controller))) {
     //Circular
     if (isDegree) {
       return '\\textbf{Reason: }\\text{The phase difference between the two components is $absolutePhaseDiff degrees and the magnitudes of the two components are equal.}';
-    }
-    else {
+    } else {
       return '\\textbf{Reason: }\\text{The phase difference between the two components is } \\frac{\\pi}{2} \\text{ radians and the magnitudes of the two components are equal.}';
     }
   }

@@ -5,10 +5,12 @@ import 'package:emwavepro/Lossy/4_Lossy_Frequencies.dart';
 /// A widget that displays properties of a lossless medium.
 class LossyWaveEMFreqPropertiesWidget extends StatefulWidget {
   @override
-  _LossyWaveEMFreqPropertiesWidgetState createState() => _LossyWaveEMFreqPropertiesWidgetState();
+  _LossyWaveEMFreqPropertiesWidgetState createState() =>
+      _LossyWaveEMFreqPropertiesWidgetState();
 }
 
-class _LossyWaveEMFreqPropertiesWidgetState extends State<LossyWaveEMFreqPropertiesWidget> {
+class _LossyWaveEMFreqPropertiesWidgetState
+    extends State<LossyWaveEMFreqPropertiesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +31,8 @@ class _LossyWaveEMFreqPropertiesWidgetState extends State<LossyWaveEMFreqPropert
 
 class LossyWaveEMFreqDropdown extends StatefulWidget {
   @override
-  _LossyWaveEMFreqDropdownState createState() => _LossyWaveEMFreqDropdownState();
+  _LossyWaveEMFreqDropdownState createState() =>
+      _LossyWaveEMFreqDropdownState();
 }
 
 class _LossyWaveEMFreqDropdownState extends State<LossyWaveEMFreqDropdown> {
@@ -39,7 +42,7 @@ class _LossyWaveEMFreqDropdownState extends State<LossyWaveEMFreqDropdown> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:[
+      children: [
         GestureDetector(
           onTap: () {
             setState(() {
@@ -52,7 +55,10 @@ class _LossyWaveEMFreqDropdownState extends State<LossyWaveEMFreqDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("EM Wave Frequency in Lossy Medium", style: TextStyle(fontSize: 16,)),
+                const Text("EM Wave Frequency in Lossy Medium",
+                    style: TextStyle(
+                      fontSize: 16,
+                    )),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),

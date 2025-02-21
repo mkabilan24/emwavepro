@@ -14,7 +14,10 @@ Widget Lossless_AttenuationConstantDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: Row(children: [
-      Math.tex('\\text{Attenuation Constant, } \\alpha = 0\\text{ Np/m}', textStyle: const TextStyle(fontSize: 18),),
+      Math.tex(
+        '\\text{Attenuation Constant, } \\alpha = 0\\text{ Np/m}',
+        textStyle: const TextStyle(fontSize: 18),
+      ),
     ]),
   );
 }

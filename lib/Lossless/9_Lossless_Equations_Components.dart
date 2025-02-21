@@ -8,37 +8,42 @@ import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 
-void calc_lossless_H(MathFieldEditingController electricabsoluteE, MathFieldEditingController magneticabsoluteH, int num) {
+void calc_lossless_H(MathFieldEditingController electricabsoluteE,
+    MathFieldEditingController magneticabsoluteH, int num) {
   if (lossless_intrinsicimpedance.isEmpty || electricabsoluteE.isEmpty) {
     magneticabsoluteH.clear();
     return;
   }
   double intrinsicimpedanceValue = getDouble(lossless_intrinsicimpedance);
   double electricabsoluteEValue = getDouble(electricabsoluteE);
-  double magneticabsoluteHValue = electricabsoluteEValue / intrinsicimpedanceValue;
+  double magneticabsoluteHValue =
+      electricabsoluteEValue / intrinsicimpedanceValue;
   updateDouble(magneticabsoluteH, magneticabsoluteHValue);
   print("|H_$num| = $magneticabsoluteHValue.");
 }
 
-void calc_lossless_E(MathFieldEditingController electricabsoluteE, MathFieldEditingController magneticabsoluteH, int num) {
+void calc_lossless_E(MathFieldEditingController electricabsoluteE,
+    MathFieldEditingController magneticabsoluteH, int num) {
   if (lossless_intrinsicimpedance.isEmpty || magneticabsoluteH.isEmpty) {
     electricabsoluteE.clear();
     return;
   }
   double intrinsicimpedanceValue = getDouble(lossless_intrinsicimpedance);
   double magneticabsoluteHValue = getDouble(magneticabsoluteH);
-  double electricabsoluteEValue = intrinsicimpedanceValue * magneticabsoluteHValue;
+  double electricabsoluteEValue =
+      intrinsicimpedanceValue * magneticabsoluteHValue;
   updateDouble(electricabsoluteE, electricabsoluteEValue);
   print("|E_$num| = $electricabsoluteEValue.");
 }
 
 class LosslessEquationComponentsDisplayWidget extends StatefulWidget {
   @override
-  _LosslessEquationComponentsDisplayWidgetState createState() => _LosslessEquationComponentsDisplayWidgetState();
+  _LosslessEquationComponentsDisplayWidgetState createState() =>
+      _LosslessEquationComponentsDisplayWidgetState();
 }
 
-class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquationComponentsDisplayWidget> {
-
+class _LosslessEquationComponentsDisplayWidgetState
+    extends State<LosslessEquationComponentsDisplayWidget> {
   void _validateAllWaveVectors() {
     print("Validating Wave Vectors");
     print("a_E_Field_Propagation1: $a_E_Field_Propagation1");
@@ -48,22 +53,29 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
     print("a_H_Field_Propagation2: $a_H_Field_Propagation2");
     print("a_k_Wave_Propagation1: $a_k_Wave_Propagation2");
 
-    bool RHRComponent1 = validateRHRWaveVectors(a_E_Field_Propagation1, a_H_Field_Propagation1, a_k_Wave_Propagation1);
-    bool RHRComponent2 = validateRHRWaveVectors(a_E_Field_Propagation2, a_H_Field_Propagation2, a_k_Wave_Propagation2);
+    bool RHRComponent1 = validateRHRWaveVectors(
+        a_E_Field_Propagation1, a_H_Field_Propagation1, a_k_Wave_Propagation1);
+    bool RHRComponent2 = validateRHRWaveVectors(
+        a_E_Field_Propagation2, a_H_Field_Propagation2, a_k_Wave_Propagation2);
 
     bool isvalid = (RHRComponent1 && RHRComponent2);
     print("isvalid: $isvalid");
 
     if (numofcomponents == 2) {
-      if ((_getWavePropagationAxis(a_E_Field_Propagation1) == _getWavePropagationAxis(a_E_Field_Propagation2)) || (_getWavePropagationAxis(a_H_Field_Propagation1) == _getWavePropagationAxis(a_H_Field_Propagation2))) {
+      if ((_getWavePropagationAxis(a_E_Field_Propagation1) ==
+              _getWavePropagationAxis(a_E_Field_Propagation2)) ||
+          (_getWavePropagationAxis(a_H_Field_Propagation1) ==
+              _getWavePropagationAxis(a_H_Field_Propagation2))) {
         isvalid = false;
       }
-      if (_getWavePropagationAxis(a_k_Wave_Propagation1) != _getWavePropagationAxis(a_k_Wave_Propagation2)) {
+      if (_getWavePropagationAxis(a_k_Wave_Propagation1) !=
+          _getWavePropagationAxis(a_k_Wave_Propagation2)) {
         isvalid = false;
       }
     }
     if (!isvalid) {
-      snackbarController.showPermanentErrorSnackBar(context, "Direction Vectors are Invalid!");
+      snackbarController.showPermanentErrorSnackBar(
+          context, "Direction Vectors are Invalid!");
     } else {
       snackbarController.hideErrorSnackBar();
     }
@@ -77,26 +89,31 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (numofcomponents == 2) Container(
-          color: Colors.blue[300],
-          child: const Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("1st Component", style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(width: 150),
-                Text("Swipe Right", style: TextStyle(fontWeight: FontWeight.bold)),
-                Icon(Icons.arrow_right),
-              ],
+        if (numofcomponents == 2)
+          Container(
+            color: Colors.blue[300],
+            child: const Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("1st Component",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(width: 150),
+                  Text("Swipe Right",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
             ),
           ),
-        ),
-        if (numofcomponents == 1) Container(
-          color: Colors.blue[300],
-          child: const Center(
-            child: Text("Only Component", style: TextStyle(fontWeight: FontWeight.bold)),
+        if (numofcomponents == 1)
+          Container(
+            color: Colors.blue[300],
+            child: const Center(
+              child: Text("Only Component",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
           ),
-        ),
         Padding(
             padding: const EdgeInsets.all(5.0),
             child: Column(
@@ -156,20 +173,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                               if (!onchange) {
                                 onchange = true;
                                 if (electricabsoluteE1.isEmpty) {
-                                  calc_lossless_H(electricabsoluteE1, magneticabsoluteH1, 1);
+                                  calc_lossless_H(electricabsoluteE1,
+                                      magneticabsoluteH1, 1);
                                   snackbarController.hideErrorSnackBar();
-                                }
-
-                                else if (!inputHandler(electricabsoluteE1)) {
-                                  calc_lossless_H(electricabsoluteE1, magneticabsoluteH1, 1);
+                                } else if (!inputHandler(electricabsoluteE1)) {
+                                  calc_lossless_H(electricabsoluteE1,
+                                      magneticabsoluteH1, 1);
                                   snackbarController.hideErrorSnackBar();
                                   if (getDouble(electricabsoluteE1) < 0) {
-                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field Amplitude will be taken!");
+                                    snackbarController.showTemporaryErrorSnackBar(
+                                        context,
+                                        "Absolute of E-Field Amplitude will be taken!");
                                   }
-                                }
-                                else {
+                                } else {
                                   snackbarController.showPermanentErrorSnackBar(
-                                      context, "Input Error: E-Field Amplitude");
+                                      context,
+                                      "Input Error: E-Field Amplitude");
                                 }
                                 onchange = false;
                               }
@@ -239,19 +258,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                               if (!onchange) {
                                 onchange = true;
                                 if (magneticabsoluteH1.isEmpty) {
-                                  calc_lossless_E(electricabsoluteE1, magneticabsoluteH1, 1);
+                                  calc_lossless_E(electricabsoluteE1,
+                                      magneticabsoluteH1, 1);
                                   snackbarController.hideErrorSnackBar();
-                                }
-
-                                else if (!inputHandler(magneticabsoluteH1)) {
-                                  calc_lossless_E(electricabsoluteE1, magneticabsoluteH1, 1);
+                                } else if (!inputHandler(magneticabsoluteH1)) {
+                                  calc_lossless_E(electricabsoluteE1,
+                                      magneticabsoluteH1, 1);
                                   snackbarController.hideErrorSnackBar();
                                   if (getDouble(magneticabsoluteH1) < 0) {
-                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field Amplitude will be taken!");
+                                    snackbarController.showTemporaryErrorSnackBar(
+                                        context,
+                                        "Absolute of H-Field Amplitude will be taken!");
                                   }
-                                }
-                                else {
-                                  snackbarController.showPermanentErrorSnackBar(context, "Input Error: H-Field Amplitude");
+                                } else {
+                                  snackbarController.showPermanentErrorSnackBar(
+                                      context,
+                                      "Input Error: H-Field Amplitude");
                                 }
                                 onchange = false;
                               }
@@ -299,12 +321,11 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                               onchange = true;
                               if (phaseangle1.isEmpty) {
                                 snackbarController.hideErrorSnackBar();
-                              }
-                              else if (!inputHandler(phaseangle1)) {
+                              } else if (!inputHandler(phaseangle1)) {
                                 snackbarController.hideErrorSnackBar();
-                              }
-                              else {
-                                snackbarController.showPermanentErrorSnackBar(context, "Input Error: Phase Angle");
+                              } else {
+                                snackbarController.showPermanentErrorSnackBar(
+                                    context, "Input Error: Phase Angle");
                               }
                               onchange = false;
                             },
@@ -313,40 +334,40 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                       ),
                     ),
                   ),
-                  if (isDegree) Math.tex(
-                    '\\text{ degrees}',
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  if (!isDegree) Math.tex(
-                    '\\text{ radians}',
-                    textStyle: const TextStyle(fontSize: 18),
-                  )
-                ]
-              ),
-              Row(
-                children: [
-                  Math.tex(
-                    '\\text{Wave propagation: }\\vec{a}_{k}=',
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: MathDropdown(
-                      initialValue: a_k_Wave_Propagation1,
-                      options: vect_options,
-                      onChanged: (newValue) {
-                        setState(() {
-                          a_k_Wave_Propagation1 = newValue;
-                          _validateAllWaveVectors();
-                        });
-                      },
+                  if (isDegree)
+                    Math.tex(
+                      '\\text{ degrees}',
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          )
-        ),
+                  if (!isDegree)
+                    Math.tex(
+                      '\\text{ radians}',
+                      textStyle: const TextStyle(fontSize: 18),
+                    )
+                ]),
+                Row(
+                  children: [
+                    Math.tex(
+                      '\\text{Wave propagation: }\\vec{a}_{k}=',
+                      textStyle: const TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: MathDropdown(
+                        initialValue: a_k_Wave_Propagation1,
+                        options: vect_options,
+                        onChanged: (newValue) {
+                          setState(() {
+                            a_k_Wave_Propagation1 = newValue;
+                            _validateAllWaveVectors();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
       ],
     );
   }
@@ -362,9 +383,11 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.arrow_left),
-                Text("Swipe Left", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text("Swipe Left",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(width: 150),
-                Text("2nd Component", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text("2nd Component",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -428,20 +451,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                               if (!onchange) {
                                 onchange = true;
                                 if (electricabsoluteE2.isEmpty) {
-                                  calc_lossless_H(electricabsoluteE2, magneticabsoluteH2, 1);
+                                  calc_lossless_H(electricabsoluteE2,
+                                      magneticabsoluteH2, 1);
                                   snackbarController.hideErrorSnackBar();
-                                }
-
-                                else if (!inputHandler(electricabsoluteE2)) {
-                                  calc_lossless_H(electricabsoluteE2, magneticabsoluteH2, 1);
+                                } else if (!inputHandler(electricabsoluteE2)) {
+                                  calc_lossless_H(electricabsoluteE2,
+                                      magneticabsoluteH2, 1);
                                   snackbarController.hideErrorSnackBar();
                                   if (getDouble(electricabsoluteE2) < 0) {
-                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of E-Field amplitude will be taken!");
+                                    snackbarController.showTemporaryErrorSnackBar(
+                                        context,
+                                        "Absolute of E-Field amplitude will be taken!");
                                   }
-                                }
-                                else {
+                                } else {
                                   snackbarController.showPermanentErrorSnackBar(
-                                      context, "Input Error: E-Field Amplitude");
+                                      context,
+                                      "Input Error: E-Field Amplitude");
                                 }
                                 onchange = false;
                               }
@@ -511,20 +536,22 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                               if (!onchange) {
                                 onchange = true;
                                 if (magneticabsoluteH2.isEmpty) {
-                                  calc_lossless_E(electricabsoluteE2, magneticabsoluteH2, 1);
+                                  calc_lossless_E(electricabsoluteE2,
+                                      magneticabsoluteH2, 1);
                                   snackbarController.hideErrorSnackBar();
-                                }
-
-                                else if (!inputHandler(magneticabsoluteH2)) {
-                                  calc_lossless_E(electricabsoluteE2, magneticabsoluteH2, 1);
+                                } else if (!inputHandler(magneticabsoluteH2)) {
+                                  calc_lossless_E(electricabsoluteE2,
+                                      magneticabsoluteH2, 1);
                                   snackbarController.hideErrorSnackBar();
                                   if (getDouble(magneticabsoluteH2) < 0) {
-                                    snackbarController.showTemporaryErrorSnackBar(context, "Absolute of H-Field amplitude will be taken!");
+                                    snackbarController.showTemporaryErrorSnackBar(
+                                        context,
+                                        "Absolute of H-Field amplitude will be taken!");
                                   }
-                                }
-                                else {
+                                } else {
                                   snackbarController.showPermanentErrorSnackBar(
-                                      context, "Input Error: H-Field Amplitude");
+                                      context,
+                                      "Input Error: H-Field Amplitude");
                                 }
                                 onchange = false;
                               }
@@ -572,12 +599,11 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                               onchange = true;
                               if (phaseangle2.isEmpty) {
                                 snackbarController.hideErrorSnackBar();
-                              }
-                              else if (!inputHandler(phaseangle2)) {
+                              } else if (!inputHandler(phaseangle2)) {
                                 snackbarController.hideErrorSnackBar();
-                              }
-                              else {
-                                snackbarController.showPermanentErrorSnackBar(context, "Input Error: Phase Angle");
+                              } else {
+                                snackbarController.showPermanentErrorSnackBar(
+                                    context, "Input Error: Phase Angle");
                               }
                               onchange = false;
                             },
@@ -586,40 +612,40 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
                       ),
                     ),
                   ),
-                  if (isDegree) Math.tex(
-                    '\\text{ degrees}',
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  if (!isDegree) Math.tex(
-                    '\\text{ radians}',
-                    textStyle: const TextStyle(fontSize: 18),
-                  )
-                ]
-              ),
-              Row(
-                children: [
-                  Math.tex(
-                    '\\text{Wave propagation: }\\vec{a}_{k}=',
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: MathDropdown(
-                      initialValue: a_k_Wave_Propagation2,
-                      options: vect_options,
-                      onChanged: (newValue) {
-                        setState(() {
-                          a_k_Wave_Propagation2 = newValue;
-                          _validateAllWaveVectors();
-                        });
-                      },
+                  if (isDegree)
+                    Math.tex(
+                      '\\text{ degrees}',
+                      textStyle: const TextStyle(fontSize: 18),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          )
-        ),
+                  if (!isDegree)
+                    Math.tex(
+                      '\\text{ radians}',
+                      textStyle: const TextStyle(fontSize: 18),
+                    )
+                ]),
+                Row(
+                  children: [
+                    Math.tex(
+                      '\\text{Wave propagation: }\\vec{a}_{k}=',
+                      textStyle: const TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: MathDropdown(
+                        initialValue: a_k_Wave_Propagation2,
+                        options: vect_options,
+                        onChanged: (newValue) {
+                          setState(() {
+                            a_k_Wave_Propagation2 = newValue;
+                            _validateAllWaveVectors();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
       ],
     );
   }
@@ -646,10 +672,12 @@ class _LosslessEquationComponentsDisplayWidgetState extends State<LosslessEquati
 
 class LosslessEquationComponentsDropdown extends StatefulWidget {
   @override
-  _LosslessEquationComponentsDropdownState createState() => _LosslessEquationComponentsDropdownState();
+  _LosslessEquationComponentsDropdownState createState() =>
+      _LosslessEquationComponentsDropdownState();
 }
 
-class _LosslessEquationComponentsDropdownState extends State<LosslessEquationComponentsDropdown> {
+class _LosslessEquationComponentsDropdownState
+    extends State<LosslessEquationComponentsDropdown> {
   bool isExpanded = false; // Controls visibility of widget content
   List<bool> isSelected = [true, false];
 
@@ -665,7 +693,9 @@ class _LosslessEquationComponentsDropdownState extends State<LosslessEquationCom
               'No. of Components:',
               style: TextStyle(fontSize: 16),
             ),
-            const SizedBox(width: 10), // Add some space between the text and the toggle buttons
+            const SizedBox(
+                width:
+                    10), // Add some space between the text and the toggle buttons
             Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
@@ -694,11 +724,15 @@ class _LosslessEquationComponentsDropdownState extends State<LosslessEquationCom
                   children: const <Widget>[
                     Padding(
                       padding: EdgeInsets.all(1.0),
-                      child: Text('1', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      child: Text('1',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                     Padding(
                       padding: EdgeInsets.all(1.0),
-                      child: Text('2', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      child: Text('2',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -728,7 +762,10 @@ class _LosslessEquationComponentsDropdownState extends State<LosslessEquationCom
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Components of EM Wave", style: TextStyle(fontSize: 16,)),
+                const Text("Components of EM Wave",
+                    style: TextStyle(
+                      fontSize: 16,
+                    )),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),

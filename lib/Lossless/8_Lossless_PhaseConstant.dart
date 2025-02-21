@@ -6,7 +6,6 @@ import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 
 import 'package:emwavepro/Lossless/0_Lossless_GlobalVariables.dart';
 
-
 //Lossless
 void calc_lossless_phaseconstant() {
   if (lossless_wavenumber.isEmpty) {
@@ -58,30 +57,25 @@ Widget Lossless_PhaseConstantDisplayWidget(context) {
                     border: InputBorder.none, // Remove the border
                   ),
                   keyboardType: MathKeyboardType.expression,
-                  onChanged: (newvalue) {                      
+                  onChanged: (newvalue) {
                     onchange = true;
                     if (lossless_phaseconstant.isEmpty) {
                       sync_lossless_phaseconstant_wavenumber();
                       snackbarController.hideErrorSnackBar();
-                    }
-
-                    else if (!inputHandler(lossless_phaseconstant)) {
+                    } else if (!inputHandler(lossless_phaseconstant)) {
                       if (getDouble(lossless_phaseconstant) >= 0) {
                         sync_lossless_phaseconstant_wavenumber();
                         snackbarController.hideErrorSnackBar();
+                      } else {
+                        snackbarController.showPermanentErrorSnackBar(context,
+                            "Input Error: Phase Constant (β) must be positive!");
                       }
-                      else {
-                        snackbarController.showPermanentErrorSnackBar(
-                            context, "Input Error: Phase Constant (β) must be positive!");
-                      }
-                    }
-                    else {
+                    } else {
                       snackbarController.showPermanentErrorSnackBar(
                           context, "Input Error: Phase Constant (β)");
                     }
                     onchange = false;
-                    }
-                  ),
+                  }),
             ),
           ),
         ),

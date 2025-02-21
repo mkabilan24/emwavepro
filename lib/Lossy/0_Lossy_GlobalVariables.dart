@@ -12,15 +12,17 @@ String givenfield = 'E';
 
 double pi = 3.14159265;
 double permeabilityOfFreeSpace = (4 * pi * pow(10, -7));
-double permittivityOfFreeSpace = ((1/(36 * pi))) * pow(10, -9);
+double permittivityOfFreeSpace = ((1 / (36 * pi))) * pow(10, -9);
 
 //Frequencies
 MathFieldEditingController angularfreq = MathFieldEditingController();
 MathFieldEditingController freq = MathFieldEditingController();
 
 //Relative Permittivity and Permeability
-MathFieldEditingController lossy_relativepermittivity = MathFieldEditingController();
-MathFieldEditingController lossy_relativepermeability = MathFieldEditingController();
+MathFieldEditingController lossy_relativepermittivity =
+    MathFieldEditingController();
+MathFieldEditingController lossy_relativepermeability =
+    MathFieldEditingController();
 
 //Conductivity
 //Lossless & FreeSpace, Conductivity = 0 && Lossy, Conductivity != 0
@@ -37,7 +39,6 @@ Complex complexpermittivity = Complex(0, 0);
 
 //Permeability
 MathFieldEditingController lossy_permeability = MathFieldEditingController();
-
 
 //Equations
 MathFieldEditingController electricabsoluteE1 = MathFieldEditingController();
@@ -75,7 +76,8 @@ Complex complexwavenumber_root2 = Complex(0, 0);
 Complex propagation_constant = Complex(0, 0);
 
 //Attenuation Constant
-MathFieldEditingController lossy_attenuationconstant = MathFieldEditingController();
+MathFieldEditingController lossy_attenuationconstant =
+    MathFieldEditingController();
 
 //Phase Constant
 MathFieldEditingController lossy_phaseconstant = MathFieldEditingController();
@@ -88,7 +90,6 @@ MathFieldEditingController lossy_wavelength = MathFieldEditingController();
 
 //Skin Depth
 MathFieldEditingController lossy_skindepth = MathFieldEditingController();
-
 
 void clearAllFields() {
   angularfreq.clear();
@@ -150,4 +151,3 @@ void clearAllFields() {
 //     return true;
 //   }
 // }
-

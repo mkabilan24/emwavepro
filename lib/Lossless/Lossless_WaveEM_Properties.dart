@@ -53,7 +53,10 @@ class _LosslessWaveEMDropdownState extends State<LosslessWaveEMDropdown> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("EM Wave Properties in Lossless Medium", style: TextStyle(fontSize: 16,)),
+                const Text("EM Wave Properties in Lossless Medium",
+                    style: TextStyle(
+                      fontSize: 16,
+                    )),
                 Icon(isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down),
               ],
             ),

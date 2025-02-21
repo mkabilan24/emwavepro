@@ -67,21 +67,18 @@ Widget FrequencyDisplayWidget(context) {
                       lossless_wavenumber.clear();
                       lossless_phaseconstant.clear();
                       snackbarController.hideErrorSnackBar();
-                    }
-                    else if (!inputHandler(freq)) {
+                    } else if (!inputHandler(freq)) {
                       if (getDouble(freq) >= 0) {
                         calc_angular_freq();
                         calc_lossless_wavenumber();
                         snackbarController.hideErrorSnackBar();
+                      } else {
+                        snackbarController.showPermanentErrorSnackBar(context,
+                            "Input Error: Frequency (f) must be positive!");
                       }
-                      else {
-                        snackbarController.showPermanentErrorSnackBar(
-                            context, "Input Error: Frequency (f) must be positive!");
-                      }
-                    }
-                    else {
-                        snackbarController.showPermanentErrorSnackBar(
-                            context, "Input Error: Frequency (f)");
+                    } else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Frequency (f)");
                     }
                     onchange = false;
                   }
@@ -137,21 +134,18 @@ Widget AngularFrequencyDisplayWidget(context) {
                       lossless_wavenumber.clear();
                       lossless_phaseconstant.clear();
                       snackbarController.hideErrorSnackBar();
-                    }
-                    else if (!inputHandler(angularfreq)) {
+                    } else if (!inputHandler(angularfreq)) {
                       if (getDouble(angularfreq) >= 0) {
                         calc_freq();
                         calc_lossless_wavenumber();
                         snackbarController.hideErrorSnackBar();
+                      } else {
+                        snackbarController.showPermanentErrorSnackBar(context,
+                            "Input Error: Angular Frequency (ω) must be positive!");
                       }
-                      else {
-                        snackbarController.showPermanentErrorSnackBar(
-                            context, "Input Error: Angular Frequency (ω) must be positive!");
-                      }
-                    }
-                    else {
-                        snackbarController.showPermanentErrorSnackBar(
-                            context, "Input Error: Angular Frequency (ω)");
+                    } else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Angular Frequency (ω)");
                     }
                     onchange = false;
                   }

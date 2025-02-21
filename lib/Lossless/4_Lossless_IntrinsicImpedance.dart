@@ -58,25 +58,21 @@ Widget Lossless_IntrinsicImpedanceDisplayWidget(context) {
                   keyboardType: MathKeyboardType.expression,
                   onChanged: (newvalue) {
                     onchange = true;
-                        if (lossless_intrinsicimpedance.isEmpty) {
-                          snackbarController.hideErrorSnackBar();
-                        }
-
-                        else if (!inputHandler(lossless_intrinsicimpedance)) {
-                          if (getDouble(lossless_intrinsicimpedance) >= 0) {
-                            snackbarController.hideErrorSnackBar();
-                          }
-                          else {
-                            snackbarController.showPermanentErrorSnackBar(
-                                context, "Input Error: Intrinsic Impedance (η) must be positive!");
-                          }
-                        }
-                        else {
-                          snackbarController.showPermanentErrorSnackBar(
-                              context, "Input Error: Intrinsic Impedance (η)");
-                        }
-                      onchange = false;
-                    }  // Trigger a rebuild to update the UI
+                    if (lossless_intrinsicimpedance.isEmpty) {
+                      snackbarController.hideErrorSnackBar();
+                    } else if (!inputHandler(lossless_intrinsicimpedance)) {
+                      if (getDouble(lossless_intrinsicimpedance) >= 0) {
+                        snackbarController.hideErrorSnackBar();
+                      } else {
+                        snackbarController.showPermanentErrorSnackBar(context,
+                            "Input Error: Intrinsic Impedance (η) must be positive!");
+                      }
+                    } else {
+                      snackbarController.showPermanentErrorSnackBar(
+                          context, "Input Error: Intrinsic Impedance (η)");
+                    }
+                    onchange = false;
+                  } // Trigger a rebuild to update the UI
                   ),
             ),
           ),

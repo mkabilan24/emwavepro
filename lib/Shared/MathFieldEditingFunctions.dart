@@ -7,8 +7,7 @@ import 'package:math_keyboard/math_keyboard.dart';
 double getDouble(MathFieldEditingController controller) {
   if (checkifscientificnotation(controller)) {
     return getScientificNotationDoubleValue(controller);
-  }
-  else if (checkifEXPnotation(controller)) {
+  } else if (checkifEXPnotation(controller)) {
     return getEXPnotationDoubleValue(controller);
   }
   double value = double.parse(controller.currentEditingValue());
@@ -26,12 +25,10 @@ bool checkifEXPnotation(MathFieldEditingController controller) {
     RegExpMatch? match = exp.firstMatch(ExpressionString);
     if (match != null) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-  }
-  else {
+  } else {
     return false;
   }
 }
@@ -68,9 +65,11 @@ bool checkifscientificnotation(MathFieldEditingController controller) {
   if (match != null) {
     //print("Scientific Notation Detected!");
     Iterable<RegExpMatch> matches = regex.allMatches(expressionString);
-    List<String> extractedNumbers = matches.map((match) => match.group(0)!).toList();
+    List<String> extractedNumbers =
+        matches.map((match) => match.group(0)!).toList();
     //print('Extracted Numbers: $extractedNumbers');
-    if (extractedNumbers.length == 3 && !extractedNumbers.contains('\box')) { // Check if the extracted numbers are 3 and not empty
+    if (extractedNumbers.length == 3 && !extractedNumbers.contains('\box')) {
+      // Check if the extracted numbers are 3 and not empty
       return true;
     }
   }
@@ -87,11 +86,15 @@ double getScientificNotationDoubleValue(MathFieldEditingController controller) {
   if (match != null) {
     //print("Scientific Notation Detected!");
     Iterable<RegExpMatch> matches = regex.allMatches(expressionString);
-    List<String> extractedNumbers = matches.map((match) => match.group(0)!).toList();
+    List<String> extractedNumbers =
+        matches.map((match) => match.group(0)!).toList();
     //print('Extracted Numbers: $extractedNumbers');
-    if (extractedNumbers.length == 3 && !extractedNumbers.contains('\box')) { // Check if the extracted numbers are 3 and not empty
+    if (extractedNumbers.length == 3 && !extractedNumbers.contains('\box')) {
+      // Check if the extracted numbers are 3 and not empty
       // Resolve the Scientific Notation to Standard Number
-      double standardnum = double.parse(extractedNumbers[0])*pow(double.parse(extractedNumbers[1]), double.parse(extractedNumbers[2]));
+      double standardnum = double.parse(extractedNumbers[0]) *
+          pow(double.parse(extractedNumbers[1]),
+              double.parse(extractedNumbers[2]));
       //print('Standard Number: $standardnum');
       return standardnum;
     }
@@ -116,8 +119,7 @@ bool inputHandler(MathFieldEditingController controller) {
 
   if (controller.isEmpty) {
     return false;
-  }
-  else if (!validChars.hasMatch(expressionString)) {
+  } else if (!validChars.hasMatch(expressionString)) {
     if (checkifscientificnotation(controller)) {
       return false;
     }

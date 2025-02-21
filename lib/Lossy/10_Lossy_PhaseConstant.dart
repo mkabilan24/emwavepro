@@ -21,9 +21,11 @@ void set_lossy_phaseconstant() {
 Widget Lossy_PhaseConstantDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
-    child: 
-      Row(children: [
-        Math.tex('\\text{Phase Constant, } \\beta = ${(lossy_phaseconstant.isEmpty) ? 0 : displayexpression(lossy_phaseconstant)} \\:rad/m \\text{ > k}', textStyle: const TextStyle(fontSize: 18),),
-      ]),
-    );
+    child: Row(children: [
+      Math.tex(
+        '\\text{Phase Constant, } \\beta = ${(lossy_phaseconstant.isEmpty) ? 0 : displayexpression(lossy_phaseconstant)} \\:rad/m \\text{ > k}',
+        textStyle: const TextStyle(fontSize: 18),
+      ),
+    ]),
+  );
 }

@@ -9,15 +9,17 @@ int numofcomponents = 1; //Number of components of the EM wave Equations
 
 double pi = 3.14159265;
 double permeabilityOfFreeSpace = (4 * pi * pow(10, -7));
-double permittivityOfFreeSpace = ((1/(36 * pi))) * pow(10, -9);
+double permittivityOfFreeSpace = ((1 / (36 * pi))) * pow(10, -9);
 
 //Frequencies
 MathFieldEditingController angularfreq = MathFieldEditingController();
 MathFieldEditingController freq = MathFieldEditingController();
 
 //Relative Permittivity and Permeability
-MathFieldEditingController lossless_relativepermittivity = MathFieldEditingController();
-MathFieldEditingController lossless_relativepermeability = MathFieldEditingController();
+MathFieldEditingController lossless_relativepermittivity =
+    MathFieldEditingController();
+MathFieldEditingController lossless_relativepermeability =
+    MathFieldEditingController();
 
 //Conductivity
 //Lossless & FreeSpace, Conductivity = 0 && Lossy, Conductivity != 0
@@ -32,17 +34,20 @@ MathFieldEditingController lossless_permeability = MathFieldEditingController();
 
 //Intrinsic impedance
 //Lossless
-MathFieldEditingController lossless_intrinsicimpedance = MathFieldEditingController();
+MathFieldEditingController lossless_intrinsicimpedance =
+    MathFieldEditingController();
 
 //Wave Number
 //Lossless
 MathFieldEditingController lossless_wavenumber = MathFieldEditingController();
 
 //Attenuation Constant
-MathFieldEditingController lossless_attenuationconstant = MathFieldEditingController();
+MathFieldEditingController lossless_attenuationconstant =
+    MathFieldEditingController();
 
 //Phase Constant
-MathFieldEditingController lossless_phaseconstant = MathFieldEditingController();
+MathFieldEditingController lossless_phaseconstant =
+    MathFieldEditingController();
 
 //Equations
 MathFieldEditingController electricabsoluteE1 = MathFieldEditingController();
@@ -63,7 +68,6 @@ String a_E_Field_Propagation2 = '+\\vec{a}_y';
 String a_H_Field_Propagation2 = '-\\vec{a}_x';
 String a_k_Wave_Propagation2 = '+\\vec{a}_z';
 
-
 void clearAllFields() {
   lossless_relativepermittivity.clear();
   lossless_relativepermeability.clear();
@@ -82,7 +86,7 @@ void clearAllFields() {
   electricabsoluteE2.clear();
   magneticabsoluteH2.clear();
   phaseangle2.clear();
-  
+
   freq.clear();
   angularfreq.clear();
 
@@ -99,22 +103,19 @@ bool isfieldsempty() {
   if (numofcomponents == 1) {
     if (electricabsoluteE1.isEmpty || magneticabsoluteH1.isEmpty) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-  }
-  else if (numofcomponents == 2) {
-    if (electricabsoluteE1.isEmpty || magneticabsoluteH1.isEmpty
-    || electricabsoluteE2.isEmpty || magneticabsoluteH2.isEmpty) {
+  } else if (numofcomponents == 2) {
+    if (electricabsoluteE1.isEmpty ||
+        magneticabsoluteH1.isEmpty ||
+        electricabsoluteE2.isEmpty ||
+        magneticabsoluteH2.isEmpty) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-  }
-  else {
+  } else {
     return true;
   }
 }
-

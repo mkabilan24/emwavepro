@@ -33,9 +33,9 @@ bool validateRHRWaveVectors(String eField, String hField, String kWave) {
 
   // Calculate the cross product E x H
   List<int> crossProduct = [
-    eVec[1] * hVec[2] - eVec[2] * hVec[1],  // i component
-    eVec[2] * hVec[0] - eVec[0] * hVec[2],  // j component
-    eVec[0] * hVec[1] - eVec[1] * hVec[0]   // k component
+    eVec[1] * hVec[2] - eVec[2] * hVec[1], // i component
+    eVec[2] * hVec[0] - eVec[0] * hVec[2], // j component
+    eVec[0] * hVec[1] - eVec[1] * hVec[0] // k component
   ];
 
   // Compare the calculated cross product to the given wave vector.
@@ -48,265 +48,343 @@ bool validateRHRWaveVectors(String eField, String hField, String kWave) {
   }
 }
 
-
 //To determine direction vectors
-String wave_propagation_result(String a_E_Field_Propagation, String a_H_Field_Propagation) {
-
-    //E-Field along X-axis
-    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
-      return '-\\vec{a}_y';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
-      return '+\\vec{a}_y';
-    }
-
-    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
-      return '+\\vec{a}_y';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
-      return '-\\vec{a}_y';
-    }
-
-    //E-Field along Y-axis
-    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
-      return '+\\vec{a}_x';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
-      return '-\\vec{a}_x';
-    }
-
-    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '+\\vec{a}_z')) {
-      return '-\\vec{a}_x';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_H_Field_Propagation == '-\\vec{a}_z')) {
-      return '+\\vec{a}_x';
-    }
-
-    //E-Field along Z-axis
-    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
-      return '+\\vec{a}_y';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
-      return '-\\vec{a}_y';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
-      return '-\\vec{a}_x';
-    }
-    if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
-      return '+\\vec{a}_x';
-    }
-
-    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_x')) {
-      return '-\\vec{a}_y';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_x')) {
-      return '+\\vec{a}_y';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '+\\vec{a}_y')) {
-      return '+\\vec{a}_x';
-    }
-    if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_H_Field_Propagation == '-\\vec{a}_y')) {
-      return '-\\vec{a}_x';
-    }
-    return 'Error!';
+String wave_propagation_result(
+    String a_E_Field_Propagation, String a_H_Field_Propagation) {
+  //E-Field along X-axis
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_H_Field_Propagation == '+\\vec{a}_y')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_H_Field_Propagation == '-\\vec{a}_y')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_H_Field_Propagation == '+\\vec{a}_z')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_H_Field_Propagation == '-\\vec{a}_z')) {
+    return '+\\vec{a}_y';
   }
 
-String H_Field_Direction_result(String a_E_Field_Propagation, String a_k_Wave_Propagation) {
-  //E-Field along X-axis
-  if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '+\\vec{a}_y';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '-\\vec{a}_y';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '+\\vec{a}_z';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '-\\vec{a}_z';
-    }
-    
-  if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '+\\vec{a}_y';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '-\\vec{a}_y';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '+\\vec{a}_z';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '-\\vec{a}_z';
-    }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_H_Field_Propagation == '+\\vec{a}_y')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_H_Field_Propagation == '-\\vec{a}_y')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_H_Field_Propagation == '+\\vec{a}_z')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_H_Field_Propagation == '-\\vec{a}_z')) {
+    return '-\\vec{a}_y';
+  }
 
   //E-Field along Y-axis
-  if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '+\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '-\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '+\\vec{a}_z';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '-\\vec{a}_z';
-    }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_H_Field_Propagation == '+\\vec{a}_x')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_H_Field_Propagation == '-\\vec{a}_x')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_H_Field_Propagation == '+\\vec{a}_z')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_H_Field_Propagation == '-\\vec{a}_z')) {
+    return '-\\vec{a}_x';
+  }
 
-  if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '+\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '-\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '+\\vec{a}_z';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '-\\vec{a}_z';
-    }
-    
-  //E-Field along z-axis
-  if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '+\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '-\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '+\\vec{a}_y';
-    }
-  if ((a_E_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '-\\vec{a}_y';
-    }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_H_Field_Propagation == '+\\vec{a}_x')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_H_Field_Propagation == '-\\vec{a}_x')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_H_Field_Propagation == '+\\vec{a}_z')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_H_Field_Propagation == '-\\vec{a}_z')) {
+    return '+\\vec{a}_x';
+  }
 
-  if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '+\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '-\\vec{a}_x';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '+\\vec{a}_y';
-    }
-  if ((a_E_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '-\\vec{a}_y';
-    }
+  //E-Field along Z-axis
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_H_Field_Propagation == '+\\vec{a}_x')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_H_Field_Propagation == '-\\vec{a}_x')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_H_Field_Propagation == '+\\vec{a}_y')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_H_Field_Propagation == '-\\vec{a}_y')) {
+    return '+\\vec{a}_x';
+  }
+
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_H_Field_Propagation == '+\\vec{a}_x')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_H_Field_Propagation == '-\\vec{a}_x')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_H_Field_Propagation == '+\\vec{a}_y')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_H_Field_Propagation == '-\\vec{a}_y')) {
+    return '-\\vec{a}_x';
+  }
   return 'Error!';
 }
 
-String E_Field_Direction_result(String a_H_Field_Propagation, String a_k_Wave_Propagation) {
-
-    //E-Field along X-axis
-    if ((a_H_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '+\\vec{a}_x';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '+\\vec{a}_x';
-    }
-    if ((a_H_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '+\\vec{a}_x';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '+\\vec{a}_x';
-    }
-
-    if ((a_H_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '-\\vec{a}_x';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '-\\vec{a}_x';
-    }
-    if ((a_H_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '-\\vec{a}_x';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '-\\vec{a}_x';
-    }
-
-    //E-Field along Y-axis
-    if ((a_H_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '+\\vec{a}_y';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '+\\vec{a}_y';
-    }
-    if ((a_H_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '+\\vec{a}_y';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '+\\vec{a}_y';
-    }
-
-    if ((a_H_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_z')) {
-      return '-\\vec{a}_y';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_z')) {
-      return '-\\vec{a}_y';
-    }
-    if ((a_H_Field_Propagation == '+\\vec{a}_z') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '-\\vec{a}_y';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_z') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '-\\vec{a}_y';
-    }
-
-    //E-Field along Z-axis
-    if ((a_H_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_H_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '+\\vec{a}_z';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '+\\vec{a}_z';
-    }
-
-    if ((a_H_Field_Propagation == '+\\vec{a}_x') && (a_k_Wave_Propagation == '-\\vec{a}_y')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_x') && (a_k_Wave_Propagation == '+\\vec{a}_y')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_H_Field_Propagation == '+\\vec{a}_y') && (a_k_Wave_Propagation == '+\\vec{a}_x')) {
-      return '-\\vec{a}_z';
-    }
-    if ((a_H_Field_Propagation == '-\\vec{a}_y') && (a_k_Wave_Propagation == '-\\vec{a}_x')) {
-      return '-\\vec{a}_z';
-    }
-    return 'Error!';
+String H_Field_Direction_result(
+    String a_E_Field_Propagation, String a_k_Wave_Propagation) {
+  //E-Field along X-axis
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '-\\vec{a}_z';
   }
 
-String wave_propagation_result_2_Comp(String a_E_Field_Propagation_2_1, String a_H_Field_Propagation_2_1, String a_E_Field_Propagation_2_2, String a_H_Field_Propagation_2_2) {
-  String a_k_Wave_Propagation_1 = wave_propagation_result(a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
-  String a_k_Wave_Propagation_2 = wave_propagation_result(a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '-\\vec{a}_z';
+  }
+
+  //E-Field along Y-axis
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '-\\vec{a}_z';
+  }
+
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '-\\vec{a}_z';
+  }
+
+  //E-Field along z-axis
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '-\\vec{a}_y';
+  }
+
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_E_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '-\\vec{a}_y';
+  }
+  return 'Error!';
+}
+
+String E_Field_Direction_result(
+    String a_H_Field_Propagation, String a_k_Wave_Propagation) {
+  //E-Field along X-axis
+  if ((a_H_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_H_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '+\\vec{a}_x';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '+\\vec{a}_x';
+  }
+
+  if ((a_H_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_H_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '-\\vec{a}_x';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '-\\vec{a}_x';
+  }
+
+  //E-Field along Y-axis
+  if ((a_H_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_H_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '+\\vec{a}_y';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '+\\vec{a}_y';
+  }
+
+  if ((a_H_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_z')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_z')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_H_Field_Propagation == '+\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '-\\vec{a}_y';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_z') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '-\\vec{a}_y';
+  }
+
+  //E-Field along Z-axis
+  if ((a_H_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_H_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '+\\vec{a}_z';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '+\\vec{a}_z';
+  }
+
+  if ((a_H_Field_Propagation == '+\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_y')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_x') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_y')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_H_Field_Propagation == '+\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '+\\vec{a}_x')) {
+    return '-\\vec{a}_z';
+  }
+  if ((a_H_Field_Propagation == '-\\vec{a}_y') &&
+      (a_k_Wave_Propagation == '-\\vec{a}_x')) {
+    return '-\\vec{a}_z';
+  }
+  return 'Error!';
+}
+
+String wave_propagation_result_2_Comp(
+    String a_E_Field_Propagation_2_1,
+    String a_H_Field_Propagation_2_1,
+    String a_E_Field_Propagation_2_2,
+    String a_H_Field_Propagation_2_2) {
+  String a_k_Wave_Propagation_1 = wave_propagation_result(
+      a_E_Field_Propagation_2_1, a_H_Field_Propagation_2_1);
+  String a_k_Wave_Propagation_2 = wave_propagation_result(
+      a_E_Field_Propagation_2_2, a_H_Field_Propagation_2_2);
 
   if (a_k_Wave_Propagation_1 == a_k_Wave_Propagation_2) {
     return a_k_Wave_Propagation_1;
@@ -320,7 +398,8 @@ class MathDropdown extends StatefulWidget {
   final List<String> options;
   final Function(String) onChanged;
 
-  const MathDropdown({super.key, 
+  const MathDropdown({
+    super.key,
     required this.initialValue,
     required this.options,
     required this.onChanged,

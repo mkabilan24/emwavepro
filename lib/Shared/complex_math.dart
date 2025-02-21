@@ -67,8 +67,10 @@ class Complex {
   // Static function to divide two complex numbers
   static Complex divide(Complex c1, Complex c2) {
     double denominator = c2.real * c2.real + c2.imaginary * c2.imaginary;
-    double newReal = (c1.real * c2.real + c1.imaginary * c2.imaginary) / denominator;
-    double newImaginary = (c1.imaginary * c2.real - c1.real * c2.imaginary) / denominator;
+    double newReal =
+        (c1.real * c2.real + c1.imaginary * c2.imaginary) / denominator;
+    double newImaginary =
+        (c1.imaginary * c2.real - c1.real * c2.imaginary) / denominator;
     return Complex(newReal, newImaginary);
   }
 
@@ -76,7 +78,9 @@ class Complex {
   String toString() {
     // Format the real and imaginary parts
     String realPart = real.toStringAsFixed(decimalPlaces);
-    String imaginaryPart = imaginary.abs().toStringAsFixed(decimalPlaces); // Absolute value for imaginary part
+    String imaginaryPart = imaginary
+        .abs()
+        .toStringAsFixed(decimalPlaces); // Absolute value for imaginary part
 
     // Determine the sign to display
     String sign = imaginary >= 0 ? '+' : '-';
@@ -108,7 +112,8 @@ class Complex {
 
     // Format the real and imaginary parts
     String realPart = formatNumber(real);
-    String imaginaryPart = formatNumber(imaginary.abs()); // Absolute value for imaginary part
+    String imaginaryPart =
+        formatNumber(imaginary.abs()); // Absolute value for imaginary part
     print("Real Part: $realPart");
     print("Imaginary Part: $imaginaryPart");
 

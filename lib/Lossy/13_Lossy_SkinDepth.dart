@@ -5,11 +5,10 @@ import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 
-
 void calc_skindepth() {
   print("Calculating Skin Depth.");
   double attenuationconstantValue = getDouble(lossy_attenuationconstant);
-  double skindepthValue = 1/attenuationconstantValue;
+  double skindepthValue = 1 / attenuationconstantValue;
   updateDouble(lossy_skindepth, skindepthValue);
   print("The calculated Skin Depth is $skindepthValue.");
 }
@@ -17,9 +16,11 @@ void calc_skindepth() {
 Widget Lossy_SkindepthDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
-    child: 
-      Row(children: [
-        Math.tex('\\text{Skin Depth, } \\delta = \\frac{1}{\\alpha} = ${(lossy_skindepth.isEmpty) ? 0 : displayexpression(lossy_skindepth)} \\:m', textStyle: const TextStyle(fontSize: 18),),
-      ]),
-    );
+    child: Row(children: [
+      Math.tex(
+        '\\text{Skin Depth, } \\delta = \\frac{1}{\\alpha} = ${(lossy_skindepth.isEmpty) ? 0 : displayexpression(lossy_skindepth)} \\:m',
+        textStyle: const TextStyle(fontSize: 18),
+      ),
+    ]),
+  );
 }

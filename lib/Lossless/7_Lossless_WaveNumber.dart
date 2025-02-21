@@ -12,7 +12,9 @@ import 'package:emwavepro/Lossless/8_Lossless_PhaseConstant.dart';
 
 //Lossless
 void calc_lossless_wavenumber() {
-  if (lossless_permittivity.isEmpty || lossless_permeability.isEmpty || angularfreq.isEmpty) {
+  if (lossless_permittivity.isEmpty ||
+      lossless_permeability.isEmpty ||
+      angularfreq.isEmpty) {
     lossless_wavenumber.clear();
     lossless_phaseconstant.clear();
     return;
@@ -20,10 +22,12 @@ void calc_lossless_wavenumber() {
   double permittivityValue = getDouble(lossless_permittivity);
   double permeabilityValue = getDouble(lossless_permeability);
   double angularfreqValue = getDouble(angularfreq);
-  double wavenumberValue = sqrt(pow(angularfreqValue, 2) * permittivityValue * permeabilityValue);
+  double wavenumberValue =
+      sqrt(pow(angularfreqValue, 2) * permittivityValue * permeabilityValue);
   updateDouble(lossless_wavenumber, wavenumberValue);
   print("The calculated Wave Number is $wavenumberValue.");
-  print("The calculated Wave Number is ${displayexpression(lossless_wavenumber)}.");
+  print(
+      "The calculated Wave Number is ${displayexpression(lossless_wavenumber)}.");
   calc_lossless_phaseconstant();
 }
 
@@ -62,19 +66,15 @@ Widget Lossless_WaveNumberDisplayWidget(context) {
                     if (lossless_wavenumber.isEmpty) {
                       calc_lossless_phaseconstant();
                       snackbarController.hideErrorSnackBar();
-                    }
-
-                    else if (!inputHandler(lossless_wavenumber)) {
+                    } else if (!inputHandler(lossless_wavenumber)) {
                       if (getDouble(lossless_wavenumber) >= 0) {
                         calc_lossless_phaseconstant();
                         snackbarController.hideErrorSnackBar();
+                      } else {
+                        snackbarController.showPermanentErrorSnackBar(context,
+                            "Input Error: Wavenumber (k) must be positive!");
                       }
-                      else {
-                        snackbarController.showPermanentErrorSnackBar(
-                            context, "Input Error: Wavenumber (k) must be positive!");
-                      }
-                    }
-                    else {
+                    } else {
                       snackbarController.showPermanentErrorSnackBar(
                           context, "Input Error: Wavenumber (k)");
                     }

@@ -67,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          Padding(padding: const EdgeInsets.only(right: 10.0),
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
               icon: const Icon(
                 Icons.article,
@@ -134,7 +135,8 @@ class _RadioButtonsRowState extends State<RadioButtonsRow> {
                     child: Text(
                       'Lossless',
                       style: TextStyle(
-                        color: _selectedValue == 0 ? Colors.white : Colors.black,
+                        color:
+                            _selectedValue == 0 ? Colors.white : Colors.black,
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
@@ -163,7 +165,8 @@ class _RadioButtonsRowState extends State<RadioButtonsRow> {
                     child: Text(
                       'Lossy',
                       style: TextStyle(
-                        color: _selectedValue == 1 ? Colors.white : Colors.black,
+                        color:
+                            _selectedValue == 1 ? Colors.white : Colors.black,
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,

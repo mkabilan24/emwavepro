@@ -45,17 +45,14 @@ Widget Lossy_ConductivityDisplayWidget(context) {
                       calc_complex_permittivity();
                       calc_losstangent();
                       snackbarController.hideErrorSnackBar();
+                    } else {
+                      snackbarController.showPermanentErrorSnackBar(context,
+                          "Input Error: Conductivity (σ) must be positive!");
                     }
-                    else {
-                      snackbarController.showPermanentErrorSnackBar(
-                          context, "Input Error: Conductivity (σ) must be positive!");
-                    }
-                  }
-                  else {
+                  } else {
                     snackbarController.showPermanentErrorSnackBar(
                         context, "Input Error: Conductivity (σ)");
                   }
-
                 },
               ),
             ),

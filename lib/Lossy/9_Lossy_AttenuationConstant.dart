@@ -12,7 +12,8 @@ void calc_lossy_attenuationconstant() {
   double freqValue = getDouble(freq);
   double permeabilityValue = getDouble(lossy_permeability);
   double conductivityValue = getDouble(lossy_conductivity);
-  double attenuationconstantValue = sqrt(pi * freqValue * permeabilityValue * conductivityValue);
+  double attenuationconstantValue =
+      sqrt(pi * freqValue * permeabilityValue * conductivityValue);
   updateDouble(lossy_attenuationconstant, attenuationconstantValue);
   print("The calculated Attenuation Constant is $attenuationconstantValue.");
 }
@@ -30,9 +31,11 @@ void set_lossy_attenuationconstant() {
 Widget Lossy_AttenuationConstantDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
-    child:
-      Row(children: [
-        Math.tex('\\text{Attenuation Constant, } \\alpha = ${(lossy_attenuationconstant.isEmpty) ? 0 : displayexpression(lossy_attenuationconstant)} \\:Np/m \\:\\neq\\:0', textStyle: const TextStyle(fontSize: 18),),
-      ]),
-    );
+    child: Row(children: [
+      Math.tex(
+        '\\text{Attenuation Constant, } \\alpha = ${(lossy_attenuationconstant.isEmpty) ? 0 : displayexpression(lossy_attenuationconstant)} \\:Np/m \\:\\neq\\:0',
+        textStyle: const TextStyle(fontSize: 18),
+      ),
+    ]),
+  );
 }

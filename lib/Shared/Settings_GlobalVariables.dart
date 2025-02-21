@@ -71,11 +71,19 @@ class _UserSettingsState extends State<UserSettings> {
                   children: const [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text('Degrees', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      child: Text(
+                        'Degrees',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text('Radians', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      child: Text(
+                        'Radians',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),

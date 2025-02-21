@@ -18,9 +18,11 @@ void calc_lossy_phasevelocity() {
 Widget Lossy_PhaseVelocityDisplayWidget() {
   return Padding(
     padding: const EdgeInsets.all(5.0),
-    child: 
-      Row(children: [
-        Math.tex('\\text{Phase Velocity, } \\upsilon_{p} = \\frac{\\omega}{\\beta} = ${(lossy_phasevelocity.isEmpty) ? 0 : displayexpression(lossy_phasevelocity)} \\:m/s', textStyle: const TextStyle(fontSize: 18),),
-      ]),
-    );
+    child: Row(children: [
+      Math.tex(
+        '\\text{Phase Velocity, } \\upsilon_{p} = \\frac{\\omega}{\\beta} = ${(lossy_phasevelocity.isEmpty) ? 0 : displayexpression(lossy_phasevelocity)} \\:m/s',
+        textStyle: const TextStyle(fontSize: 18),
+      ),
+    ]),
+  );
 }
