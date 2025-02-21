@@ -158,19 +158,23 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
     steps = [
       '\\text{You have selected Lossless medium.}',
       '\\text{Lossless media have no conductivity, so the conductivity is zero} (\\sigma =\\ 0\\ S/m).',
+
       '\\textbf{Step 1: Calculate the intrinsic impedance (} \\boldsymbol{\\eta} \\textbf{) of the lossless medium.}',
       '\\text{Given that relative permeability }(\\mu_{r} = ${getDouble(lossless_relativepermeability)}) \\text{ and relative permittivity }(\\varepsilon_{r} = ${getDouble(lossless_relativepermittivity)})\\text{ are known,}',
       '\\mu = ${displayexpression(lossless_permeability)}\\ \\text{H/m, } \\varepsilon = ${displayexpression(lossless_permittivity)}\\ \\text{F/m}.',
       '\\text{The intrinsic impedance }(\\eta) \\text{ of the lossless medium is given by the formula:}',
       '\\eta = \\sqrt{\\frac{\\mu_{r}}{\\varepsilon_{r}}} \\times 120\\pi = \\sqrt{\\frac{${displayexpression(lossless_relativepermeability)}}{${displayexpression(lossless_relativepermittivity)}}} \\times 120\\pi = ${displayexpression(lossless_intrinsicimpedance)}\\ \\Omega.',
+      
       '\\textbf{Step 2: Calculate the wave number (} \\boldsymbol{k} \\textbf{) of the lossless medium.}',
       '\\text{Given that the frequency }(f = ${displayexpression(freq)}\\ \\text{Hz})\\text{ is known,}',
       '\\text{Angular frequency, }\\omega = 2\\pi f = 2\\pi \\times ${displayexpression(freq)} = ${displayexpression(angularfreq)}\\ \\text{rad/s}.',
       '\\text{The wave number }(k) \\text{ of the lossless medium is given by the formula:}',
       'k = \\sqrt{\\omega^{2} \\mu \\varepsilon} = \\sqrt{(${displayexpression(angularfreq)})^{2} (${displayexpression(lossless_permeability)}) (${displayexpression(lossless_permittivity)}) } = ${displayexpression(lossless_wavenumber)}.',
+      
       '\\textbf{Step 3: Calculate the attenuation constant (} \\boldsymbol{\\alpha} \\textbf{) and the phase constant (} \\boldsymbol{\\beta} \\textbf{) of the lossless medium.}',
       '\\text{In a lossless medium, the attenuation constant }(\\alpha) \\text{ is zero and the phase constant }(\\beta) \\text{ is equal to the wave number (k) of the medium.}',
       '\\alpha = 0\\ \\text{Np/m } , \\ \\beta = k = ${displayexpression(lossless_wavenumber)}\\ \\text{rad/m}.',
+      
       '\\textbf{Step 4: Calculate the absolute values of the electric field (} \\boldsymbol{E} \\textbf{) and magnetic field (} \\boldsymbol{H} \\textbf{) of the EM wave.}',
       '\\text{Using the equation: }',
       '\\eta = \\frac{|E_{${_getWavePropagationAxis(a_E_Field_Propagation1)}}|}{|H_{${_getWavePropagationAxis(a_H_Field_Propagation1)}}|} = ${displayexpression(lossless_intrinsicimpedance)}\\ \\Omega.',
