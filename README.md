@@ -1,7 +1,7 @@
 # EMWavePro 🚀  
 *A Flutter-based app for electromagnetic plane wave analysis*
 
-## Backgorund Information of this Project
+## 📌 Background Information of this Project
 I a student from Nanyang Technological University (NTU), completed this final year project
 in partial fulfilment of the requirements for the Degree of Bachelor of Engineering in the
 year 2025.
