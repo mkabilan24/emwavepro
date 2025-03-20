@@ -17,10 +17,12 @@ electric and magnetic field wave propagation in real-time.
    git clone https://github.com/mkabilan24/emwavepro.git
    cd emwavepro
 
-2. **Install Dependencies**  
+2. **Install Dependencies**
+   ```bash
     flutter pub get
 
-3. **Run the application**
+4. **Run the application**
+   ```bash
     flutter run
 
 More details...
