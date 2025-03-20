@@ -25,7 +25,7 @@ electric and magnetic field wave propagation in real-time.
    ```bash
     flutter run
 
-More details...
+More details will be provided later...
     - Images of the application
     - FYP Report
 
