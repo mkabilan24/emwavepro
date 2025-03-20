@@ -28,3 +28,5 @@ electric and magnetic field wave propagation in real-time.
 More details...
     - Images of the application
     - FYP Report
+
+Updated: 20 Mar 2025
