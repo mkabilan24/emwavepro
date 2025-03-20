@@ -3,9 +3,9 @@ import 'package:flutter_math_fork/flutter_math.dart';
 
 import 'package:emwavepro/Shared/Complex_Math.dart';
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/Lossy/7_Lossy_IntrinsicImpedance.dart';
 
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
+import 'package:emwavepro/Lossy/7_Lossy_IntrinsicImpedance.dart';
 
 //Lossy
 

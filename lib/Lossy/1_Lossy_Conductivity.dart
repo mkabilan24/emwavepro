@@ -1,10 +1,11 @@
-import 'package:emwavepro/Lossy/5_LossTangent.dart';
-import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
+import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
+
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
+import 'package:emwavepro/Lossy/5_LossTangent.dart';
 import 'package:emwavepro/Lossy/6_Lossy_Complex_Permittivity.dart';
 
 Widget Lossy_ConductivityDisplayWidget(context) {

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 
 import 'package:emwavepro/Shared/Complex_Math.dart';
-import 'package:emwavepro/Lossy/9_Lossy_AttenuationConstant.dart';
+
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/Lossy/10_Lossy_PhaseConstant.dart';
 
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
+import 'package:emwavepro/Lossy/9_Lossy_AttenuationConstant.dart';
+import 'package:emwavepro/Lossy/10_Lossy_PhaseConstant.dart';
 
 void calc_propagation_constant() {
   if (waveNumberRoots.isEmpty) {

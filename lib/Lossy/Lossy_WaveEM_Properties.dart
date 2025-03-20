@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'package:emwavepro/Lossy/5_LossTangent.dart';
 import 'package:emwavepro/Lossy/6_Lossy_Complex_Permittivity.dart';
 import 'package:emwavepro/Lossy/7_Lossy_IntrinsicImpedance.dart';
-import 'package:emwavepro/Lossy/14_Lossy_WaveNumber.dart';
 import 'package:emwavepro/Lossy/8_Lossy_PropagationConstant.dart';
 import 'package:emwavepro/Lossy/9_Lossy_AttenuationConstant.dart';
 import 'package:emwavepro/Lossy/10_Lossy_PhaseConstant.dart';
 import 'package:emwavepro/Lossy/11_Lossy_PhaseVelocity.dart';
 import 'package:emwavepro/Lossy/12_Lossy_Wavelength.dart';
 import 'package:emwavepro/Lossy/13_Lossy_SkinDepth.dart';
-import 'package:emwavepro/Lossy/5_LossTangent.dart';
+import 'package:emwavepro/Lossy/14_Lossy_WaveNumber.dart';
 
 /// A widget that displays properties of a lossless medium.
 class LossyWaveEMPropertiesWidget extends StatefulWidget {

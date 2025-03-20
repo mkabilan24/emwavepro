@@ -1,8 +1,8 @@
 import 'dart:math';
+import 'package:math_keyboard/math_keyboard.dart';
 
 import 'package:emwavepro/Shared/Complex_Math.dart';
 import 'package:emwavepro/Shared/ErrorSnackBar.dart';
-import 'package:math_keyboard/math_keyboard.dart';
 
 bool onchange = false;
 SnackbarController snackbarController = SnackbarController();
@@ -69,8 +69,6 @@ Complex complexintrinsicimpedance = Complex(0, 0);
 //Wave Number
 //Lossy
 List waveNumberRoots = [];
-Complex complexwavenumber_root1 = Complex(0, 0);
-Complex complexwavenumber_root2 = Complex(0, 0);
 
 //Propagation Constant
 Complex propagation_constant = Complex(0, 0);
@@ -117,8 +115,6 @@ void clearAllFields() {
   intrinsicimpedanceroots.clear();
   waveNumberRoots.clear();
   complexintrinsicimpedance = Complex(0, 0);
-  complexwavenumber_root1 = Complex(0, 0);
-  complexwavenumber_root2 = Complex(0, 0);
   propagation_constant = Complex(0, 0);
   a_E_Field_Propagation1 = '+\\vec{a}_x';
   a_H_Field_Propagation1 = '+\\vec{a}_y';

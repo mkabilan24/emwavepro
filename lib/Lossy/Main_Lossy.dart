@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:math_keyboard/math_keyboard.dart';
 
-import 'package:emwavepro/Lossy/Lossy_WaveEM_Properties.dart';
 import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
+import 'package:emwavepro/Lossy/Lossy_WaveEM_Properties.dart';
 import 'package:emwavepro/Lossy/Lossy_Medium_Properties.dart';
 import 'package:emwavepro/Lossy/Lossy_Equations_Components.dart';
 import 'package:emwavepro/Lossy/Lossy_WaveEM_Frequency_Properties.dart';
@@ -17,6 +17,7 @@ import 'package:emwavepro/Shared/Complex_Math.dart';
 import 'package:emwavepro/Shared/Logging.dart';
 import 'package:emwavepro/Shared/Settings_GlobalVariables.dart';
 import 'package:emwavepro/Shared/WavePolarisation.dart';
+import 'package:emwavepro/Shared/DegreesandRadians.dart';
 
 class LossyEMFieldEquationsWidget extends StatefulWidget {
   @override
@@ -75,11 +76,6 @@ class _LossyEMFieldEquationsWidgetState
   void initState() {
     super.initState();
     reseteqns();
-  }
-
-  double _convertdegreetoradian(MathFieldEditingController controller) {
-    double degree = getDouble(controller);
-    return degree * (pi / 180);
   }
 
   String _getSign(String direction) {
@@ -395,11 +391,11 @@ class _LossyEMFieldEquationsWidgetState
                                   : scaleNumber(getDouble(_wavenumber), 0, 5),
                               phasorAngle1: _phiE1Controller.isEmpty
                                   ? 0
-                                  : _convertdegreetoradian(_phiE1Controller),
+                                  : convertdegreetoradian(_phiE1Controller),
                               phasorAngle2: (numofcomponents == 2)
                                   ? (_phi2Controller.isEmpty
                                       ? 0
-                                      : _convertdegreetoradian(_phi2Controller))
+                                      : convertdegreetoradian(_phi2Controller))
                                   : 0,
                               eFieldDirection1:
                                   vectorFromLatex(a_E_Field_Propagation1),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
 
-import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
-import 'package:emwavepro/Lossy/11_Lossy_PhaseVelocity.dart';
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
+
+import 'package:emwavepro/Lossy/0_Lossy_GlobalVariables.dart';
+import 'package:emwavepro/Lossy/11_Lossy_PhaseVelocity.dart';
 import 'package:emwavepro/Lossy/12_Lossy_Wavelength.dart';
 
 //Lossy
