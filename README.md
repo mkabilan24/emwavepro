@@ -31,17 +31,17 @@ electric and magnetic field wave propagation in real-time.
     flutter run
 
 ## 📌 Images
-<img src="images/IMG_2902.PNG" alt="IMG_2902" width="500">
+<img src="images/IMG_2902.PNG" alt="IMG_2902" width="400">
 
-<img src="images/IMG_2903.PNG" alt="IMG_2903" width="500">
+<img src="images/IMG_2903.PNG" alt="IMG_2903" width="400">
 
-<img src="images/IMG_2906.PNG" alt="IMG_2906" width="500">
+<img src="images/IMG_2906.PNG" alt="IMG_2906" width="400">
 
-<img src="images/IMG_2908.PNG" alt="IMG_2908" width="500">
+<img src="images/IMG_2908.PNG" alt="IMG_2908" width="400">
 
-<img src="images/IMG_2910.PNG" alt="IMG_2910" width="500">
+<img src="images/IMG_2910.PNG" alt="IMG_2910" width="400">
 
 More details will be provided later...
     - FYP Report
 
-Updated: 20 Mar 2025
+Updated: 25 Mar 2025
