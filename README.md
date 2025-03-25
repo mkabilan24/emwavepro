@@ -30,7 +30,9 @@ electric and magnetic field wave propagation in real-time.
    ```bash
     flutter run
 
-![IMG_2902](images/IMG_2902.PNG)
+
+<img src="images/IMG_2902.PNG" alt="IMG_2902" width="300">
+
 
 ![IMG_2903](images/IMG_2903.PNG)
 
