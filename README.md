@@ -6,12 +6,17 @@ I a student from Nanyang Technological University (NTU), completed this final ye
 in partial fulfilment of the requirements for the Degree of Bachelor of Engineering in the
 year 2025.
 
+## 📌 Inital Setup
+The EMWavePro application is developed using Flutter and is currently optimized for iOS devices. To run this application, please ensure that you have Xcode installed on your Mac, along with the necessary developer rights configured in Xcode to successfully build and run the application.
+
+For Android developers, you can attempt to build an Android App Bundle and test the EMWavePro application; however, please note that I cannot guarantee its functionality at this time.
+
 ## 📌 Overview
 EMWavePro is an interactive Flutter application designed to help students and engineers analyze 
 electromagnetic (EM) plane waves. The app allows users to input various parameters to visualize 
 electric and magnetic field wave propagation in real-time.
 
-## 🚀 Installation
+## 📌 Installation
 1. **Clone the repository**  
    ```bash
    git clone https://github.com/mkabilan24/emwavepro.git
@@ -25,8 +30,17 @@ electric and magnetic field wave propagation in real-time.
    ```bash
     flutter run
 
+![IMG_2902](images/IMG_2902.PNG)
+
+![IMG_2903](images/IMG_2903.PNG)
+
+![IMG_2906](images/IMG_2906.PNG)
+
+![IMG_2908](images/IMG_2908.PNG)
+
+![IMG_2910](images/IMG_2910.PNG)
+
 More details will be provided later...
-    - Images of the application
     - FYP Report
 
 Updated: 20 Mar 2025
