@@ -11,14 +11,23 @@ String determinepolarisation(
     MathFieldEditingController EH2Controller,
     MathFieldEditingController phi1Controller,
     MathFieldEditingController phi2Controller) {
-  if (numofcomponents == 1) {
-    return "Linear";
-  }
 
   if (EH1Controller.isEmpty && EH2Controller.isEmpty) {
     return "None";
   }
 
+  if (numofcomponents == 1) {
+    return "Linear";
+  }
+
+  print(EH1Controller.currentEditingValue());
+  print(EH2Controller.currentEditingValue());
+
+
+  if (EH1Controller.isEmpty || EH2Controller.isEmpty) {
+    return "Linear";
+  }
+  
   if ((getDouble(EH1Controller) == 0) || (getDouble(EH2Controller) == 0)) {
     return "Linear";
   }

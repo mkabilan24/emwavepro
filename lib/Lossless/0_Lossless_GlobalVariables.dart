@@ -68,7 +68,7 @@ String a_E_Field_Propagation2 = '+\\vec{a}_y';
 String a_H_Field_Propagation2 = '-\\vec{a}_x';
 String a_k_Wave_Propagation2 = '+\\vec{a}_z';
 
-void clearAllFields() {
+void lossless_clearAllFields() {
   lossless_relativepermittivity.clear();
   lossless_relativepermeability.clear();
   lossless_conductivity.clear();

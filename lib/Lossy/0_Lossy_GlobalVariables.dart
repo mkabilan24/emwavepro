@@ -89,7 +89,7 @@ MathFieldEditingController lossy_wavelength = MathFieldEditingController();
 //Skin Depth
 MathFieldEditingController lossy_skindepth = MathFieldEditingController();
 
-void clearAllFields() {
+void lossy_clearAllFields() {
   angularfreq.clear();
   freq.clear();
   lossy_relativepermittivity.clear();

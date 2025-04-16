@@ -114,8 +114,6 @@ class Complex {
     String realPart = formatNumber(real);
     String imaginaryPart =
         formatNumber(imaginary.abs()); // Absolute value for imaginary part
-    print("Real Part: $realPart");
-    print("Imaginary Part: $imaginaryPart");
 
     // Determine the sign to display
     String sign = imaginary >= 0 ? '+' : '-';

@@ -258,7 +258,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            clearAllFields();
+                            lossless_clearAllFields();
                             snackbarController.hideErrorSnackBar();
                           });
                         },

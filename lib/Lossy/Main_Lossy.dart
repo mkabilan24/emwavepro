@@ -281,7 +281,7 @@ class _LossyEMFieldEquationsWidgetState
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            clearAllFields();
+                            lossy_clearAllFields();
                             snackbarController.hideErrorSnackBar();
                             reseteqns();
                           });
