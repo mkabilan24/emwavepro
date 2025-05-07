@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:emwavepro/Lossless/10_Lossless_PresetVariables.dart';
 import 'package:emwavepro/Shared/Logging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
@@ -229,6 +230,7 @@ class _EMFieldEquationsWidgetState extends State<EMFieldEquationsWidget> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
+                  PresetButtonRowWidget(),
                   LosslessMediumDropdown(),
                   LosslessWaveEMDropdown(),
                   LosslessEquationComponentsDropdown(),

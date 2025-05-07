@@ -62,6 +62,7 @@ Widget FrequencyDisplayWidget(context) {
                 onChanged: (value) {
                   if (!onchange) {
                     onchange = true;
+                    print(freq.currentEditingValue());
                     if (freq.isEmpty) {
                       angularfreq.clear();
                       lossless_wavenumber.clear();

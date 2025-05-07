@@ -681,6 +681,26 @@ class _LosslessEquationComponentsDropdownState
   bool isExpanded = false; // Controls visibility of widget content
   List<bool> isSelected = [true, false];
 
+  @override
+  void initState() {
+    super.initState();
+    // Update isSelected based on numofcomponents
+    updateSelectedState();
+  }
+
+  void updateSelectedState() {
+    setState(() {
+      if (numofcomponents == 1) {
+        isSelected = [true, false];
+      } else if (numofcomponents == 2) {
+        isSelected = [false, true];
+      } else {
+        // For additional components, handle as needed
+        isSelected = List.generate(numofcomponents, (index) => index == 0);
+      }
+    });
+  }
+
   Widget numofcomponentstoggle() {
     return Container(
       color: Colors.grey[300],

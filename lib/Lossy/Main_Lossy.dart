@@ -9,9 +9,11 @@ import 'package:emwavepro/Lossy/Lossy_WaveEM_Properties.dart';
 import 'package:emwavepro/Lossy/Lossy_Medium_Properties.dart';
 import 'package:emwavepro/Lossy/Lossy_Equations_Components.dart';
 import 'package:emwavepro/Lossy/Lossy_WaveEM_Frequency_Properties.dart';
+import 'package:emwavepro/Lossy/15_Lossy_PresetVariables.dart';
+import 'package:emwavepro/Shared/LossyGraphicalPlot.dart';
 
 import 'package:emwavepro/Shared/MathFieldEditingFunctions.dart';
-import 'package:emwavepro/Shared/GraphicalPlot.dart';
+
 import 'package:emwavepro/Shared/LaTexExpressionFormatter.dart';
 import 'package:emwavepro/Shared/Complex_Math.dart';
 import 'package:emwavepro/Shared/Logging.dart';
@@ -245,6 +247,7 @@ class _LossyEMFieldEquationsWidgetState
             Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
+                  PresetButtonRowWidget(),
                   LossyMediumDropdown(),
                   LossyWaveEMFreqDropdown(),
                   LossyWaveEMDropdown(),
@@ -361,7 +364,7 @@ class _LossyEMFieldEquationsWidgetState
                       child: GestureDetector(
                           onScaleUpdate: onScaleUpdate,
                           child: CustomPaint(
-                            painter: Graph3DPainter(
+                            painter: LossyGraph3DPainter(
                               angleX: angleX,
                               angleY: angleY,
                               zoom: zoom,
@@ -411,6 +414,9 @@ class _LossyEMFieldEquationsWidgetState
                                   vectorFromLatex(a_k_Wave_Propagation1),
                               wavePropagationDirection2:
                                   vectorFromLatex(a_k_Wave_Propagation2),
+                              attenuation_constant: lossy_attenuationconstant.isEmpty
+                                  ? 0
+                                  : -0.03,
                             ),
                             size: Size.infinite,
                           )),
