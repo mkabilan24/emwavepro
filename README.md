@@ -46,7 +46,7 @@ electric and magnetic field wave propagation in real-time.
 | No. | Bug Fixes / Updates   | Details                                                           | Date Fixed  |
 |-----|-----------------------|-------------------------------------------------------------------|-------------|
 | 1   | Math Field \Box Error | Error led to red screen when switching from Lossless to Lossy tab | 05 May 2025 |
-| 2   | Exponential Decay     | Added Exponential Decay for Lossy Medium Wave Propagation /n Note: The decay constant is set at -0.03, as the graph is not drawn to scale         | 06 May 2025 |
+| 2   | Exponential Decay     | Added Exponential Decay for Lossy Medium Wave Propagation. The decay constant is set at -0.03, as the graph is not drawn to scale and for better view. | 06 May 2025 |
 | 3   | Presets               | Preset buttons are added to allow users to try default/random values | 07 May 2025|
 
 Updated: 07 May 2025
