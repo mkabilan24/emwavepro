@@ -49,8 +49,8 @@ electric and magnetic field wave propagation in real-time.
 | 2   | Exponential Decay     | Added Exponential Decay for Lossy Medium Wave Propagation. The decay constant is set at -0.03, as the graph is not drawn to scale and for better view. Shown in image A.1 below. | 06 May 2025 |
 | 3   | Presets               | Preset buttons are added to allow users to try default/random values | 07 May 2025|
 
-## A.1
-<img src="images/IMG_2911.PNG" alt="IMG_2911" width="400">
+## A.1 Exponential Decay
+<img src="images/IMG_2911.PNG" alt="IMG_2911" width="250">
 
 
 Updated: 07 May 2025
